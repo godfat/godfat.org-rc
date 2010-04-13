@@ -1,0 +1,200 @@
+
+Reactor pattern and Event-Driven Programming:
+  - A scalable network concurrency approach,
+  - using EventMachine with Thin as an example
+
+Summary:
+  - Concurrency, why and how in network
+  - Event-Driven Programming explained in Flash
+  - Reactor Pattern in EventMachine with Thin
+  - How Thin Work
+  - How EventMachine Work
+  - What About Unicorn and rev?
+  - Question?
+  - Reference and Further Reading
+
+Concurrency:
+  - why do we need concurrency for web client?
+  - [network I/O] is slow, we shouldn't
+    wait for [network] while make [CPU] idle.
+  - you can replace network and CPU for all
+    other resource like disc I/O, Memory I/O, etc.
+  - multiple kernel process/thread for each client using
+    a blocking read from client is easy to write
+    but not scalable at all
+  - kernel process/thread is too expensive to spawn
+  - event-driven programming using inverted control
+    is harder to write but have better performance
+
+Event-Driven Programming:
+  - only one process/thread
+  - consists of an event loop and
+    various event handlers
+  - Inversion of control:
+      original control flow:
+        loop{
+          # you control the flow
+          do_something
+        }
+      evented control flow:
+        register method(:do_something)
+        loop{
+          # event loop control the flow,
+          # later it calls your callback
+          event = pop_event_queue
+          dispatch event if event
+        }
+  - game loop, an example of event loop
+  - flash actionscript, onEnterFrame
+  - frame by frame
+  - 30.times{
+      application.draw sprite
+      sprite.x += 1
+    }
+  - would become:
+  - sprite.onEnterFrame = lambda{
+      sprite.x += 1
+    }
+    application.register sprite
+    30.times{ # event loop, also called game loop
+      events = application.generate_events
+      events.each{ |event|
+        application.dispatch event
+      }
+      application.draw application.sprites
+    }
+
+Reator Pattern:
+  - Inversion of control:
+      original control flow:
+        loop{
+          data = read
+          handle data
+        }
+      evented control flow:
+        register handler
+        loop{
+          data  = read_partial
+          event = process data
+          dispatch event if event
+        }
+  - Resources # network I/O
+  - Synchronous Event Demultiplexer # the blocking event loop
+  - Dispatcher # event processor
+  - Request Handler # that's thin handler
+  - Request (Resources)
+    -> EventMachine (Demultiplexer + Dispatcher)
+    -> Thin (Request Handler) -> Rack Thin Handler
+                              -> Rack Rails Adapter
+                              -> Rails
+                              -> your rails application
+    -> or... AMQP, etc.
+  - EventMachine is a generic network I/O server/client!
+    due to reactor pattern seperate I/O and Request Handler
+
+How Thin Work:
+  - Thin::Server, using a
+  - Thin::Backends::TcpServer to control EventMachine
+  - in lib/thin/backends/tcp_server.rb:16
+  - EventMachine.start_server(
+      @host, @port,
+      Thin::Connection,
+      &method(:initialize_connection))
+  - in Thin::Connection#receive_data, lib/thin/connection.rb:42
+      process if @request.parse(data)
+  - this is would return true if it's fully parsed
+  - that is, EventMachine is receiving partial data,
+    then pass them to handler (Thin::Connection)
+    in Reactor pattern. use Mongrel HTTP parser to
+    partially parse HTTP header and body. When
+    parsing is done, then create a Rack env Hash
+    and pass it to Rack Rails adapter.
+  - in Thin::Request#parse, lib/thin/request.rb:82
+      @nparsed = @parser.execute(@env, @data, @nparsed)
+
+  - in thin.c#Thin_HttpParser_execute,
+      ext/thin_parser/thin.c:335
+      thin_http_parser_execute(http, dptr, dlen, from);
+
+  - in parser.rl#thin_http_parser_execute (mongrel parser),
+      ext/thin_parser/parser.rl:115
+      %% write exec;
+
+  - when fully parsed, in lib/thin/connection.rb:57
+      post_process(pre_process)
+    call your rack adapter in
+  - Connection#pre_process, in lib/thin/connection.rb:76
+      response = @app.call(@request.env)
+  - and post_process to send response back to the client
+    who sent this request.
+  - Thin would save all connection coressponded to each
+    client, the default max client number was 1024.
+    and each connection is each handler in Reactor pattern.
+
+How EventMachine Work:
+  - eventmachine could start many servers:
+  - in EventMachine.start_server,
+      lib/eventmachine/eventachine.rb:576
+      @acceptors[s] = [klass, args, block]
+  - each acceptor (s above) is identified by uuid.
+  - in lib/pr_eventmachine.rb:311
+    the event loop! (also MRI, Java version)
+  - loop {
+      @current_loop_time = Time.now
+
+      break if @stop_scheduled
+      run_timers # timer event
+      break if @stop_scheduled
+      crank_selectables # select, poll, epoll, kqueue
+      break if @stop_scheduled
+      run_heartbeats # close scheduling if client timeout
+    }
+  - crank_selectables would call EventMachine.event_callback
+    to deal with various kind of event, such as
+    ConnectionUnbound, ConnectionAccepted, ConnectionData, etc.
+  - for ConnectionData, it would find the connection (handler)
+    and call receive_data for it.
+  - for ConnectionAccepted, it would find the acceptor and
+    create a connection (handler) for the client.
+
+What About Unicorn?:
+  - Unicorn is much simpler than EventMachine
+  - it assumes all clients come from local network,
+    and all clients are very, very fast. it would be
+    very inefficient dealing with slow client.
+    but eventmachine is a lot more general that
+    deal with all kinds of clients.
+
+What About rev?:
+  - libev binding for ruby
+  - basically, architecture is the same as eventmachine...
+
+Reference:
+  - http://en.wikipedia.org/wiki/Event-driven_programming
+  - http://en.wikipedia.org/wiki/Event_loop
+  - http://en.wikipedia.org/wiki/Inversion_of_control
+  - http://en.wikipedia.org/wiki/Reactor_pattern
+  - http://en.wikipedia.org/wiki/Select_(Unix)
+
+Further Reading:
+  - http://en.wikipedia.org/wiki/Actor_model
+  - http://en.wikipedia.org/wiki/Computer_multitasking
+  - http://en.wikipedia.org/wiki/Concurrency_(computer_science)
+  - http://en.wikipedia.org/wiki/Concurrent_computing
+  - http://en.wikipedia.org/wiki/Distributed_computing
+  - http://en.wikipedia.org/wiki/Event-driven_architecture
+  - http://en.wikipedia.org/wiki/Fiber_(computer_science)
+  - http://en.wikipedia.org/wiki/Game_programming
+  - http://en.wikipedia.org/wiki/Kqueue
+  - http://en.wikipedia.org/wiki/Libevent
+  - http://en.wikipedia.org/wiki/Light-weight_process
+  - http://en.wikipedia.org/wiki/Light_Weight_Kernel_Threads
+  - http://en.wikipedia.org/wiki/Mongrel_(web_server)
+  - http://en.wikipedia.org/wiki/Parallel_computing
+  - http://en.wikipedia.org/wiki/Polling_(computer_science)
+  - http://en.wikipedia.org/wiki/Process_(computing)
+  - http://en.wikipedia.org/wiki/Software_transactional_memory
+  - http://en.wikipedia.org/wiki/Thread_(computer_science)
+  - http://en.wikipedia.org/wiki/Twisted_(software)
+  - node.js
+  - bench.html

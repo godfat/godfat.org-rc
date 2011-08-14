@@ -58,11 +58,14 @@ div.slide {
   border-bottom-right-radius: 0px;
   -moz-border-radius-bottomright: 0px;
   -webkit-border-bottom-right-radius: 0px;
+}
 
+section p img{
+  margin-top: -80px;
 }
 
 div.slide p {
-  font-size: 20px;
+  font-size: 40px;
 }
 
 .slide.far-past {
@@ -134,7 +137,7 @@ section, .slide header:only-child h1 {
   margin-right: 30px;
   margin-top: 100px;
   display: block;
-  overflow: hidden;
+  overflow: visible;
 }
 
 a {
@@ -152,7 +155,7 @@ pre {
 
 li {
   padding: 10px 0;
-  font-size: 20px;
+  font-size: 40px;
 }
 
 .slide header:only-child h1 {
@@ -309,6 +312,7 @@ img { display: block; margin: auto; }
 .nv { color: #19177C } /* Name.Variable */
 .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
 .w { color: #bbbbbb } /* Text.Whitespace */
+.p { color: #999999 } /* () */
 .mf { color: #666666 } /* Literal.Number.Float */
 .mh { color: #666666 } /* Literal.Number.Hex */
 .mi { color: #666666 } /* Literal.Number.Integer */

@@ -19,9 +19,11 @@ title = slide.css('title').first
 title.content = title.children.reject{ |e|
                   e.element? && e.children.empty? }.join("\u{2014}")
 
-# fix line number
+# fix line number and remove some space
 slide.css('.lineno').each{ |n|
-  n.inner_html = '%02d' % n.inner_text.strip.to_i }
+  n.inner_html = '%02d' % n.inner_text.strip.to_i
+  n.next.replace n.next.inner_text.squeeze(' ') # one space is enough
+}
 
 File.open('slide.html', 'w'){ |f| f.puts slide.to_html }
 puts("Created slide.html")

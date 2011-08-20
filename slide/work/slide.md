@@ -1,5 +1,9 @@
 
-# rest-core<br/><span style="font-size:60%">A modular Ruby REST client collection/infrastructure</span>
+# rest-core<br/><span style="font-size:60%">A modular Ruby REST client collection/infrastructure<br/></span>
+
+---
+
+# [http://godfat.org/slide<br/>/2011-08-27-rest-core.html](http://godfat.org/slide/2011-08-27-rest-core.html)
 
 ---
 
@@ -549,7 +553,27 @@
 
 ---
 
+# Tools I used
+
+* [landslide][] to make this slide
+* [pygments][] to do syntax highlighting
+* [nokogiri][] to fix generated html
+* [rib][] to interactively find out how to fix html
+* [firefox][] to view html
+
+[landslide]: https://raw.github.com/adamzap/landslide
+[pygments]: http://pygments.org/
+[nokogiri]: https://github.com/tenderlove/nokogiri
+[rib]: https://github.com/godfat/rib
+[firefox]: http://www.mozilla.com/
+
+---
+
 # Feel free to contact me
 
 * <https://github.com/godfat>
 * <https://twitter.com/godfat>
+
+# Find this slide
+
+* <span style="font-size: 50%"><http://www.godfat.org/slide/2011-08-27-rest-core.html></span>

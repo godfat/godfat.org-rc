@@ -1,17 +1,23 @@
 
-# rest-core<br/><small><small>A modular Ruby REST client collection/infrastructure.</small></small>
+# rest-core<br/><span style="font-size:60%">A modular Ruby REST client collection/infrastructure</span>
 
 ---
 
-# Who am I?
+# ![avatar](image/spiritual_soul.jpg) Lin Jen-Shin ([godfat][])
 
-* Programmer at [Cardinal Blue Software][]
-* Lin Jen-Shin ([godfat][])
+<br/>
 
-[Cardinal Blue Software]: http://cardinalblue.com/
+* Programmer at [Cardinal Blue][]
+* Programming Language
+* Functional Programming (Haskell)
+* Ruby
+
+[Cardinal Blue]: http://cardinalblue.com/
 [godfat]: http://godfat.org/
 
 ---
+
+<br/>
 
 * Web API
 * Web Application as servers
@@ -19,6 +25,389 @@
 * Solution: [rest-core][]
 
 [rest-core]: https://github.com/cardinalblue/rest-core
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+      end
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+      ♨
+      ♨
+      ♨
+      end
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+      ♨
+      ♨
+      end
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+      ♨
+      end
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        run RestClient
+      end
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        run RestClient
+      end
+      ♨
+      Github.new.get('godfat')
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        run RestClient
+      end
+      ♨
+      Github.new.get('godfat')
+      ♨
+      {"type"=>"User","company"=>"cardinalblue",
+       "blog"=>"http://godfat.org","hireable"=>false,
+       "url"=>"https://api.github.com/users/godfat",
+       "followers"=>40,"html_url"=>"https://github.com/godfat",
+       "bio"=>nil,"created_at"=>"2008-05-15T18:33:24Z",
+       "avatar_url"=>"https://...","following"=>33,
+       "name"=>"Lin Jen-Shin (godfat)","location"=>"Taiwan",
+       "email"=>"godfat (XD) godfat.org","public_repos"=>62,
+       "id"=>10416,"login"=>"godfat","public_gists"=>59}
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        ♨
+        run RestClient
+      end
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use Cache       , {}, 3600
+        run RestClient
+      end
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use Cache       , {}, 3600
+        run RestClient
+      end
+
+      client = Github.new
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use Cache       , {}, 3600
+        run RestClient
+      end
+
+      client = Github.new
+      client.get('godfat') # slow
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use Cache       , {}, 3600
+        run RestClient
+      end
+
+      client = Github.new
+      client.get('godfat') # slow
+      client.get('godfat') # cache hit
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use Cache       , {}, 3600
+        run RestClient
+      end
+
+      client = Github.new
+      client.get('godfat') # slow
+      client.get('godfat') # cache hit
+      client.get('godfat') # cache hit
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use Cache       , {}, 3600
+        run RestClient
+      end
+
+      client = Github.new
+      client.get('godfat') # slow
+      client.get('godfat') # cache hit
+      client.get('godfat') # cache hit
+      client.get('godfat') # cache hit
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        ♨
+        use Cache       , {}, nil
+        run RestClient
+      end
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use CommonLogger, method(:puts)
+        use Cache       , {}, nil
+        run RestClient
+      end
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use CommonLogger, method(:puts)
+        use Cache       , {}, nil
+        run RestClient
+      end
+      ♨
+      client = Github.new
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use CommonLogger, method(:puts)
+        use Cache       , {}, nil
+        run RestClient
+      end
+      ♨
+      client = Github.new
+      client.get('godfat') # slow
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use CommonLogger, method(:puts)
+        use Cache       , {}, nil
+        run RestClient
+      end
+      ♨
+      client = Github.new
+      client.get('godfat') # slow
+      # RestCore: spent 1.498819 Requested https://api.github.com/users/godfat
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use CommonLogger, method(:puts)
+        use Cache       , {}, nil
+        run RestClient
+      end
+      ♨
+      client = Github.new
+      client.get('godfat') # slow
+      # RestCore: spent 1.498819 Requested https://api.github.com/users/godfat
+      client.get('godfat') # cache hit
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use CommonLogger, method(:puts)
+        use Cache       , {}, nil
+        run RestClient
+      end
+      ♨
+      client = Github.new
+      client.get('godfat') # slow
+      # RestCore: spent 1.498819 Requested https://api.github.com/users/godfat
+      client.get('godfat') # cache hit
+      # RestCore: spent 2.0e-05 CacheHit https://api.github.com/users/godfat
+      # RestCore: spent 6.9e-05 Requested https://api.github.com/users/godfat
+      ♨
+      ♨
 
 ---
 
@@ -32,14 +421,13 @@
 
 ---
 
-    (showing an image that someone stands op top of a soapbox,
-     unsteady? or too high)
-    (soap is so complex and hard to use)
+# [![soapbox](image/soapbox.jpg)][soapbox]
+
+[soapbox]: http://www.quixoticpixels.com/blog/2011/06/soap-box/
 
 ---
 
-    (lying on couch, see CouchDB's logo)
-    (REST is so simple and straightforward)
+# <span style="color:white; position:relative; top:150px; left:158px ">REST</span><br/>![rest](image/couch_db.jpg)
 
 ---
 
@@ -109,11 +497,13 @@
 
 ---
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 
     !haskell
 
+      ♨
       (middleware (middleware (middleware app)))
+      ♨
 
 ---
 
@@ -156,3 +546,10 @@
 ---
 
 ![middlewares](diagram/05-middlewares.png)
+
+---
+
+# Feel free to contact me
+
+* <https://github.com/godfat>
+* <https://twitter.com/godfat>

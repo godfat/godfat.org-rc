@@ -108,7 +108,8 @@ code {
 <style type="text/css" media="screen, projection">
 
 body {
-  font: 14px "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  font-family: 'Hammersmith One', 'Lucida Grande', sans-serif;
+  font: 14px;
   background: #778;
   padding: 0;
   margin: 0;
@@ -218,16 +219,18 @@ body.three-d div.slides {
 /* Content */
 
 header:not(:only-child) {
-  font-family: 'Lucida Grande';
+  position: absolute;
+  left: 30px;
+  top: 25px;
+  padding: 0;
+}
+
+header:not(:only-child), .slide h2 {
   font-weight: normal;
   font-size: 50px;
   letter-spacing: -.05em;
   color: black;
   text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
-  position: absolute;
-  left: 30px;
-  top: 25px;
-  padding: 0;
 }
 
 header h1, header h2 {
@@ -243,7 +246,6 @@ header h2:first-child {
 }
 
 section, .slide header:only-child h1 {
-  font-family: 'Lucida Grande';
   color: #3f3f3f;
   text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
   margin-left: 30px;
@@ -263,7 +265,8 @@ a {
 
 pre {
   font-size: 28px;
-  font-family: Monaco, Courier, monospace;
+  font-family: 'DejaVu Sans Mono', 'Bitstream Vera Sans',
+               'Monaco', 'Consolas', 'Lucida Console', monospace;
 }
 
 li {
@@ -746,7 +749,7 @@ aside {
   })();
 };
 
-    </script><!-- /Javascripts -->
+    </script><!-- /Javascripts --><link href="http://fonts.googleapis.com/css?family=Hammersmith+One" rel="stylesheet" type="text/css">
 </head>
 <body>
   <div class="presentation">
@@ -864,7 +867,7 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
 <span class="lineno">03</span> <span class="err">♨</span>
 <span class="lineno">04</span> <span class="err">♨</span>
 <span class="lineno">05</span> <span class="k">end</span>
@@ -886,8 +889,8 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
 <span class="lineno">04</span> <span class="err">♨</span>
 <span class="lineno">05</span> <span class="k">end</span>
 <span class="lineno">06</span> <span class="err">♨</span>
@@ -908,9 +911,9 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">05</span> <span class="k">end</span>
 <span class="lineno">06</span> <span class="err">♨</span>
 <span class="lineno">07</span> <span class="err">♨</span>
@@ -930,9 +933,9 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">05</span> <span class="k">end</span>
 <span class="lineno">06</span> <span class="err">♨</span>
 <span class="lineno">07</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'godfat'</span><span class="p">)</span>
@@ -952,22 +955,22 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">05</span> <span class="k">end</span>
 <span class="lineno">06</span> <span class="err">♨</span>
 <span class="lineno">07</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'godfat'</span><span class="p">)</span>
 <span class="lineno">08</span> <span class="err">♨</span>
 <span class="lineno">09</span> <span class="p">{</span><span class="s2">"type"</span><span class="o">=&gt;</span><span class="s2">"User"</span><span class="p">,</span><span class="s2">"company"</span><span class="o">=&gt;</span><span class="s2">"cardinalblue"</span><span class="p">,</span>
-<span class="lineno">10</span> <span class="s2">"blog"</span><span class="o">=&gt;</span><span class="s2">"http://godfat.org"</span><span class="p">,</span><span class="s2">"hireable"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
-<span class="lineno">11</span> <span class="s2">"url"</span><span class="o">=&gt;</span><span class="s2">"https://api.github.com/users/godfat"</span><span class="p">,</span>
-<span class="lineno">12</span> <span class="s2">"followers"</span><span class="o">=&gt;</span><span class="mi">40</span><span class="p">,</span><span class="s2">"html_url"</span><span class="o">=&gt;</span><span class="s2">"https://github.com/godfat"</span><span class="p">,</span>
-<span class="lineno">13</span> <span class="s2">"bio"</span><span class="o">=&gt;</span><span class="kp">nil</span><span class="p">,</span><span class="s2">"created_at"</span><span class="o">=&gt;</span><span class="s2">"2008-05-15T18:33:24Z"</span><span class="p">,</span>
-<span class="lineno">14</span> <span class="s2">"avatar_url"</span><span class="o">=&gt;</span><span class="s2">"https://..."</span><span class="p">,</span><span class="s2">"following"</span><span class="o">=&gt;</span><span class="mi">33</span><span class="p">,</span>
-<span class="lineno">15</span> <span class="s2">"name"</span><span class="o">=&gt;</span><span class="s2">"Lin Jen-Shin (godfat)"</span><span class="p">,</span><span class="s2">"location"</span><span class="o">=&gt;</span><span class="s2">"Taiwan"</span><span class="p">,</span>
-<span class="lineno">16</span> <span class="s2">"email"</span><span class="o">=&gt;</span><span class="s2">"godfat (XD) godfat.org"</span><span class="p">,</span><span class="s2">"public_repos"</span><span class="o">=&gt;</span><span class="mi">62</span><span class="p">,</span>
-<span class="lineno">17</span> <span class="s2">"id"</span><span class="o">=&gt;</span><span class="mi">10416</span><span class="p">,</span><span class="s2">"login"</span><span class="o">=&gt;</span><span class="s2">"godfat"</span><span class="p">,</span><span class="s2">"public_gists"</span><span class="o">=&gt;</span><span class="mi">59</span><span class="p">}</span>
+<span class="lineno">10</span>  <span class="s2">"blog"</span><span class="o">=&gt;</span><span class="s2">"http://godfat.org"</span><span class="p">,</span><span class="s2">"hireable"</span><span class="o">=&gt;</span><span class="kp">false</span><span class="p">,</span>
+<span class="lineno">11</span>  <span class="s2">"url"</span><span class="o">=&gt;</span><span class="s2">"https://api.github.com/users/godfat"</span><span class="p">,</span>
+<span class="lineno">12</span>  <span class="s2">"followers"</span><span class="o">=&gt;</span><span class="mi">40</span><span class="p">,</span><span class="s2">"html_url"</span><span class="o">=&gt;</span><span class="s2">"https://github.com/godfat"</span><span class="p">,</span>
+<span class="lineno">13</span>  <span class="s2">"bio"</span><span class="o">=&gt;</span><span class="kp">nil</span><span class="p">,</span><span class="s2">"created_at"</span><span class="o">=&gt;</span><span class="s2">"2008-05-15T18:33:24Z"</span><span class="p">,</span>
+<span class="lineno">14</span>  <span class="s2">"avatar_url"</span><span class="o">=&gt;</span><span class="s2">"https://..."</span><span class="p">,</span><span class="s2">"following"</span><span class="o">=&gt;</span><span class="mi">33</span><span class="p">,</span>
+<span class="lineno">15</span>  <span class="s2">"name"</span><span class="o">=&gt;</span><span class="s2">"Lin Jen-Shin (godfat)"</span><span class="p">,</span><span class="s2">"location"</span><span class="o">=&gt;</span><span class="s2">"Taiwan"</span><span class="p">,</span>
+<span class="lineno">16</span>  <span class="s2">"email"</span><span class="o">=&gt;</span><span class="s2">"godfat (XD) godfat.org"</span><span class="p">,</span><span class="s2">"public_repos"</span><span class="o">=&gt;</span><span class="mi">62</span><span class="p">,</span>
+<span class="lineno">17</span>  <span class="s2">"id"</span><span class="o">=&gt;</span><span class="mi">10416</span><span class="p">,</span><span class="s2">"login"</span><span class="o">=&gt;</span><span class="s2">"godfat"</span><span class="p">,</span><span class="s2">"public_gists"</span><span class="o">=&gt;</span><span class="mi">59</span><span class="p">}</span>
 </pre></div>
 </section>
 </div>
@@ -984,10 +987,10 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="err">♨</span>
-<span class="lineno">05</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="err">♨</span>
+<span class="lineno">05</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">06</span> <span class="k">end</span>
 <span class="lineno">07</span> <span class="err">♨</span>
 <span class="lineno">08</span> <span class="err">♨</span>
@@ -1015,10 +1018,10 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
-<span class="lineno">05</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
+<span class="lineno">05</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">06</span> <span class="k">end</span>
 <span class="lineno">07</span> <span class="err">♨</span>
 <span class="lineno">08</span> <span class="err">♨</span>
@@ -1046,10 +1049,10 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
-<span class="lineno">05</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
+<span class="lineno">05</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">06</span> <span class="k">end</span>
 <span class="lineno">07</span>
 <span class="lineno">08</span> <span class="n">client</span> <span class="o">=</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span>
@@ -1077,10 +1080,10 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
-<span class="lineno">05</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
+<span class="lineno">05</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">06</span> <span class="k">end</span>
 <span class="lineno">07</span>
 <span class="lineno">08</span> <span class="n">client</span> <span class="o">=</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span>
@@ -1108,10 +1111,10 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
-<span class="lineno">05</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
+<span class="lineno">05</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">06</span> <span class="k">end</span>
 <span class="lineno">07</span>
 <span class="lineno">08</span> <span class="n">client</span> <span class="o">=</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span>
@@ -1139,10 +1142,10 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
-<span class="lineno">05</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
+<span class="lineno">05</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">06</span> <span class="k">end</span>
 <span class="lineno">07</span>
 <span class="lineno">08</span> <span class="n">client</span> <span class="o">=</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span>
@@ -1170,10 +1173,10 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
-<span class="lineno">05</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="mi">3600</span>
+<span class="lineno">05</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">06</span> <span class="k">end</span>
 <span class="lineno">07</span>
 <span class="lineno">08</span> <span class="n">client</span> <span class="o">=</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span>
@@ -1201,11 +1204,11 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="err">♨</span>
-<span class="lineno">05</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
-<span class="lineno">06</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="err">♨</span>
+<span class="lineno">05</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
+<span class="lineno">06</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">07</span> <span class="k">end</span>
 <span class="lineno">08</span> <span class="err">♨</span>
 <span class="lineno">09</span> <span class="err">♨</span>
@@ -1232,11 +1235,11 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
-<span class="lineno">05</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
-<span class="lineno">06</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
+<span class="lineno">05</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
+<span class="lineno">06</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">07</span> <span class="k">end</span>
 <span class="lineno">08</span> <span class="err">♨</span>
 <span class="lineno">09</span> <span class="err">♨</span>
@@ -1263,11 +1266,11 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
-<span class="lineno">05</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
-<span class="lineno">06</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
+<span class="lineno">05</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
+<span class="lineno">06</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">07</span> <span class="k">end</span>
 <span class="lineno">08</span> <span class="err">♨</span>
 <span class="lineno">09</span> <span class="n">client</span> <span class="o">=</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span>
@@ -1294,11 +1297,11 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
-<span class="lineno">05</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
-<span class="lineno">06</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
+<span class="lineno">05</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
+<span class="lineno">06</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">07</span> <span class="k">end</span>
 <span class="lineno">08</span> <span class="err">♨</span>
 <span class="lineno">09</span> <span class="n">client</span> <span class="o">=</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span>
@@ -1325,11 +1328,11 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
-<span class="lineno">05</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
-<span class="lineno">06</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
+<span class="lineno">05</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
+<span class="lineno">06</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">07</span> <span class="k">end</span>
 <span class="lineno">08</span> <span class="err">♨</span>
 <span class="lineno">09</span> <span class="n">client</span> <span class="o">=</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span>
@@ -1356,11 +1359,11 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
-<span class="lineno">05</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
-<span class="lineno">06</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
+<span class="lineno">05</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
+<span class="lineno">06</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">07</span> <span class="k">end</span>
 <span class="lineno">08</span> <span class="err">♨</span>
 <span class="lineno">09</span> <span class="n">client</span> <span class="o">=</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span>
@@ -1387,11 +1390,11 @@ aside {
 
 
           <section><div class="highlight"><pre><span class="lineno">01</span> <span class="no">Github</span> <span class="o">=</span> <span class="no">RestCore</span><span class="o">::</span><span class="no">Builder</span><span class="o">.</span><span class="n">client</span> <span class="k">do</span>
-<span class="lineno">02</span> <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
-<span class="lineno">03</span> <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
-<span class="lineno">04</span> <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
-<span class="lineno">05</span> <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
-<span class="lineno">06</span> <span class="n">run</span> <span class="no">RestClient</span>
+<span class="lineno">02</span>   <span class="n">use</span> <span class="no">DefaultSite</span> <span class="p">,</span> <span class="s1">'https://api.github.com/users/'</span>
+<span class="lineno">03</span>   <span class="n">use</span> <span class="no">JsonDecode</span>  <span class="p">,</span> <span class="kp">true</span>
+<span class="lineno">04</span>   <span class="n">use</span> <span class="no">CommonLogger</span><span class="p">,</span> <span class="nb">method</span><span class="p">(</span><span class="ss">:puts</span><span class="p">)</span>
+<span class="lineno">05</span>   <span class="n">use</span> <span class="no">Cache</span>       <span class="p">,</span> <span class="p">{},</span> <span class="kp">nil</span>
+<span class="lineno">06</span>   <span class="n">run</span> <span class="no">RestClient</span>
 <span class="lineno">07</span> <span class="k">end</span>
 <span class="lineno">08</span> <span class="err">♨</span>
 <span class="lineno">09</span> <span class="n">client</span> <span class="o">=</span> <span class="no">Github</span><span class="o">.</span><span class="n">new</span>
@@ -1704,7 +1707,7 @@ aside {
       <div class="slide">
         <div class="inner">
 
-          <header><h1>Why not do the same for Web Application as clients?</h1></header>
+          <header><h1>Why not do the same for<br>Web Application as clients?</h1></header>
 </div>
         <footer><aside class="source">
             Source: <a href="slide.md">slide.md</a>
@@ -1829,9 +1832,9 @@ aside {
 <li><a href="https://github.com/godfat">https://github.com/godfat</a></li>
 <li><a href="https://twitter.com/godfat">https://twitter.com/godfat</a></li>
 </ul>
-<h1>Find this slide</h1>
+<h2>This slide is located at</h2>
 <ul>
-<li><span style="font-size: 50%"><a href="http://www.godfat.org/slide/2011-08-27-rest-core.html">http://www.godfat.org/slide/2011-08-27-rest-core.html</a></span></li>
+<li><span style="font-size: 70%"><a href="http://www.godfat.org/slide/2011-08-27-rest-core.html">http://www.godfat.org/slide/2011-08-27-rest-core.html</a></span></li>
 </ul></section>
 </div>
         <footer><aside class="source">
@@ -1911,7 +1914,7 @@ aside {
         <td><a href="#slide44">44</a></td>
       </tr>
 <tr id="toc-row-45">
-<th><a href="#slide45">Why not do the same for Web Application as clients?</a></th>
+<th><a href="#slide45">Why not do the same for<br>Web Application as clients?</a></th>
         <td><a href="#slide45">45</a></td>
       </tr>
 <tr id="toc-row-52">

@@ -525,7 +525,7 @@
 
 ---
 
-# Why not do the same for Web Application as clients?
+# Why not do the same for<br/>Web Application as clients?
 
 ---
 
@@ -574,6 +574,6 @@
 * <https://github.com/godfat>
 * <https://twitter.com/godfat>
 
-# Find this slide
+## This slide is located at
 
-* <span style="font-size: 50%"><http://www.godfat.org/slide/2011-08-27-rest-core.html></span>
+* <span style="font-size: 70%"><http://www.godfat.org/slide/2011-08-27-rest-core.html></span>

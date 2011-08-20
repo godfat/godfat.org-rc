@@ -1,6 +1,7 @@
 
 body {
-  font: 14px "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  font-family: 'Hammersmith One', 'Lucida Grande', sans-serif;
+  font: 14px;
   background: #778;
   padding: 0;
   margin: 0;
@@ -110,16 +111,18 @@ body.three-d div.slides {
 /* Content */
 
 header:not(:only-child) {
-  font-family: 'Lucida Grande';
+  position: absolute;
+  left: 30px;
+  top: 25px;
+  padding: 0;
+}
+
+header:not(:only-child), .slide h2 {
   font-weight: normal;
   font-size: 50px;
   letter-spacing: -.05em;
   color: black;
   text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
-  position: absolute;
-  left: 30px;
-  top: 25px;
-  padding: 0;
 }
 
 header h1, header h2 {
@@ -135,7 +138,6 @@ header h2:first-child {
 }
 
 section, .slide header:only-child h1 {
-  font-family: 'Lucida Grande';
   color: #3f3f3f;
   text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
   margin-left: 30px;
@@ -155,7 +157,8 @@ a {
 
 pre {
   font-size: 28px;
-  font-family: Monaco, Courier, monospace;
+  font-family: 'DejaVu Sans Mono', 'Bitstream Vera Sans',
+               'Monaco', 'Consolas', 'Lucida Console', monospace;
 }
 
 li {

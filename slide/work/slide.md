@@ -660,7 +660,11 @@
 
 ---
 
-![more-clients](diagram/03-more-clients.png)
+![multiple-clients](diagram/03-multiple-clients.png)
+
+---
+
+![more-clients](diagram/04-more-clients.png)
 
 ---
 
@@ -714,11 +718,11 @@
 
 ---
 
-![stack](diagram/04-stack.png)
+![stack](diagram/05-stack.png)
 
 ---
 
-![middlewares](diagram/05-middlewares.png)
+![middlewares](diagram/06-middlewares.png)
 
 ---
 

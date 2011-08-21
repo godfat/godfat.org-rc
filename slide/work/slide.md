@@ -656,7 +656,61 @@
 
 ---
 
+![multiple-clients](diagram/02-multiple-clients.png)
+
+---
+
 ![more-clients](diagram/03-more-clients.png)
+
+---
+
+    !ruby
+
+      common = RestGraph.new
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      common = RestGraph.new(:timeout => 2)
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      common = RestGraph.new(:timeout => 2)
+      common.get('spellbook')
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      common = RestGraph.new(:timeout => 2)
+      common.get('spellbook')
+      ♨
+      upload = RestGraph.new(:timeout => 10)
+      ♨
+
+---
+
+    !ruby
+
+      common = RestGraph.new(:timeout => 2)
+      common.get('spellbook')
+      ♨
+      upload = RestGraph.new(:timeout => 10)
+      upload.post('4/photos', :source => File.open('...'))
 
 ---
 

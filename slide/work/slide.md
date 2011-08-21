@@ -26,7 +26,30 @@
 * Web API
 * Web Application as servers
 * Web Application as clients
-* Solution: [rest-core][]
+
+---
+
+    (showing a lot of web service logo)
+    (now we have so many web api)
+
+---
+
+    (showing a lot of tools' logo (e.g. ruby, http, html, etc))
+    (we are building on top of others' work)
+
+---
+
+# [![soapbox](image/soapbox.jpg)][soapbox]
+
+[soapbox]: http://www.quixoticpixels.com/blog/2011/06/soap-box/
+
+---
+
+# <span style="color:white; position:relative; top:150px; left:158px ">REST</span><br/>![rest](image/couch_db.jpg)
+
+---
+
+# Solution: [rest-core][]
 
 [rest-core]: https://github.com/cardinalblue/rest-core
 
@@ -415,26 +438,6 @@
 
 ---
 
-    (showing a lot of web service logo)
-    (now we have so many web api)
-
----
-
-    (showing a lot of tools' logo (e.g. ruby, http, html, etc))
-    (we are building on top of others' work)
-
----
-
-# [![soapbox](image/soapbox.jpg)][soapbox]
-
-[soapbox]: http://www.quixoticpixels.com/blog/2011/06/soap-box/
-
----
-
-# <span style="color:white; position:relative; top:150px; left:158px ">REST</span><br/>![rest](image/couch_db.jpg)
-
----
-
 # Web Application as servers
 
 ---
@@ -541,6 +544,118 @@
 
 ---
 
+    !ruby
+
+      github = Github.new
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      restgraph = RestGraph.new
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      restgraph = RestGraph.new
+      ♨
+      github.get('godfat')
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      restgraph = RestGraph.new
+      ♨
+      github.get('godfat')
+      twitter.get('user_timeline.json', :id => 'godfat')
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      restgraph = RestGraph.new
+      ♨
+      github.get('godfat')
+      twitter.get('user_timeline.json', :id => 'godfat')
+      linkedin.get('v1/people/~') # need authorize first
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      restgraph = RestGraph.new
+      ♨
+      github.get('godfat')
+      twitter.get('user_timeline.json', :id => 'godfat')
+      linkedin.get('v1/people/~') # need authorize first
+      restgraph.get('spellbook')
+
+---
+
 ![more-clients](diagram/03-more-clients.png)
 
 ---
@@ -576,4 +691,4 @@
 
 ## This slide is located at
 
-* <span style="font-size: 70%"><http://www.godfat.org/slide/2011-08-27-rest-core.html></span>
+* <span style="font-size: 70%"><http://godfat.org/slide/2011-08-27-rest-core.html></span>

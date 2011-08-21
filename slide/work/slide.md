@@ -29,13 +29,11 @@
 
 ---
 
-    (showing a lot of web service logo)
-    (now we have so many web api)
+![web-services](diagram/web-services.png)
 
 ---
 
-    (showing a lot of tools' logo (e.g. ruby, http, html, etc))
-    (we are building on top of others' work)
+![tools](diagram/tools.png)
 
 ---
 

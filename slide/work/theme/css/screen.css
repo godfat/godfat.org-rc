@@ -282,7 +282,7 @@ aside {
 .c { color: #408080; font-style: italic } /* Comment */
 /* .err { border: 1px solid #FF0000 } */ /* Error */
 .err { display: none; } /* Error */
-.k { color: #008000; font-weight: bold } /* Keyword */
+.k, .ow { color: #008000; font-weight: bold } /* Keyword */
 .o { color: #666666 } /* Operator */
 .cm { color: #408080; font-style: italic } /* Comment.Multiline */
 .cp { color: #BC7A00 } /* Comment.Preproc */
@@ -318,7 +318,7 @@ aside {
 .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
 .nt { color: #008000; font-weight: bold } /* Name.Tag */
 .nv { color: #19177C } /* Name.Variable */
-.ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+/* .ow { color: #AA22FF; font-weight: bold } */ /* Operator.Word */
 .w { color: #bbbbbb } /* Text.Whitespace */
 .p { color: #999999 } /* () */
 .mf { color: #666666 } /* Literal.Number.Float */

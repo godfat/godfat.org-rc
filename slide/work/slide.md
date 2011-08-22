@@ -23,9 +23,31 @@
 
 <br/>
 
-* Web API
-* Web Application as servers
-* Web Application as clients
+* Quick Example
+
+---
+
+<br/>
+
+* Quick Example
+* Rack
+
+---
+
+<br/>
+
+* Quick Example
+* Rack
+* Difference from Rack
+
+---
+
+<br/>
+
+* Quick Example
+* Rack
+* Difference from Rack
+* Architecture
 
 ---
 
@@ -50,6 +72,13 @@
 # Solution: [rest-core][]
 
 [rest-core]: https://github.com/cardinalblue/rest-core
+
+---
+
+# Inspired by [faraday][] and [Rack][]
+
+[faraday]: https://github.com/technoweenie/faraday
+[Rack]: https://github.com/rack/rack
 
 ---
 
@@ -160,6 +189,7 @@
       ♨
       ♨
       ♨
+      ♨
 
 ---
 
@@ -171,6 +201,7 @@
         use Cache       , {}, 3600
         run RestClient
       end
+      ♨
       ♨
       ♨
       ♨
@@ -194,6 +225,29 @@
       end
 
       client = Github.new
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use Cache       , {}, 3600
+        run RestClient
+      end
+
+      client = Github.new
+      client.get('godfat') # slow
       ♨
       ♨
       ♨
@@ -216,28 +270,8 @@
 
       client = Github.new
       client.get('godfat') # slow
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      Github = RestCore::Builder.client do
-        use DefaultSite , 'https://api.github.com/users/'
-        use JsonDecode  , true
-        use Cache       , {}, 3600
-        run RestClient
-      end
-
-      client = Github.new
-      client.get('godfat') # slow
       client.get('godfat') # cache hit
+      ♨
       ♨
       ♨
       ♨
@@ -265,6 +299,7 @@
       ♨
       ♨
       ♨
+      ♨
 
 ---
 
@@ -282,6 +317,7 @@
       client.get('godfat') # cache hit
       client.get('godfat') # cache hit
       client.get('godfat') # cache hit
+      ♨
       ♨
       ♨
       ♨
@@ -307,6 +343,7 @@
       ♨
       ♨
       ♨
+      ♨
 
 ---
 
@@ -319,6 +356,7 @@
         use Cache       , {}, nil
         run RestClient
       end
+      ♨
       ♨
       ♨
       ♨
@@ -342,6 +380,7 @@
       end
       ♨
       client = Github.new
+      ♨
       ♨
       ♨
       ♨
@@ -364,6 +403,7 @@
       ♨
       client = Github.new
       client.get('godfat') # slow
+      ♨
       ♨
       ♨
       ♨
@@ -386,6 +426,7 @@
       client = Github.new
       client.get('godfat') # slow
       # RestCore: spent 1.498819 Requested https://api.github.com/users/godfat
+      ♨
       ♨
       ♨
       ♨
@@ -408,6 +449,7 @@
       client.get('godfat') # slow
       # RestCore: spent 1.498819 Requested https://api.github.com/users/godfat
       client.get('godfat') # cache hit
+      ♨
       ♨
       ♨
       ♨
@@ -431,6 +473,7 @@
       client.get('godfat') # cache hit
       # RestCore: spent 2.0e-05 CacheHit https://api.github.com/users/godfat
       # RestCore: spent 6.9e-05 Requested https://api.github.com/users/godfat
+      ♨
       ♨
       ♨
 
@@ -502,23 +545,107 @@
 
 ---
 
-<br/><br/><br/>
+<br/>
 
     !haskell
 
       ♨
-      (middleware (middleware (middleware app)))
+        (middleware (middleware (middleware app)))
+      ♨
+      ♨
+      ♨
       ♨
 
 ---
 
-<br/><br/><br/>
+<br/>
 
     !haskell
 
       -- --> --> --> --> --> --> --> --> --> -->
-      (middleware (middleware (middleware app)))
+        (middleware (middleware (middleware app)))
       -- <-- <-- <-- <-- <-- <-- <-- <-- <-- <--
+      ♨
+      ♨
+      ♨
+
+---
+
+<br/>
+
+    !haskell
+
+      -- --> --> --> --> --> --> --> --> --> -->
+        (middleware (middleware (middleware app)))
+      -- <-- <-- <-- <-- <-- <-- <-- <-- <-- <--
+      ♨
+      app        :: env -> response
+      ♨
+
+---
+
+<br/>
+
+    !haskell
+
+      -- --> --> --> --> --> --> --> --> --> -->
+        (middleware (middleware (middleware app)))
+      -- <-- <-- <-- <-- <-- <-- <-- <-- <-- <--
+      ♨
+      app        :: env -> response
+      middleware :: app -> app
+
+---
+
+<br/>
+
+    !haskell
+
+      ♨
+        (middleware (middleware (middleware app)))
+      --                                    __^ app
+      ♨
+      app        :: env -> response
+      middleware :: app -> app
+
+---
+
+<br/>
+
+    !haskell
+
+      ♨
+        (middleware (middleware (middleware app)))
+      --                                    __^ app
+      --                         _____________^ app
+      app        :: env -> response
+      middleware :: app -> app
+
+---
+
+<br/>
+
+    !haskell
+
+      ♨
+        (middleware (middleware (middleware app)))
+      --                                    __^ app
+      --                         _____________^ app
+      --             _________________________^ app
+      middleware :: app -> app
+
+---
+
+<br/>
+
+    !haskell
+
+      ♨
+        (middleware (middleware (middleware app)))
+      --                                    __^ app
+      --                         _____________^ app
+      --             _________________________^ app
+      -- _____________________________________^ app
 
 ---
 
@@ -538,7 +665,23 @@
 
 ---
 
+# But actually clients are more complex...
+
+---
+
 ![multiple-clients](diagram/02-multiple-clients.png)
+
+---
+
+<span style="left:-1px;position:relative">![more-clients](diagram/04a-more-clients.png)</span>
+
+---
+
+![multiple-clients](diagram/02-multiple-clients.png)
+
+---
+
+![multiple-clients](diagram/03-multiple-clients.png)
 
 ---
 
@@ -654,10 +797,6 @@
 
 ---
 
-![multiple-clients](diagram/02-multiple-clients.png)
-
----
-
 ![multiple-clients](diagram/03-multiple-clients.png)
 
 ---
@@ -673,12 +812,18 @@
       ♨
       ♨
       ♨
+      ♨
+      ♨
+      ♨
 
 ---
 
     !ruby
 
       common = RestGraph.new(:timeout => 2)
+      ♨
+      ♨
+      ♨
       ♨
       ♨
       ♨
@@ -690,6 +835,9 @@
 
       common = RestGraph.new(:timeout => 2)
       common.get('spellbook')
+      ♨
+      ♨
+      ♨
       ♨
       ♨
       ♨
@@ -702,6 +850,9 @@
       common.get('spellbook')
       ♨
       upload = RestGraph.new(:timeout => 10)
+      ♨
+      ♨
+      ♨
       ♨
 
 ---
@@ -713,6 +864,39 @@
       ♨
       upload = RestGraph.new(:timeout => 10)
       upload.post('4/photos', :source => File.open('...'))
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      common = RestGraph.new(:timeout => 2)
+      common.get('spellbook')
+      ♨
+      upload = RestGraph.new(:timeout => 10)
+      upload.post('4/photos', :source => File.open('...'))
+      ♨
+      common.get('spellbook', {}, :timeout => 10)
+      ♨
+
+---
+
+    !ruby
+
+      common = RestGraph.new(:timeout => 2)
+      common.get('spellbook')
+      ♨
+      upload = RestGraph.new(:timeout => 10)
+      upload.post('4/photos', :source => File.open('...'))
+      ♨
+      common.get('spellbook', {}, :timeout => 10)
+      common.get('spellbook') # still timeout 2
+
+---
+
+<span style="left:1px;position:relative">![more-clients](diagram/04-more-clients.png)</span>
 
 ---
 
@@ -724,13 +908,74 @@
 
 ---
 
-# Tools I used
+![middleware](diagram/07-middleware.png)
+
+---
+
+![middleware-large](diagram/08-middleware-large.png)
+
+---
+
+![middleware-app](diagram/09-middleware-app.png)
+
+---
+
+![app](diagram/10-app.png)
+
+---
+
+![app](diagram/10-app.png)
+
+    !haskell
+
+                             app
+
+---
+
+![app-mid](diagram/11-app-mid.png)
+
+    !haskell
+
+                 (middleware app)
+
+---
+
+![app-mid-mid](diagram/12-app-mid-mid.png)
+
+    !haskell
+
+      middlweare (middleware app))
+
+---
+
+![app-mid-mid-mid](diagram/13-app-mid-mid-mid.png)
+
+    !haskell
+
+      middlweare (middleware app))
+
+---
+
+![app-mid-mid-mid-arrow](diagram/14-app-mid-mid-mid-arrow.png)
+
+    !haskell
+
+      middlweare (middleware app))
+
+---
+
+<span style="left:-1px;position:relative">![more-clients](diagram/04-more-clients.png)</span>
+
+---
+
+# Tools used to build this slide
 
 * [landslide][] to make this slide
 * [pygments][] to do syntax highlighting
-* [nokogiri][] to fix generated html
-* [rib][] to interactively find out how to fix html
-* [firefox][] to view html
+* Adobe Illustrator to draw diagrams
+* [nokogiri][] to fix generated HTML
+* [rib][] to interactively find out how to fix HTML
+* [firefox][] to view HTML
 
 [landslide]: https://raw.github.com/adamzap/landslide
 [pygments]: http://pygments.org/
@@ -748,3 +993,16 @@
 ## This slide is located at
 
 * <span style="font-size: 70%"><http://godfat.org/slide/2011-08-27-rest-core.html></span>
+
+---
+
+# Feel free to contact me
+
+* <https://github.com/godfat>
+* <https://twitter.com/godfat>
+
+## This slide is located at
+
+* <span style="font-size: 70%"><http://godfat.org/slide/2011-08-27-rest-core.html></span>
+
+<span style="position:relative; left:220px; top:-380px; font-size:450px; opacity:0.5">Q?</span>

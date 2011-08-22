@@ -732,7 +732,7 @@
       github = Github.new
       twitter = Twitter.new
       linkedin = Linkedin.new
-      restgraph = RestGraph.new
+      restgraph = RestGraph.new # Facebook Graph API
       ♨
       ♨
       ♨
@@ -746,7 +746,7 @@
       github = Github.new
       twitter = Twitter.new
       linkedin = Linkedin.new
-      restgraph = RestGraph.new
+      restgraph = RestGraph.new # Facebook Graph API
       ♨
       github.get('godfat')
       ♨
@@ -760,7 +760,7 @@
       github = Github.new
       twitter = Twitter.new
       linkedin = Linkedin.new
-      restgraph = RestGraph.new
+      restgraph = RestGraph.new # Facebook Graph API
       ♨
       github.get('godfat')
       twitter.get('user_timeline.json', :id => 'godfat')
@@ -774,7 +774,7 @@
       github = Github.new
       twitter = Twitter.new
       linkedin = Linkedin.new
-      restgraph = RestGraph.new
+      restgraph = RestGraph.new # Facebook Graph API
       ♨
       github.get('godfat')
       twitter.get('user_timeline.json', :id => 'godfat')
@@ -788,7 +788,7 @@
       github = Github.new
       twitter = Twitter.new
       linkedin = Linkedin.new
-      restgraph = RestGraph.new
+      restgraph = RestGraph.new # Facebook Graph API
       ♨
       github.get('godfat')
       twitter.get('user_timeline.json', :id => 'godfat')
@@ -807,7 +807,7 @@
 
     !ruby
 
-      common = RestGraph.new
+      common = RestGraph.new                # Facebook Graph API
       ♨
       ♨
       ♨
@@ -820,7 +820,7 @@
 
     !ruby
 
-      common = RestGraph.new(:timeout => 2)
+      common = RestGraph.new(:timeout => 2) # Facebook Graph API
       ♨
       ♨
       ♨
@@ -833,7 +833,7 @@
 
     !ruby
 
-      common = RestGraph.new(:timeout => 2)
+      common = RestGraph.new(:timeout => 2) # Facebook Graph API
       common.get('spellbook')
       ♨
       ♨
@@ -846,7 +846,7 @@
 
     !ruby
 
-      common = RestGraph.new(:timeout => 2)
+      common = RestGraph.new(:timeout => 2) # Facebook Graph API
       common.get('spellbook')
       ♨
       upload = RestGraph.new(:timeout => 10)
@@ -859,7 +859,7 @@
 
     !ruby
 
-      common = RestGraph.new(:timeout => 2)
+      common = RestGraph.new(:timeout => 2) # Facebook Graph API
       common.get('spellbook')
       ♨
       upload = RestGraph.new(:timeout => 10)
@@ -872,7 +872,7 @@
 
     !ruby
 
-      common = RestGraph.new(:timeout => 2)
+      common = RestGraph.new(:timeout => 2) # Facebook Graph API
       common.get('spellbook')
       ♨
       upload = RestGraph.new(:timeout => 10)
@@ -885,7 +885,7 @@
 
     !ruby
 
-      common = RestGraph.new(:timeout => 2)
+      common = RestGraph.new(:timeout => 2) # Facebook Graph API
       common.get('spellbook')
       ♨
       upload = RestGraph.new(:timeout => 10)
@@ -944,7 +944,7 @@
 
     !haskell
 
-      middlweare (middleware app))
+      middleware (middleware app))
 
 ---
 
@@ -952,7 +952,7 @@
 
     !haskell
 
-      middlweare (middleware app))
+      middleware (middleware app))
 
 ---
 
@@ -960,7 +960,7 @@
 
     !haskell
 
-      middlweare (middleware app))
+      middleware (middleware app))
 
 ---
 
@@ -990,9 +990,16 @@
 * <https://github.com/godfat>
 * <https://twitter.com/godfat>
 
-## This slide is located at
+---
 
-* <span style="font-size: 70%"><http://godfat.org/slide/2011-08-27-rest-core.html></span>
+# Feel free to contact me
+
+* <https://github.com/godfat>
+* <https://twitter.com/godfat>
+
+## We are hiring
+
+* <http://cardinalblue.com/jobs>
 
 ---
 
@@ -1001,8 +1008,12 @@
 * <https://github.com/godfat>
 * <https://twitter.com/godfat>
 
+## We are hiring
+
+* <http://cardinalblue.com/jobs>
+
 ## This slide is located at
 
 * <span style="font-size: 70%"><http://godfat.org/slide/2011-08-27-rest-core.html></span>
 
-<span style="position:relative; left:220px; top:-380px; font-size:450px; opacity:0.5">Q?</span>
+<span style="position:relative; left:220px; top:-600px; font-size:450px; opacity:0.5">Q?</span>

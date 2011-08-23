@@ -665,6 +665,14 @@
 
 ---
 
+![rack](diagram/rack.png)
+
+---
+
+![middleware-large](diagram/08-middleware-large.png)
+
+---
+
 # But actually clients are more complex...
 
 ---

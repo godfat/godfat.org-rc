@@ -997,7 +997,7 @@
 * <https://github.com/godfat>
 * <https://twitter.com/godfat>
 
-## We are hiring
+# We are hiring
 
 * <http://cardinalblue.com/jobs>
 
@@ -1008,12 +1008,12 @@
 * <https://github.com/godfat>
 * <https://twitter.com/godfat>
 
-## We are hiring
+# We are hiring
 
 * <http://cardinalblue.com/jobs>
 
-## This slide is located at
+# This slide is located at
 
 * <span style="font-size: 70%"><http://godfat.org/slide/2011-08-27-rest-core.html></span>
 
-<span style="position:relative; left:220px; top:-600px; font-size:450px; opacity:0.5">Q?</span>
+<span style="position:relative; left:220px; top:-550px; font-size:450px; opacity:0.5">Q?</span>

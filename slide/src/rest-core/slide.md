@@ -11,13 +11,57 @@
 
 <br/>
 
+[godfat]: http://godfat.org/
+
+---
+
+# ![avatar](image/spiritual_soul.jpg) Lin Jen-Shin ([godfat][])
+
+<br/>
+
+* Programmer at [Cardinal Blue][]
+
+[godfat]: http://godfat.org/
+[Cardinal Blue]: http://cardinalblue.com/
+
+---
+
+# ![avatar](image/spiritual_soul.jpg) Lin Jen-Shin ([godfat][])
+
+<br/>
+
+* Programmer at [Cardinal Blue][]
+* Programming Language
+
+[godfat]: http://godfat.org/
+[Cardinal Blue]: http://cardinalblue.com/
+
+---
+
+# ![avatar](image/spiritual_soul.jpg) Lin Jen-Shin ([godfat][])
+
+<br/>
+
+* Programmer at [Cardinal Blue][]
+* Programming Language
+* Functional Programming (Haskell)
+
+[godfat]: http://godfat.org/
+[Cardinal Blue]: http://cardinalblue.com/
+
+---
+
+# ![avatar](image/spiritual_soul.jpg) Lin Jen-Shin ([godfat][])
+
+<br/>
+
 * Programmer at [Cardinal Blue][]
 * Programming Language
 * Functional Programming (Haskell)
 * Ruby
 
-[Cardinal Blue]: http://cardinalblue.com/
 [godfat]: http://godfat.org/
+[Cardinal Blue]: http://cardinalblue.com/
 
 ---
 
@@ -966,7 +1010,7 @@
 
     !haskell
 
-      middleware (middleware app))
+      middleware (middleware app)))
 
 ---
 
@@ -974,7 +1018,7 @@
 
     !haskell
 
-      middleware (middleware app))
+      middleware (middleware app)))
 
 ---
 
@@ -984,18 +1028,19 @@
 
 # Tools used to build this slide
 
-* [landslide][] to make this slide
-* [pygments][] to do syntax highlighting
+* [Landslide][] to make this slide
+* [Pygments][] to do syntax highlighting
 * Adobe Illustrator to draw diagrams
-* [nokogiri][] to fix generated HTML
-* [rib][] to interactively find out how to fix HTML
-* [firefox][] to view HTML
+* TextMate to edit markdown
+* [Nokogiri][] to fix generated HTML
+* [Rib][] to interactively find out how to fix HTML
+* [Firefox][] to view HTML
 
-[landslide]: https://raw.github.com/adamzap/landslide
-[pygments]: http://pygments.org/
-[nokogiri]: https://github.com/tenderlove/nokogiri
-[rib]: https://github.com/godfat/rib
-[firefox]: http://www.mozilla.com/
+[Landslide]: https://raw.github.com/adamzap/landslide
+[Pygments]: http://pygments.org/
+[Nokogiri]: https://github.com/tenderlove/nokogiri
+[Rib]: https://github.com/godfat/rib
+[Firefox]: http://www.mozilla.com/
 
 ---
 

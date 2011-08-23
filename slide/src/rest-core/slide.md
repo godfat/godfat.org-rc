@@ -331,7 +331,7 @@
         use DefaultSite , 'https://api.github.com/users/'
         use JsonDecode  , true
         ♨
-        use Cache       , {}, nil
+        use Cache       , {}, 3600
         run RestClient
       end
       ♨
@@ -353,7 +353,7 @@
         use DefaultSite , 'https://api.github.com/users/'
         use JsonDecode  , true
         use CommonLogger, method(:puts)
-        use Cache       , {}, nil
+        use Cache       , {}, 3600
         run RestClient
       end
       ♨
@@ -375,7 +375,7 @@
         use DefaultSite , 'https://api.github.com/users/'
         use JsonDecode  , true
         use CommonLogger, method(:puts)
-        use Cache       , {}, nil
+        use Cache       , {}, 3600
         run RestClient
       end
       ♨
@@ -397,7 +397,7 @@
         use DefaultSite , 'https://api.github.com/users/'
         use JsonDecode  , true
         use CommonLogger, method(:puts)
-        use Cache       , {}, nil
+        use Cache       , {}, 3600
         run RestClient
       end
       ♨
@@ -419,7 +419,7 @@
         use DefaultSite , 'https://api.github.com/users/'
         use JsonDecode  , true
         use CommonLogger, method(:puts)
-        use Cache       , {}, nil
+        use Cache       , {}, 3600
         run RestClient
       end
       ♨
@@ -441,7 +441,7 @@
         use DefaultSite , 'https://api.github.com/users/'
         use JsonDecode  , true
         use CommonLogger, method(:puts)
-        use Cache       , {}, nil
+        use Cache       , {}, 3600
         run RestClient
       end
       ♨
@@ -463,7 +463,7 @@
         use DefaultSite , 'https://api.github.com/users/'
         use JsonDecode  , true
         use CommonLogger, method(:puts)
-        use Cache       , {}, nil
+        use Cache       , {}, 3600
         run RestClient
       end
       ♨

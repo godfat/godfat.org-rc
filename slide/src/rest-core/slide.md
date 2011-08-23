@@ -673,7 +673,10 @@
 
 ---
 
-<span style="left:-1px;position:relative">![more-clients](diagram/04a-more-clients.png)</span>
+<!-- if we're using firefox, then we can use
+     <span style="left:-1px;position:relative"> -->
+
+<span style="left:74px;position:absolute">![more-clients](diagram/04a-more-clients.png)</span>
 
 ---
 
@@ -896,7 +899,10 @@
 
 ---
 
-<span style="left:1px;position:relative">![more-clients](diagram/04-more-clients.png)</span>
+<!-- if we're using firefox, then we can use
+     <span style="left:1.34px;position:relative"> -->
+
+<span style="left:76.34px;position:absolute">![more-clients](diagram/04-more-clients.png)</span>
 
 ---
 
@@ -964,7 +970,7 @@
 
 ---
 
-<span style="left:-1px;position:relative">![more-clients](diagram/04-more-clients.png)</span>
+![more-clients](diagram/04-more-clients.png)
 
 ---
 

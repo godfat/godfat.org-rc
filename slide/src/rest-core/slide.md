@@ -1,5 +1,7 @@
 
-# rest-core<br/><span style="font-size:60%">A modular Ruby REST client collection/infrastructure<br/></span>
+# [rest-core][]<br/><span style="font-size:60%">A modular Ruby REST client collection/infrastructure</span>
+
+[rest-core]: https://github.com/cardinalblue/rest-core
 
 ---
 
@@ -11,8 +13,6 @@
 
 <br/>
 
-[godfat]: http://godfat.org/
-
 ---
 
 # ![avatar](image/spiritual_soul.jpg) Lin Jen-Shin ([godfat][])
@@ -20,9 +20,6 @@
 <br/>
 
 * Programmer at [Cardinal Blue][]
-
-[godfat]: http://godfat.org/
-[Cardinal Blue]: http://cardinalblue.com/
 
 ---
 
@@ -32,9 +29,6 @@
 
 * Programmer at [Cardinal Blue][]
 * Programming Language
-
-[godfat]: http://godfat.org/
-[Cardinal Blue]: http://cardinalblue.com/
 
 ---
 
@@ -45,9 +39,6 @@
 * Programmer at [Cardinal Blue][]
 * Programming Language
 * Functional Programming (Haskell)
-
-[godfat]: http://godfat.org/
-[Cardinal Blue]: http://cardinalblue.com/
 
 ---
 
@@ -67,12 +58,20 @@
 
 <br/>
 
+* rest-graph
+
+---
+
+<br/>
+
+* rest-graph
 * Quick Example
 
 ---
 
 <br/>
 
+* rest-graph
 * Quick Example
 * Rack
 
@@ -80,42 +79,63 @@
 
 <br/>
 
+* rest-graph
 * Quick Example
 * Rack
-* Difference from Rack
-
----
-
-<br/>
-
-* Quick Example
-* Rack
-* Difference from Rack
 * Architecture
 
 ---
 
-![web-services](diagram/web-services.png)
+# [rest-graph][]<br/><span style="font-size:60%">A lightweight Facebook Graph API client</span>
+
+[rest-graph]: https://github.com/cardinalblue/rest-graph
 
 ---
 
-![tools](diagram/tools.png)
+<br/>
+
+* [Tribute Balloon][]
 
 ---
 
-# [![soapbox](image/soapbox.jpg)][soapbox]
+<br/>
 
-[soapbox]: http://www.quixoticpixels.com/blog/2011/06/soap-box/
+* [Tribute Balloon][]
+* [Friend Stock 2][]
 
 ---
 
-# <span style="color:white; position:relative; top:150px; left:158px ">REST</span><br/>![rest](image/couch_db.jpg)
+<br/>
+
+* [Tribute Balloon][]
+* [Friend Stock 2][]
+* [Friend Stock Market][]
+
+---
+
+# ![facebook](image/Facebook-Logo.png)
+
+---
+
+<br/>
+
+* [Tribute Balloon][]
+* [Friend Stock 2][]
+* [Friend Stock Market][]
+* [Pic Collage][]
+
+[Tribute Balloon]: http://tributeballoon.com/
+[Friend Stock 2]: http://friendstock.org
+[Friend Stock Market]: http://friendmkt.com/
+[Pic Collage]: http://pic-collage.com/
+
+---
+
+# ![web-services](diagram/web-services.png)
 
 ---
 
 # Solution: [rest-core][]
-
-[rest-core]: https://github.com/cardinalblue/rest-core
 
 ---
 
@@ -123,6 +143,15 @@
 
 [faraday]: https://github.com/technoweenie/faraday
 [Rack]: https://github.com/rack/rack
+
+---
+
+<br/>
+
+* rest-graph
+* <span style="color: #800">__Quick Example__</span>
+* Rack
+* Architecture
 
 ---
 
@@ -267,7 +296,7 @@
         use Cache       , {}, 3600
         run RestClient
       end
-
+      ♨
       client = Github.new
       ♨
       ♨
@@ -289,7 +318,7 @@
         use Cache       , {}, 3600
         run RestClient
       end
-
+      ♨
       client = Github.new
       client.get('godfat') # slow
       ♨
@@ -311,9 +340,32 @@
         use Cache       , {}, 3600
         run RestClient
       end
-
+      ♨
       client = Github.new
       client.get('godfat') # slow
+      client.get('godfat') # cache hit
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        use Cache       , {}, 3600
+        run RestClient
+      end
+      ♨
+      client = Github.new
+      client.get('godfat') # slow
+      client.get('godfat') # cache hit
       client.get('godfat') # cache hit
       ♨
       ♨
@@ -321,7 +373,6 @@
       ♨
       ♨
       ♨
-      ♨
 
 ---
 
@@ -333,29 +384,7 @@
         use Cache       , {}, 3600
         run RestClient
       end
-
-      client = Github.new
-      client.get('godfat') # slow
-      client.get('godfat') # cache hit
-      client.get('godfat') # cache hit
       ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      Github = RestCore::Builder.client do
-        use DefaultSite , 'https://api.github.com/users/'
-        use JsonDecode  , true
-        use Cache       , {}, 3600
-        run RestClient
-      end
-
       client = Github.new
       client.get('godfat') # slow
       client.get('godfat') # cache hit
@@ -523,47 +552,16 @@
 
 ---
 
-# Web Application as servers
+<br/>
+
+* rest-graph
+* Quick Example
+* <span style="color: #800">__Rack__</span>
+* Architecture
 
 ---
 
-![client-server](diagram/00-client-server.png)
-
----
-
-![server-client](diagram/01-server-client.png)
-
----
-
-# Web Application as clients
-
----
-
-# The History
-
----
-
-# CGI (Common Gateway Interface)
-
----
-
-# FastCGI
-
----
-
-# SCGI (Simple CGI)
-
----
-
-# Mongrel
-
----
-
-# Rack (from WSGI)
-
----
-
-<br/><br/><br/><br/><br/>![rack](image/rack-logo.png)
+# ![rack](image/rack-logo.png)
 
 ---
 
@@ -589,107 +587,108 @@
 
 ---
 
-<br/>
+<br/><br/>
 
-    !haskell
+    !ruby
 
       ♨
-        (middleware (middleware (middleware app)))
+                    use Doo
       ♨
-      ♨
-      ♨
-      ♨
-
----
-
-<br/>
-
-    !haskell
-
-      -- --> --> --> --> --> --> --> --> --> -->
-        (middleware (middleware (middleware app)))
-      -- <-- <-- <-- <-- <-- <-- <-- <-- <-- <--
       ♨
       ♨
       ♨
 
 ---
 
-<br/>
+<br/><br/>
 
-    !haskell
+    !ruby
 
-      -- --> --> --> --> --> --> --> --> --> -->
-        (middleware (middleware (middleware app)))
-      -- <-- <-- <-- <-- <-- <-- <-- <-- <-- <--
       ♨
-      app        :: env -> response
+                    use Doo
+                    use Coo
+      ♨
+      ♨
       ♨
 
 ---
 
-<br/>
+<br/><br/>
 
-    !haskell
+    !ruby
 
-      -- --> --> --> --> --> --> --> --> --> -->
-        (middleware (middleware (middleware app)))
-      -- <-- <-- <-- <-- <-- <-- <-- <-- <-- <--
       ♨
-      app        :: env -> response
-      middleware :: app -> app
+                    use Doo
+                    use Coo
+                    use Boo
+      ♨
+      ♨
 
 ---
 
-<br/>
+<br/><br/>
 
-    !haskell
+    !ruby
 
       ♨
-        (middleware (middleware (middleware app)))
-      --                                    __^ app
+                    use Doo
+                    use Coo
+                    use Boo
+                    run App
       ♨
-      app        :: env -> response
-      middleware :: app -> app
 
 ---
 
-<br/>
+<br/><br/>
 
-    !haskell
+    !ruby
 
-      ♨
-        (middleware (middleware (middleware app)))
-      --                                    __^ app
-      --                         _____________^ app
-      app        :: env -> response
-      middleware :: app -> app
-
----
-
-<br/>
-
-    !haskell
-
-      ♨
-        (middleware (middleware (middleware app)))
-      --                                    __^ app
-      --                         _____________^ app
-      --             _________________________^ app
-      middleware :: app -> app
+                  Rack::Builder.new do
+                    use Doo
+                    use Coo
+                    use Boo
+                    run App
+                  end
 
 ---
 
-<br/>
+![app](diagram/10-app.png)
+
+    !ruby
+
+                              App
+
+---
+
+![app-mid](diagram/11-app-mid.png)
+
+    !ruby
+
+                      Boo.new(App)
+
+---
+
+![app-mid-mid](diagram/12-app-mid-mid.png)
+
+    !ruby
+
+              Coo.new(Boo.new(App))
+
+---
+
+![app-mid-mid-mid](diagram/13-app-mid-mid-mid.png)
+
+    !ruby
+
+      Doo.new(Coo.new(Boo.new(App)))
+
+---
+
+![app-mid-mid-mid-arrow](diagram/14-app-mid-mid-mid-arrow.png)
 
     !haskell
 
-      ♨
-        (middleware (middleware (middleware app)))
-      --                                    __^ app
-      --                         _____________^ app
-      --             _________________________^ app
-      -- _____________________________________^ app
+      Doo.new(Coo.new(Boo.new(App)))
 
 ---
 
@@ -697,15 +696,40 @@
 
 ---
 
-# Why not do the same for<br/>Web Application as clients?
+# Rack is for building servers
 
 ---
+
+# Why not do the same for clients?
+
+---
+
+<br/>
+
+* rest-graph
+* Quick Example
+* Rack
+* <span style="color: #800">__Architecture__</span>
+
+---
+
+<span style="position:absolute;left:360px;top:300px;font-size:70%">(Web Application)</span>
 
 ![client-server](diagram/00-client-server.png)
 
+<span style="position:absolute;left:247px;top:540px;font-size:55%">(Firefox)</span>
+<span style="position:absolute;left:430px;top:540px;font-size:55%">(Chrome)</span>
+<span style="position:absolute;left:623px;top:540px;font-size:55%">(Opera)</span>
+
 ---
 
+<span style="position:absolute;left:360px;top:300px;font-size:70%">(Web Application)</span>
+
 ![server-client](diagram/01-server-client.png)
+
+<span style="position:absolute;left:247px;top:540px;font-size:55%">(Twitter)</span>
+<span style="position:absolute;left:435px;top:540px;font-size:55%">(Github)</span>
+<span style="position:absolute;left:608px;top:540px;font-size:55%">(Facebook)</span>
 
 ---
 
@@ -717,22 +741,43 @@
 
 ---
 
-# But actually clients are more complex...
+![middleware-large](diagram/08-middleware-large.png)
+
+<span style="position:absolute;left:230px;top:140px">DefaultSite</span>
 
 ---
 
-![multiple-clients](diagram/02-multiple-clients.png)
+![middleware-large](diagram/08-middleware-large.png)
+
+<span style="position:absolute;left:230px;top:140px">DefaultSite</span>
+<span style="position:absolute;left:500px;top:220px">JsonDecode</span>
 
 ---
 
-<!-- if we're using firefox, then we can use
-     <span style="left:-1px;position:relative"> -->
+![middleware-large](diagram/08-middleware-large.png)
 
-<span style="left:74px;position:absolute">![more-clients](diagram/04a-more-clients.png)</span>
+<span style="position:absolute;left:230px;top:140px">DefaultSite</span>
+<span style="position:absolute;left:500px;top:220px">JsonDecode</span>
+<span style="position:absolute;left:330px;top:360px">CommonLogger</span>
 
 ---
 
-![multiple-clients](diagram/02-multiple-clients.png)
+![middleware-large](diagram/08-middleware-large.png)
+
+<span style="position:absolute;left:230px;top:140px">DefaultSite</span>
+<span style="position:absolute;left:500px;top:220px">JsonDecode</span>
+<span style="position:absolute;left:330px;top:360px">CommonLogger</span>
+<span style="position:absolute;left:420px;top:460px">Cache</span>
+
+---
+
+![middleware-large](diagram/08-middleware-large.png)
+
+<span style="position:absolute;left:230px;top:140px">DefaultSite</span>
+<span style="position:absolute;left:500px;top:220px">JsonDecode</span>
+<span style="position:absolute;left:330px;top:360px">CommonLogger</span>
+<span style="position:absolute;left:420px;top:460px">Cache</span>
+<span style="position:absolute;left:387px;top:590px;color:#800">RestClient</span>
 
 ---
 
@@ -852,7 +897,7 @@
 
 ---
 
-![multiple-clients](diagram/03-multiple-clients.png)
+# But actually clients are more complex...
 
 ---
 
@@ -948,81 +993,6 @@
       ♨
       common.get('spellbook', {}, :timeout => 10)
       common.get('spellbook') # still timeout 2
-
----
-
-<!-- if we're using firefox, then we can use
-     <span style="left:1.34px;position:relative"> -->
-
-<span style="left:76.34px;position:absolute">![more-clients](diagram/04-more-clients.png)</span>
-
----
-
-![stack](diagram/05-stack.png)
-
----
-
-![middlewares](diagram/06-middlewares.png)
-
----
-
-![middleware](diagram/07-middleware.png)
-
----
-
-![middleware-large](diagram/08-middleware-large.png)
-
----
-
-![middleware-app](diagram/09-middleware-app.png)
-
----
-
-![app](diagram/10-app.png)
-
----
-
-![app](diagram/10-app.png)
-
-    !haskell
-
-                             app
-
----
-
-![app-mid](diagram/11-app-mid.png)
-
-    !haskell
-
-                 (middleware app)
-
----
-
-![app-mid-mid](diagram/12-app-mid-mid.png)
-
-    !haskell
-
-      middleware (middleware app))
-
----
-
-![app-mid-mid-mid](diagram/13-app-mid-mid-mid.png)
-
-    !haskell
-
-      middleware (middleware app)))
-
----
-
-![app-mid-mid-mid-arrow](diagram/14-app-mid-mid-mid-arrow.png)
-
-    !haskell
-
-      middleware (middleware app)))
-
----
-
-![more-clients](diagram/04-more-clients.png)
 
 ---
 

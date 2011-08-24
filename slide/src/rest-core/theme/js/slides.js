@@ -187,9 +187,11 @@ function main() {
   var handleBodyKeyDown = function(event) {
     switch (event.keyCode) {
       case 37: // left arrow
+      case 38: // up arrow
         prevSlide();
         break;
       case 39: // right arrow
+      case 40: // down arror
       case 32: // space
         nextSlide();
         break;

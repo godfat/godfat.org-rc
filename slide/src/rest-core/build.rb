@@ -25,5 +25,5 @@ slide.css('.lineno').each{ |n|
   n.next.replace n.next.inner_text.sub('   ', ' ') # one space is enough
 }
 
-File.open('slide.html', 'w'){ |f| f.puts slide.to_html }
-puts("Created slide.html")
+File.open('../../2011-08-27-rest-core.html', 'w'){ |f| f.puts slide.to_html }
+puts("Created #{File.expand_path('../../2011-08-27-rest-core.html')}")

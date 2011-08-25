@@ -56,33 +56,11 @@
 
 ---
 
-<br/>
-
-* rest-graph
+# ![web-services](diagram/web-services.png)
 
 ---
 
-<br/>
-
-* rest-graph
-* Quick Example
-
----
-
-<br/>
-
-* rest-graph
-* Quick Example
-* Rack
-
----
-
-<br/>
-
-* rest-graph
-* Quick Example
-* Rack
-* Architecture
+# ![facebook](image/Facebook-Logo.png)
 
 ---
 
@@ -92,42 +70,65 @@
 
 ---
 
+# Facebook Apps
+
 <br/>
 
-* [Tribute Balloon][]
+* [Tribute Balloon][] (7M users)
 
 ---
 
+# Facebook Apps
+
 <br/>
 
-* [Tribute Balloon][]
+* [Tribute Balloon][] (7M users)
 * [Friend Stock 2][]
 
 ---
 
-<br/>
-
-* [Tribute Balloon][]
-* [Friend Stock 2][]
-* [Friend Stock Market][]
-
----
-
-# ![facebook](image/Facebook-Logo.png)
-
----
+# Facebook Apps
 
 <br/>
 
-* [Tribute Balloon][]
+* [Tribute Balloon][] (7M users)
 * [Friend Stock 2][]
 * [Friend Stock Market][]
-* [Pic Collage][]
 
 [Tribute Balloon]: http://tributeballoon.com/
 [Friend Stock 2]: http://friendstock.org
 [Friend Stock Market]: http://friendmkt.com/
-[Pic Collage]: http://pic-collage.com/
+
+---
+
+    !ruby
+
+      facebook = RestGraph.new # Facebook Graph API
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      facebook = RestGraph.new # Facebook Graph API
+      facebook.get('4')
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      facebook = RestGraph.new # Facebook Graph API
+      facebook.get('4')
+      facebook.post('4/photos',
+        :source => File.open('...'))
+
+---
+
+# ![facebook](image/Facebook-Logo.png)
 
 ---
 
@@ -146,12 +147,117 @@
 
 ---
 
+# Generalized from [rest-graph][]
+
+---
+
+# (Almost) Identical interface
+
+---
+
+# iOS apps
+
 <br/>
 
-* rest-graph
-* <span style="color: #800">__Quick Example__</span>
-* Rack
-* Architecture
+* [Pic Collage][] (500k downloads)
+
+---
+
+# iOS apps
+
+<br/>
+
+* [Pic Collage][] (500k downloads)
+    - Share to Facebook
+
+---
+
+# iOS apps
+
+<br/>
+
+* [Pic Collage][] (500k downloads)
+    - Share to Facebook
+    - Share to Twitter
+
+---
+
+# iOS apps
+
+<br/>
+
+* [Pic Collage][] (500k downloads)
+    - Share to Facebook
+    - Share to Twitter
+    - Share to Mixi (planed)
+
+---
+
+# iOS apps
+
+<br/>
+
+* [Pic Collage][] (500k downloads)
+    - Share to Facebook
+    - Share to Twitter
+    - Share to Mixi (planed)
+    - Share to Whatever
+
+[Pic Collage]: http://pic-collage.com/
+
+---
+
+# Why better than other existing clients?
+
+<br/>
+
+* Little Dependency
+
+---
+
+# Why better than other existing clients?
+
+<br/>
+
+* Little Dependency
+* Less Version conflicting
+
+---
+
+# No Dependency Hell
+
+[![dependency-hell](image/dependency-hell.jpg)](http://lh3.ggpht.com/_zuyYNty3csc/SHd1ws4hyFI/AAAAAAAAAZA/OxKv0N4rHkY/force_label_full.png)
+
+<span style="font-size:900px; left:120px; top:-100px; position:absolute; color: #800; font-family: Arial">X</span>
+
+---
+
+<br/>
+
+* How to build a Github client with [rest-core][]
+
+---
+
+<br/>
+
+* How to build a Github client with [rest-core][]
+* Rack and [rest-core][] architecture
+
+---
+
+<br/>
+
+* How to build a Github client with [rest-core][]
+* Rack and [rest-core][] architecture
+* Put things together
+
+---
+
+<br/>
+
+* <span style="color: #800">How to build a Github client with [rest-core][]</span>
+* Rack and [rest-core][] architecture
+* Put things together
 
 ---
 
@@ -554,10 +660,9 @@
 
 <br/>
 
-* rest-graph
-* Quick Example
-* <span style="color: #800">__Rack__</span>
-* Architecture
+* How to build a Github client with [rest-core][]
+* <span style="color: #800">Rack and [rest-core][] architecture</span>
+* Put things together
 
 ---
 
@@ -643,7 +748,7 @@
 
     !ruby
 
-                  Rack::Builder.new do
+                  app = Rack::Builder.app do
                     use Doo
                     use Coo
                     use Boo
@@ -701,15 +806,6 @@
 ---
 
 # Why not do the same for clients?
-
----
-
-<br/>
-
-* rest-graph
-* Quick Example
-* Rack
-* <span style="color: #800">__Architecture__</span>
 
 ---
 
@@ -781,218 +877,300 @@
 
 ---
 
+# But that's not the only story about [rest-core][]
+
+---
+
+# Recall what we did for a Rack app
+
+---
+
+<br/>
+
+    !ruby
+
+      app = Rack::Builder.app do
+        use Doo
+        use Coo
+        use Boo
+        run App
+      end
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+<br/>
+
+    !ruby
+
+      app = Rack::Builder.app do
+        use Doo
+        use Coo
+        use Boo
+        run App
+      end
+      ♨
+      app.class           # Doo
+      ♨
+      ♨
+
+---
+
+<br/>
+
+    !ruby
+
+      app = Rack::Builder.app do
+        use Doo
+        use Coo
+        use Boo
+        run App
+      end
+      ♨
+      app.class           # Doo
+      app.kind_of?(Class) # false
+      ♨
+
+---
+
+<br/>
+
+    !ruby
+
+      app = Rack::Builder.app do
+        use Doo
+        use Coo
+        use Boo
+        run App
+      end
+      ♨
+      app.class           # Doo
+      app.kind_of?(Class) # false
+      app.call(env)       # app is an instance
+
+---
+
+# Rack apps are instances
+
+---
+
+# While [rest-core][] clients are classes
+
+---
+
+<br/>
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        run RestClient
+      end
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+<br/>
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        run RestClient
+      end
+      ♨
+      Github.class             # Class
+      ♨
+      ♨
+      ♨
+
+---
+
+<br/>
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        run RestClient
+      end
+      ♨
+      Github.class             # Class
+      Github.kind_of?(Class)   # true
+      ♨
+      ♨
+
+---
+
+<br/>
+
+    !ruby
+
+      Github = RestCore::Builder.client do
+        use DefaultSite , 'https://api.github.com/users/'
+        use JsonDecode  , true
+        run RestClient
+      end
+      ♨
+      Github.class             # Class
+      Github.kind_of?(Class)   # true
+      Github.new.get('godfat') # Github is a class which
+                               #  would produce instances
+
+---
+
+# Why?
+
+---
+
+# Take Twitter as an example
+
+---
+
+    !ruby
+
+      # To Be Filled...
+      # about authorize_url!
+      # about authorize!
+      # about tweet with/without pci
+
+---
+
+<br/>
+
+* How to build a Github client with [rest-core][]
+* Rack and [rest-core][] architecture
+* <span style="color: #800">Put things together</span>
+
+---
+
+    !ruby
+
+      github = Github.new
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      facebook = Facebook.new
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      facebook = Facebook.new
+      ♨
+      github.get('godfat')
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      facebook = Facebook.new
+      ♨
+      github.get('godfat')
+      twitter.get('user_timeline.json', :id => 'godfat')
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      facebook = Facebook.new
+      ♨
+      github.get('godfat')
+      twitter.get('user_timeline.json', :id => 'godfat')
+      linkedin.get('v1/people/~') # need authorize first
+      ♨
+
+---
+
+    !ruby
+
+      github = Github.new
+      twitter = Twitter.new
+      linkedin = Linkedin.new
+      facebook = Facebook.new
+      ♨
+      github.get('godfat')
+      twitter.get('user_timeline.json', :id => 'godfat')
+      linkedin.get('v1/people/~') # need authorize first
+      facebook.get('spellbook')
+
+---
+
 ![multiple-clients](diagram/03-multiple-clients.png)
 
 ---
 
-    !ruby
-
-      github = Github.new
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      github = Github.new
-      twitter = Twitter.new
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      github = Github.new
-      twitter = Twitter.new
-      linkedin = Linkedin.new
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      github = Github.new
-      twitter = Twitter.new
-      linkedin = Linkedin.new
-      restgraph = RestGraph.new # Facebook Graph API
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      github = Github.new
-      twitter = Twitter.new
-      linkedin = Linkedin.new
-      restgraph = RestGraph.new # Facebook Graph API
-      ♨
-      github.get('godfat')
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      github = Github.new
-      twitter = Twitter.new
-      linkedin = Linkedin.new
-      restgraph = RestGraph.new # Facebook Graph API
-      ♨
-      github.get('godfat')
-      twitter.get('user_timeline.json', :id => 'godfat')
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      github = Github.new
-      twitter = Twitter.new
-      linkedin = Linkedin.new
-      restgraph = RestGraph.new # Facebook Graph API
-      ♨
-      github.get('godfat')
-      twitter.get('user_timeline.json', :id => 'godfat')
-      linkedin.get('v1/people/~') # need authorize first
-      ♨
-
----
-
-    !ruby
-
-      github = Github.new
-      twitter = Twitter.new
-      linkedin = Linkedin.new
-      restgraph = RestGraph.new # Facebook Graph API
-      ♨
-      github.get('godfat')
-      twitter.get('user_timeline.json', :id => 'godfat')
-      linkedin.get('v1/people/~') # need authorize first
-      restgraph.get('spellbook')
-
----
-
-# But actually clients are more complex...
-
----
-
 ![more-clients](diagram/04-more-clients.png)
-
----
-
-    !ruby
-
-      common = RestGraph.new                # Facebook Graph API
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      common = RestGraph.new(:timeout => 2) # Facebook Graph API
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      common = RestGraph.new(:timeout => 2) # Facebook Graph API
-      common.get('spellbook')
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      common = RestGraph.new(:timeout => 2) # Facebook Graph API
-      common.get('spellbook')
-      ♨
-      upload = RestGraph.new(:timeout => 10)
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      common = RestGraph.new(:timeout => 2) # Facebook Graph API
-      common.get('spellbook')
-      ♨
-      upload = RestGraph.new(:timeout => 10)
-      upload.post('4/photos', :source => File.open('...'))
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      common = RestGraph.new(:timeout => 2) # Facebook Graph API
-      common.get('spellbook')
-      ♨
-      upload = RestGraph.new(:timeout => 10)
-      upload.post('4/photos', :source => File.open('...'))
-      ♨
-      common.get('spellbook', {}, :timeout => 10)
-      ♨
-
----
-
-    !ruby
-
-      common = RestGraph.new(:timeout => 2) # Facebook Graph API
-      common.get('spellbook')
-      ♨
-      upload = RestGraph.new(:timeout => 10)
-      upload.post('4/photos', :source => File.open('...'))
-      ♨
-      common.get('spellbook', {}, :timeout => 10)
-      common.get('spellbook') # still timeout 2
 
 ---
 

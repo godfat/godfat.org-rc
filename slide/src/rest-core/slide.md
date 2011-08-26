@@ -101,6 +101,8 @@
 
 ---
 
+<br/><br/>
+
     !ruby
 
       facebook = RestGraph.new # Facebook Graph API
@@ -109,6 +111,8 @@
       ♨
 
 ---
+
+<br/><br/>
 
     !ruby
 
@@ -118,6 +122,8 @@
       ♨
 
 ---
+
+<br/><br/>
 
     !ruby
 
@@ -692,6 +698,8 @@
 
 ---
 
+# config.ru
+
 <br/><br/>
 
     !ruby
@@ -704,6 +712,8 @@
       ♨
 
 ---
+
+# config.ru
 
 <br/><br/>
 
@@ -717,6 +727,8 @@
       ♨
 
 ---
+
+# config.ru
 
 <br/><br/>
 
@@ -730,6 +742,8 @@
       ♨
 
 ---
+
+# config.ru
 
 <br/><br/>
 
@@ -743,6 +757,8 @@
       ♨
 
 ---
+
+# config.ru
 
 <br/><br/>
 
@@ -1033,16 +1049,255 @@
 
 ---
 
+# <span style="font-size: 80%">Why do we create classes instead of instances?<br/>　</span>
+
+---
+
+# <span style="font-size: 80%">Why do we create classes instead of instances?<br/>Just like what [Rack][] and [faraday][] did?</span>
+
+---
+
+# Why classes?
+
+<br/>
+
+* Instance states won't affect each other
+
+---
+
+# Why classes?
+
+<br/>
+
+* Instance states won't affect each other
+* Singleton is <span style="text-decoration:line-through">evil</span> too stateful,<br/>
+  too much side-effect
+
+---
+
+# Why classes?
+
+<br/>
+
+* Instance states won't affect each other
+* Singleton is <span style="text-decoration:line-through">evil</span> too stateful,<br/>
+  too much side-effect
+* Think of instances as connections
+
+---
+
 # Take Twitter as an example
 
 ---
 
     !ruby
 
-      # To Be Filled...
-      # about authorize_url!
-      # about authorize!
-      # about tweet with/without pci
+      t = Twitter.new(key_and_secret)
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      t = Twitter.new(key_and_secret)
+      ♨
+      t.authorize_url! # which is calling
+        t.post('oauth/request_token', {}, {},
+               {:json_decode => false})
+      # underneath
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      t = Twitter.new(key_and_secret)
+      ♨
+      t.authorize_url! # which is calling
+        t.post('oauth/request_token', {}, {},
+               {:json_decode => false})
+      # underneath
+      ♨
+      # which is also equivalent to...
+        t.json_decode = false # state
+        t.post('oauth/request_token')
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      t = Twitter.new(key_and_secret)
+      ♨
+      t.authorize_url! # which is calling
+        t.post('oauth/request_token', {}, {},
+               {:json_decode => false})
+      # underneath
+      ♨
+      # which is also equivalent to...
+        t.json_decode = false # state
+        t.post('oauth/request_token')
+      ♨
+      t.authorize!(verifier) # calling
+        t.post('oauth/access_token', {}, {},
+                 {:verifier => verifier,
+                  :json_decode => false})
+      # underneath
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      t = Twitter.new(key_and_secret)
+      ♨
+      t.authorize_url! # which is calling
+        t.post('oauth/request_token', {}, {},
+               {:json_decode => false})
+      # underneath
+      ♨
+      # which is also equivalent to...
+        t.json_decode = false # state
+        t.post('oauth/request_token')
+      ♨
+      t.authorize!(verifier) # calling
+        t.post('oauth/access_token', {}, {},
+                 {:verifier => verifier,
+                  :json_decode => false})
+      # underneath
+      ♨
+      t.tweet('but we want json_decode here')
+
+---
+
+# RestCore::Twitter#tweet underneath
+
+---
+
+    !ruby
+
+      tt = Twitter.new(key_and_secret.
+                         merge(:data => t.data))
+      status, media = 'status', File.open('..')
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      tt = Twitter.new(key_and_secret.
+                         merge(:data => t.data))
+      status, media = 'status', File.open('..')
+      ♨
+      tt.tweet(status) # which is calling
+        tt.post('1/statuses/update.json', :status => status)
+      # underneath
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      tt = Twitter.new(key_and_secret.
+                         merge(:data => t.data))
+      status, media = 'status', File.open('..')
+      ♨
+      tt.tweet(status) # which is calling
+        tt.post('1/statuses/update.json', :status => status)
+      # underneath
+      ♨
+      tt.tweet(status, media)   # calling
+        tt.post('https://upload.twitter.com/' \
+                '1/statuses/update_with_media.json',
+                :status => status, 'media[]' => media)
+      # underneath
+      ♨
+      ♨
+      ♨
+      ♨
+      ♨
+
+---
+
+    !ruby
+
+      tt = Twitter.new(key_and_secret.
+                         merge(:data => t.data))
+      status, media = 'status', File.open('..')
+      ♨
+      tt.tweet(status) # which is calling
+        tt.post('1/statuses/update.json', :status => status)
+      # underneath
+      ♨
+      tt.tweet(status, media)   # calling
+        tt.post('https://upload.twitter.com/' \
+                '1/statuses/update_with_media.json',
+                :status => status, 'media[]' => media)
+      # underneath
+      ♨
+      # which is also equivalent to...
+        tt.site = 'https://upload.twitter.com/'  # state
+        tt.post('1/statuses/update_with_media.json',
+                :status => status, 'media[]' => media)
 
 ---
 
@@ -1204,9 +1459,9 @@
 * <https://github.com/godfat>
 * <https://twitter.com/godfat>
 
-# We are hiring
+# Feature Request wanted
 
-* <http://cardinalblue.com/jobs>
+* <span style="font-size:80%"><https://github.com/cardinalblue/rest-core/issues></span>
 
 ---
 
@@ -1215,12 +1470,12 @@
 * <https://github.com/godfat>
 * <https://twitter.com/godfat>
 
+# Feature Request wanted
+
+* <span style="font-size:80%"><https://github.com/cardinalblue/rest-core/issues></span>
+
 # We are hiring
 
 * <http://cardinalblue.com/jobs>
-
-# This slide is located at
-
-* <span style="font-size: 70%"><http://godfat.org/slide/2011-08-27-rest-core.html></span>
 
 <span style="position:relative; left:220px; top:-550px; font-size:450px; opacity:0.5">Q?</span>

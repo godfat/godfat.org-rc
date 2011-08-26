@@ -1205,102 +1205,6 @@
 
 ---
 
-# RestCore::Twitter#tweet underneath
-
----
-
-    !ruby
-
-      tt = Twitter.new(key_and_secret.
-                         merge(:data => t.data))
-      status, media = 'status', File.open('..')
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      tt = Twitter.new(key_and_secret.
-                         merge(:data => t.data))
-      status, media = 'status', File.open('..')
-      ♨
-      tt.tweet(status) # which is calling
-        tt.post('1/statuses/update.json', :status => status)
-      # underneath
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      tt = Twitter.new(key_and_secret.
-                         merge(:data => t.data))
-      status, media = 'status', File.open('..')
-      ♨
-      tt.tweet(status) # which is calling
-        tt.post('1/statuses/update.json', :status => status)
-      # underneath
-      ♨
-      tt.tweet(status, media)   # calling
-        tt.post('https://upload.twitter.com/' \
-                '1/statuses/update_with_media.json',
-                :status => status, 'media[]' => media)
-      # underneath
-      ♨
-      ♨
-      ♨
-      ♨
-      ♨
-
----
-
-    !ruby
-
-      tt = Twitter.new(key_and_secret.
-                         merge(:data => t.data))
-      status, media = 'status', File.open('..')
-      ♨
-      tt.tweet(status) # which is calling
-        tt.post('1/statuses/update.json', :status => status)
-      # underneath
-      ♨
-      tt.tweet(status, media)   # calling
-        tt.post('https://upload.twitter.com/' \
-                '1/statuses/update_with_media.json',
-                :status => status, 'media[]' => media)
-      # underneath
-      ♨
-      # which is also equivalent to...
-        tt.site = 'https://upload.twitter.com/'  # state
-        tt.post('1/statuses/update_with_media.json',
-                :status => status, 'media[]' => media)
-
----
-
 <br/>
 
 * How to build a Github client with [rest-core][]
@@ -1478,4 +1382,19 @@
 
 * <http://cardinalblue.com/jobs>
 
-<span style="position:relative; left:220px; top:-550px; font-size:450px; opacity:0.5">Q?</span>
+---
+
+# Feel free to contact me
+
+* <https://github.com/godfat>
+* <https://twitter.com/godfat>
+
+# Feature Request wanted
+
+* <span style="font-size:80%"><https://github.com/cardinalblue/rest-core/issues></span>
+
+# We are hiring
+
+* <http://cardinalblue.com/jobs>
+
+<span style="position:absolute; left:220px; top:100px; font-size:450px; opacity:0.5">Q?</span>

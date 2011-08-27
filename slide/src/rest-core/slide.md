@@ -206,7 +206,7 @@
 * [Pic Collage][] (500k downloads)
     - Share to Facebook
     - Share to Twitter
-    - Share to Mixi (planed)
+    - Share to Mixi (planned)
     - Share to Whatever
 
 [Pic Collage]: http://pic-collage.com/

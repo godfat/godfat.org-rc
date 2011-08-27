@@ -195,7 +195,7 @@
 * [Pic Collage][] (500k downloads)
     - Share to Facebook
     - Share to Twitter
-    - Share to Mixi (planed)
+    - Share to Mixi (planned)
 
 ---
 
@@ -226,7 +226,7 @@
 <br/>
 
 * Little Dependency
-* Less Version conflicting
+* Less Version conflicts
 
 ---
 

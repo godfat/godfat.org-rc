@@ -853,43 +853,47 @@
 
 ---
 
-![middleware-large](diagram/08-middleware-large.png)
-
-<span style="position:absolute;left:230px;top:140px">DefaultSite</span>
+![middleware-large](diagram/09-middleware-app.png)
 
 ---
 
-![middleware-large](diagram/08-middleware-large.png)
+![middleware-large](diagram/09-middleware-app.png)
+
+<span style="position:absolute;left:387px;top:610px;color:#800">RestClient</span>
+
+---
+
+![middleware-large](diagram/09-middleware-app.png)
+
+<span style="position:absolute;left:230px;top:140px">DefaultSite</span>
+<span style="position:absolute;left:387px;top:610px;color:#800">RestClient</span>
+
+---
+
+![middleware-large](diagram/09-middleware-app.png)
 
 <span style="position:absolute;left:230px;top:140px">DefaultSite</span>
 <span style="position:absolute;left:500px;top:220px">JsonDecode</span>
+<span style="position:absolute;left:387px;top:610px;color:#800">RestClient</span>
 
 ---
 
-![middleware-large](diagram/08-middleware-large.png)
+![middleware-large](diagram/09-middleware-app.png)
 
 <span style="position:absolute;left:230px;top:140px">DefaultSite</span>
 <span style="position:absolute;left:500px;top:220px">JsonDecode</span>
 <span style="position:absolute;left:330px;top:360px">CommonLogger</span>
+<span style="position:absolute;left:387px;top:610px;color:#800">RestClient</span>
 
 ---
 
-![middleware-large](diagram/08-middleware-large.png)
+![middleware-large](diagram/09-middleware-app.png)
 
 <span style="position:absolute;left:230px;top:140px">DefaultSite</span>
 <span style="position:absolute;left:500px;top:220px">JsonDecode</span>
 <span style="position:absolute;left:330px;top:360px">CommonLogger</span>
 <span style="position:absolute;left:420px;top:460px">Cache</span>
-
----
-
-![middleware-large](diagram/08-middleware-large.png)
-
-<span style="position:absolute;left:230px;top:140px">DefaultSite</span>
-<span style="position:absolute;left:500px;top:220px">JsonDecode</span>
-<span style="position:absolute;left:330px;top:360px">CommonLogger</span>
-<span style="position:absolute;left:420px;top:460px">Cache</span>
-<span style="position:absolute;left:387px;top:590px;color:#800">RestClient</span>
+<span style="position:absolute;left:387px;top:610px;color:#800">RestClient</span>
 
 ---
 

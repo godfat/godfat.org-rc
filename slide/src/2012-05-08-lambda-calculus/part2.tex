@@ -171,20 +171,19 @@
 
 \frame{
 \vskip 10mm%
-\frametitlecenter{Recursion?\\
-\usebeamerfont*{font DejaVu Sans Mono}
-%{\usebeamerfont*{font Hiragino Maru Gothic}の} %No
-No problems!}
+\frametitlecenter{Recursion?\\No problems}
 }
 
 \subsection{Y combinator}
 
 \frame{\frametitle{Y combinator}
 \begin{itemize}
+  \item[]{}
   \item<1->{Discovered by Haskell Curry}
   \item<1->{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y \ \ = (λf.(λx.f (x x)) (λx.f (x x)))}
   \item<2->{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y f = (λf.(λx.f (x x)) (λx.f (x x))) f}
   \item<3->{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y f = f (y f)}
+  \item[]{}
 \end{itemize}
 }
 
@@ -197,15 +196,22 @@ No problems!}
 
 \frame{\frametitle{Fixed Point Combinator}
 \begin{itemize}
+  \item[]{}
   \item{\normalsize Strict languages need some delay}
   \item{\footnotesize\usebeamerfont*{font DejaVu Sans Mono} Z = (λx.f (λv.((x x) v))) (λx.f (λv.((x x) v)))}
   \item{\normalsize Discovered by Alan Turing}
   \item{\footnotesize\usebeamerfont*{font DejaVu Sans Mono} Θ = (λx.λy. (y (x x y))) (λx.λy. (y (x x y)))}
+  \item[]{}
+\end{itemize}
+}
+
+\frame{\frametitle{Fixed Point Combinator}
+\begin{itemize}
+  \item[]{}
   \item{\normalsize Constructed by Jan Willem Klop}
-  \item{\footnotesize\usebeamerfont*{font DejaVu Sans Mono} Yk = (L L L L L L L L L L L . . .)
-    \begin{itemize}
-      \item{\tiny\usebeamerfont*{font DejaVu Sans Mono} L = λabcdefghijklmnopqstuvwxyzr. (r (thisisafixedpointcombinator))}
-    \end{itemize}
-  }
+  \item{\footnotesize\usebeamerfont*{font DejaVu Sans Mono} Yk = (L L L L L L L L L L L . . .)}
+  \item[]{\tiny\usebeamerfont*{font DejaVu Sans Mono} where L = λabcdefghijklmnopqstuvwxyzr. (r (thisisafixedpointcombinator))}
+  \item[]{}
+  \item[]{}
 \end{itemize}
 }

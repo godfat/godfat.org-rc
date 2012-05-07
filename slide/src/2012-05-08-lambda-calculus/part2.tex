@@ -11,8 +11,7 @@
   \end{itemize}
 }
 
-%\ftc{λ-Calculus?}
-\frame{\frametitle{λ-Calculus?}
+\frame{\frametitle{What is λ-Calculus?}
 \begin{itemize}
   \item[] {}
   \item[] {}
@@ -24,17 +23,14 @@
 }
 
 \subsection{Turing Machine}
-% \ftc{Turing Machine}
 
-\frame{\frametitle{Turing Machine}
-  \begin{itemize}
-  \item[]{}
-  \item[]{}
-  \item{[Turing machine picture]}
-  \item{Invented by Alan Turing in 1936}
-  \item[]{}
-  \item[]{}
-  \end{itemize}
+\ftc{Turing Machine}
+
+\ftc{by Alan Turing \\ in 1936}
+
+\frame{
+  \centering
+  \includegraphics[width=1\textwidth]{image/turing-machine.png}
 }
 
 \frame{\frametitle{Turing Machine}
@@ -51,16 +47,9 @@
   \end{itemize}
 }
 
-\frame{\frametitle{Turing Complete}
-  \begin{itemize}
-    \item[]{}
-    \item[]{}
-    \item<1->{Whatever Turing machine can do}
-    \item<2>{So what is λ-calculus?}
-    \item[]{}
-    \item[]{}
-  \end{itemize}
-}
+\ftc{Turing Complete}
+\subsection{}
+\ftc{So what is λ-calculus?}
 
 \frame{\frametitle{Alligator Eggs!}
   \begin{figure}[h!]
@@ -70,58 +59,43 @@
   \end{figure}
 }
 
-\subsection{λ-Calculus}
-
-\frame{\frametitle{λ-Calculus}
-\begin{itemize}
-  \item[]{}
-  \item[]{}
-  \item<1->{Invented by Alonzo Church in 1930s}
-  \item<2>{Also Turing complete, but how do we prove that?}
-  \item[]{}
-  \item[]{}
-\end{itemize}
-}
-
-\frame{\frametitle{λ-Complete}
-\begin{itemize}
-  \item<1->{\normalsize Whatever λ-calculus can do}
-  \item<2->{\normalsize Implement Turing machine in λ-calculus
-    \begin{figure}[h!]
-      \includegraphics[width=0.55\textwidth]{image/turing-machine-lambda.png}
-      % \caption{Turing machine on λ-calculus picture}
-    \end{figure}
-  }
-\end{itemize}
+\ftc{by Alonzo Church \\ in 1930s}
+\ftc{Also Turing complete}
+\ftc{but why?}
+\subsection{λ-Complete}
+\ftc{Define λ-Complete}
+\ftc{Whatever λ-calculus can do}
+\frame{\frametitle{Implement Turing machine in λ-calculus}
+  \hskip 7mm
+  \centering
+  \includegraphics[width=0.85\textwidth]{image/turing-machine-lambda.png}
 }
 \frame{\frametitle{λ-Complete}
 \begin{itemize}
-  \item<1->{\normalsize So λ-calculus can do anything Turing machine can do}
-  \item<2->{\normalsize Plus what λ-calculus can do without a Turing machine}
+  \item<1->{\normalsize So λ-calculus can do anything TM can do}
+  \item<2->{\normalsize Plus what λ-calculus can do without a TM}
   \item<3->{\normalsize Thus λ-calculus is Turing complete}
 \end{itemize}
 }
-\frame{\frametitle{λ-Complete}
-\begin{itemize}
-  \item<1->{\normalsize Implement λ-calculus in Turing machine
-    \begin{figure}[h!]
-      \includegraphics[width=0.4\textwidth]{image/eating.png}
-      % \caption{λ-calculus on Turing machine picture}
-    \end{figure}
-  }
-  \item<2->{\normalsize So Turing machine is also λ-complete}
-\end{itemize}
+\ftc{On the other hand...}
+\frame{\frametitle{Implement λ-calculus in Turing machine}
+  \hskip 7mm
+  \centering
+  \includegraphics[width=0.85\textwidth]{image/lambda-turing-machine.png}
 }
+\ftc{So Turing machine is also λ-complete}
+
 \frame{\frametitle{λ-Complete}
 \begin{itemize}
   \item<1->{\normalsize They have the same computability
     \begin{figure}[h!]
       \includegraphics[width=0.4\textwidth]{image/eating.png}
-      % \caption{Turing machine on λ-calculus on Turing machine on ... on λ-calculus on picture}
     \end{figure}
   }\item[] {}
 \end{itemize}
 }
+
+\subsection{}
 
 \frame{\frametitle{What exactly is λ-calculus?}
 \begin{itemize}
@@ -139,7 +113,7 @@
 \begin{itemize}
   \item[]{}
   \item[]{}
-  \item<1->{\usebeamerfont*{font DejaVu Sans Mono} (λf.(λx.f (x x)) (λx.f (x x)))}
+  \item[]{\usebeamerfont*{font DejaVu Sans Mono} (λf.(λx.f (x x)) (λx.f (x x)))}
   \item[]{}
   \item[]{}
   \item[]{}
@@ -151,33 +125,45 @@
 
 \frame{\frametitle{Natural Numbers}
 \begin{itemize}
+  \item[]{}
   \item{\usebeamerfont*{font DejaVu Sans Mono} 0 ≡ λf.λx. x}
   \item{\usebeamerfont*{font DejaVu Sans Mono} 1 ≡ λf.λx. f x}
   \item{\usebeamerfont*{font DejaVu Sans Mono} ...}
   \item{\usebeamerfont*{font DejaVu Sans Mono} n ≡ λf.λx. f$^{\text{n}}$ x}
+  \item[]{}
 \end{itemize}
 }
 
 \frame{\frametitle{Computation with Natural Numbers}
 \begin{itemize}
+  \item[]{}
+  \item[]{}
   \item{\usebeamerfont*{font DejaVu Sans Mono} succ ≡ λn.λf.λx. f (n f x)}
   \item{\usebeamerfont*{font DejaVu Sans Mono} plus ≡ λm.λn.λf.λx. m f (n f x)}
+  \item[]{}
+  \item[]{}
 \end{itemize}
 }
 
 \frame{\frametitle{Booleans}
 \begin{itemize}
+  \item[]{}
+  \item[]{}
   \item{\usebeamerfont*{font DejaVu Sans Mono} true \ ≡ λa.λb. a}
   \item{\usebeamerfont*{font DejaVu Sans Mono} false ≡ λa.λb. b}
+  \item[]{}
+  \item[]{}
 \end{itemize}
 }
 
 \frame{\frametitle{Computation with Booleans}
 \begin{itemize}
+  \item[]{}
   \item{\usebeamerfont*{font DejaVu Sans Mono} and ≡ λm.λn. m n m}
   \item{\usebeamerfont*{font DejaVu Sans Mono} or \ ≡ λm.λn. m m n}
   \item{\usebeamerfont*{font DejaVu Sans Mono} not ≡ λm.λa.λb. m b a}
   \item{\usebeamerfont*{font DejaVu Sans Mono} if \ ≡ λm.λa.λb. m a b}
+  \item[]{}
 \end{itemize}
 }
 
@@ -195,16 +181,16 @@ No problems!}
 
 \frame{\frametitle{Y combinator}
 \begin{itemize}
-  \item{Discovered by Haskell Curry}
-  \item{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y \ \ = (λf.(λx.f (x x)) (λx.f (x x)))}
-  \item{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y f = (λf.(λx.f (x x)) (λx.f (x x))) f}
-  \item{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y f = f (y f)}
+  \item<1->{Discovered by Haskell Curry}
+  \item<1->{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y \ \ = (λf.(λx.f (x x)) (λx.f (x x)))}
+  \item<2->{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y f = (λf.(λx.f (x x)) (λx.f (x x))) f}
+  \item<3->{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y f = f (y f)}
 \end{itemize}
 }
 
 \frame{
 \vskip 22mm%
-\frametitlecenter{{\color{black} Paul Graham},\\I know what is\\Y combinator!}
+\frametitlecenter{{\color{black} Paul Graham,}\\I know what is\\Y combinator!}
 }
 
 \subsection{Fixed Point Combinator}

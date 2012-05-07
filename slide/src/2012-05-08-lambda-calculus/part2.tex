@@ -196,7 +196,7 @@ No problems!}
 \frame{\frametitle{Y combinator}
 \begin{itemize}
   \item{Discovered by Haskell Curry}
-  \item{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y \ \ = λf.(λx.f (x x)) (λx.f (x x))}
+  \item{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y \ \ = (λf.(λx.f (x x)) (λx.f (x x)))}
   \item{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y f = (λf.(λx.f (x x)) (λx.f (x x))) f}
   \item{\normalsize\usebeamerfont*{font DejaVu Sans Mono} y f = f (y f)}
 \end{itemize}

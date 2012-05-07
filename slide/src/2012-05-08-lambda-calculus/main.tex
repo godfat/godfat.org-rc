@@ -1,0 +1,49 @@
+\documentclass[12pt]{beamer}
+\usetheme{jaifat}
+
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage[labelformat=empty]{caption}
+
+%% =============
+%% new command
+
+\newcommand{\frametitlecenter}[1]{
+%\vskip 12mm
+\hskip 3mm
+\vskip 10mm
+% \vskip 18pt
+\begin{beamercolorbox}[wd=.8\paperwidth,ht=1.5cm,center]{frametitle}
+  \usebeamerfont*{frametitle}{
+    \begin{spacing}{1.1} \fontsize{32}{32}\selectfont{#1} \end{spacing}
+  }\end{beamercolorbox}
+}%
+
+\newcommand{\ftc}[1]{\frame{\frametitlecenter{#1}}}%
+
+\newcommand{\jref}[2]{\href{#1}{{\color{blue}{#2}} {\tiny [link]}} }%
+
+% \renewcommand{\figurename}{}
+
+%% =============
+%% meta-data
+
+\title{Implementing Untyped λ-Calculus}
+\subtitle{in Haskell}
+
+\author{Lin Jen-Shin (godfat)}
+\date{2012-05-08}
+
+%% =============
+%% document body
+
+\begin{document}
+\frame{\titlepage}
+
+\input{part1}
+
+\input{part2}
+
+% \input{part3}
+
+\end{document}

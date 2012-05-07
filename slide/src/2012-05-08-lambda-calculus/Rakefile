@@ -1,0 +1,79 @@
+
+require 'pathname'
+
+module Gemgem
+  class << self
+    attr_accessor :dir, :spec
+  end
+
+  module_function
+  def all_files
+    @all_files ||= find_files(Pathname.new(dir)).map{ |file|
+      if file.to_s =~ %r{\.git/|\.git$}
+        nil
+      else
+        file.to_s
+      end
+    }.compact.sort
+  end
+
+  def ignored_files
+    @ignored_file ||= all_files.select{ |path| ignore_patterns.find{ |ignore|
+      path =~ ignore && !git_files.include?(path)}}
+  end
+
+  def git_files
+    @git_files ||= if File.exist?("#{dir}/.git")
+                     `git ls-files`.split("\n")
+                   else
+                     []
+                   end
+  end
+
+  # protected
+  def find_files path
+    path.children.select(&:file?).map{|file| file.to_s[(dir.size+1)..-1]} +
+    path.children.select(&:directory?).map{|dir| find_files(dir)}.flatten
+  end
+
+  def ignore_patterns
+    @ignore_files ||= expand_patterns(
+      gitignore.split("\n").reject{ |pattern|
+        pattern.strip == ''
+      }).map{ |pattern| %r{^([^/]+/)*?#{Regexp.escape(pattern)}(/[^/]+)*?$} }
+  end
+
+  def expand_patterns pathes
+    pathes.map{ |path|
+      if path !~ /\*/
+        path
+      else
+        expand_patterns(
+          Dir[path] +
+          Pathname.new(File.dirname(path)).children.select(&:directory?).
+            map{ |prefix| "#{prefix}/#{File.basename(path)}" })
+      end
+    }.flatten
+  end
+
+  def gitignore
+    if File.exist?(path = "#{dir}/.gitignore")
+      File.read(path)
+    else
+      ''
+    end
+  end
+end
+
+desc 'Remove ignored files'
+task :clean do
+  trash = "~/.Trash/#{File.basename(Dir.pwd)}"
+  sh "mkdir -p #{trash}" unless File.exist?(File.expand_path(trash))
+  Gemgem.ignored_files.each{ |file| sh "mv #{file} #{trash}" }
+end
+
+task :default do
+  puts `#{Gem.ruby} -S #{$PROGRAM_NAME} -T`
+end
+
+Gemgem.dir = File.dirname(__FILE__)

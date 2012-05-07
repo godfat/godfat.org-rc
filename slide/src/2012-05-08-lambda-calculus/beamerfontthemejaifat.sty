@@ -1,0 +1,126 @@
+\usepackage{fontspec}
+
+\mode<presentation>
+
+%% my font macro
+\setbeamerfont{my head/foot}{family=\fontspec{DejaVu Sans}}
+\setbeamerfont{font DejaVu Serif}{family=\fontspec{DejaVu Serif}}
+\setbeamerfont{font DejaVu Sans Mono}{family=\fontspec{DejaVu Sans Mono}}
+\setbeamerfont{font LiHei Pro}{family=\fontspec{LiHei Pro}}
+\setbeamerfont{font Hiragino Maru Gothic}{family=\fontspec{Hiragino Maru Gothic Pro W4}}
+
+%% basic setup
+\setbeamerfont{normal text}{} % ignored currently
+\setbeamerfont{alerted text}{}
+\setbeamerfont{example text}{}
+
+\setbeamerfont{structure}{family=\fontspec{DejaVu Sans}}
+\setbeamerfont{tiny structure}{family=\fontspec{DejaVu Sans},size=\tiny}
+
+%% every kind of title, metadata , etc..
+\setbeamerfont{title}{size=\Large,parent=structure}
+\setbeamerfont{title in head/foot}{parent={my head/foot}}
+\setbeamerfont{title in sidebar}{size=\tiny}
+
+\setbeamerfont{subtitle}{size=\large,parent=title}
+
+\setbeamerfont{author}{}
+\setbeamerfont{author in head/foot}{parent=structure}
+\setbeamerfont{author in sidebar}{parent={my head/foot},size=\footnotesize}
+
+\setbeamerfont{institute}{size=\scriptsize}
+\setbeamerfont{institute in head/foot}{}
+\setbeamerfont{institute in sidebar}{}
+
+\setbeamerfont{date}{}
+\setbeamerfont{date in head/foot}{parent={my head/foot},size=\footnotesize}
+\setbeamerfont{date in sidebar}{}
+
+%% everything about section
+\setbeamerfont{part name}{size=\LARGE}
+\setbeamerfont{part title}{size=\LARGE,parent=title}
+
+\setbeamerfont{section name}{size=\Large}
+\setbeamerfont{section title}{size=\Large,parent=title}
+
+\setbeamerfont{section in toc}{parent=structure}
+\setbeamerfont{section in toc shaded}{parent=section in toc}
+\setbeamerfont{section in head/foot}{parent={my head/foot}}
+\setbeamerfont{section in sidebar}{size=\tiny}
+\setbeamerfont{section number projected}{size=\small,parent={section in toc,projected text}}
+
+\setbeamerfont{subsection name}{size=\large}
+\setbeamerfont{subsection title}{size=\large,parent=title}
+
+\setbeamerfont{subsection in toc}{}
+\setbeamerfont{subsection in toc shaded}{parent=subsection in toc}
+\setbeamerfont{subsection in head/foot}{parent={my head/foot}}
+\setbeamerfont{subsection in sidebar}{}
+
+\setbeamerfont{subsubsection in toc}{size=\footnotesize}
+\setbeamerfont{subsubsection in toc shaded}{parent=subsubsection in toc}
+\setbeamerfont{subsubsection in head/foot}{parent={my head/foot}}
+\setbeamerfont{subsubsection in sidebar}{}
+
+%% list
+\setbeamerfont{item}{parent=structure}
+\setbeamerfont{subitem}{parent=item}
+\setbeamerfont{subsubitem}{parent=subitem}
+
+\setbeamerfont{item projected}{size=\tiny,parent={item,projected text}}
+\setbeamerfont{subitem projected}{parent=item projected}
+\setbeamerfont{subsubitem projected}{parent=subitem projected}
+
+\setbeamerfont{itemize item}{parent=item}
+\setbeamerfont{itemize subitem}{parent=subitem}
+\setbeamerfont{itemize subsubitem}{parent=subsubitem}
+
+\setbeamerfont{enumerate item}{parent=item}
+\setbeamerfont{enumerate subitem}{parent=subitem}
+\setbeamerfont{enumerate subsubitem}{parent=subsubitem}
+
+    %%%% enlarge the font size in bullet body %%%%
+\setbeamerfont{itemize/enumerate body}{size=\large,family=\fontspec{DejaVu Sans}}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize,family=\fontspec{DejaVu Sans}}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\small,family=\fontspec{DejaVu Sans}}
+
+
+%% misc
+\setbeamerfont{headline}{parent={tiny structure}}
+\setbeamerfont{footline}{parent={tiny structure}}
+
+\setbeamerfont{sidebar}{size=\Tiny,parent={tiny structure}}
+\setbeamerfont{sidebar left}{parent=sidebar}
+\setbeamerfont{sidebar right}{parent=sidebar}
+
+\setbeamerfont{frametitle}{parent=structure,size=\Large}
+\setbeamerfont{framesubtitle}{parent=frametitle,size=\footnotesize}
+
+\setbeamerfont{caption}{size=\small,family=\fontspec{DejaVu Sans}}
+\setbeamerfont{caption name}{parent={structure,caption}}
+
+\setbeamerfont{button}{size=\tiny}
+
+\setbeamerfont{block body}{}
+\setbeamerfont{block body alerted}{}
+\setbeamerfont{block body example}{}
+\setbeamerfont{block title}{size=\large,parent={structure,block body}}
+\setbeamerfont{block title alerted}{parent={block title,alerted text}}
+\setbeamerfont{block title example}{parent={block title,example text}}
+
+\setbeamerfont{description item}{parent=item}
+
+\setbeamerfont{projected text}{parent={tiny structure}}
+
+\setbeamerfont{abstract}{size=\small}
+\setbeamerfont{abstract title}{parent={abstract,structure},size=\normalsize}
+
+\setbeamerfont{verse}{family=\rmfamily,shape=\itshape}
+
+\setbeamerfont{quotation}{shape=\itshape}
+\setbeamerfont{quote}{parent=quotation}
+
+\setbeamerfont{note page}{size=\small}
+
+\mode
+<all>

@@ -4,6 +4,7 @@
 \usepackage{hyperref}
 \usepackage{setspace}
 \usepackage[labelformat=empty]{caption}
+\usepackage{ulem}
 
 %% =============
 %% new command
@@ -20,7 +21,7 @@
 }%
 
 \newcommand{\ftc}[1]{\frame{\frametitlecenter{#1}}}%
-
+\newcommand{\ftcc}[2]{\frame{#2\frametitlecenter{#1}}}%
 \newcommand{\jref}[2]{\href{#1}{\underline{#2}}}%
 
 % \renewcommand{\figurename}{}
@@ -40,10 +41,9 @@
 \begin{document}
 \frame{\titlepage}
 
+\input{part0}
 \input{part1}
-
 \input{part2}
-
-% \input{part3}
+\input{part3}
 
 \end{document}

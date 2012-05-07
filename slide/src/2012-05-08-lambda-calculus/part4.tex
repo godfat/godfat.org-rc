@@ -92,3 +92,25 @@ test2 = evaluate (Plus (Plus (Literal 1) \\
  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Literal 2)) \\
  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Literal 3))
 }
+
+\ftc{Algebraic Datatypes}
+
+\frame{\frametitle{Algebraic Datatypes}
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+{\color{white} module Main where \\
+.} \\
+data Expression = Literal Integer \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Plus Expression Expression \\
+\color{white}. \\
+evaluate :: Expression -> Integer \\
+evaluate (Literal i) \ \ \ \ \ \ \ = i \\
+evaluate (Plus expr0 expr1) = \\
+\ \ evaluate expr0 + evaluate expr1 \\
+. \\
+test0 = evaluate (Literal 1) \\
+test1 = evaluate (Plus (Literal 1) (Literal 2)) \\
+test2 = evaluate (Plus (Plus (Literal 1) \\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Literal 2)) \\
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Literal 3))
+}

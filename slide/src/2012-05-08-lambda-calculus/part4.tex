@@ -289,3 +289,54 @@ $\begin{array}{l}
 \text{[("var", 1)] :: [(String, Integer)]}
 \end{array}$
 }
+
+\frame{\frametitle{Curried Functions}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+evaluate :: Expression -> Environment -> Integer
+}
+
+\frame{\frametitle{Curried Functions}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+evaluate :: Expression -> (Environment -> Integer)
+}
+
+\frame{\frametitle{Uncurried Functions}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+evaluate :: (Expression, Environment) -> Integer
+}
+
+\frame{\frametitle{Uncurried Functions}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+threeArguments :: \\ (String, String, String) -> Integer
+}
+
+\frame{\frametitle{Curried Function}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+threeArguments :: \\ String -> String -> String -> Integer
+}
+
+\frame{\frametitle{Curried Function}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+threeArguments :: \\ String -> (String -> String -> Integer)
+}
+
+\frame{\frametitle{Curried Function}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+threeArguments :: \\ String -> (String -> (String -> Integer))
+}
+
+\ftc{(->) is right-associative}

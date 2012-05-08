@@ -271,7 +271,7 @@ evaluate (Plus expr0 expr1) env = \\
 evaluate (Variable name) \ \ \ env = \\
  \ \ case lookup name env of (Just i) -> i
 }
-\frame{\frametitle{Pair}
+\frame{\frametitle{Pair of a and b}
 \vskip -2.6mm%
 \footnotesize
 \usebeamerfont*{font DejaVu Sans Mono}
@@ -279,7 +279,7 @@ evaluate (Variable name) \ \ \ env = \\
 (2, "var") :: (Integer, String)
 }
 
-\frame{\frametitle{List}
+\frame{\frametitle{List of a}
 \vskip -2.6mm%
 \footnotesize
 \usebeamerfont*{font DejaVu Sans Mono}
@@ -340,3 +340,50 @@ threeArguments :: \\ String -> (String -> (String -> Integer))
 }
 
 \ftc{(->) is right-associative}
+
+\frame{\frametitle{Partially Applied Function}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+filter :: (a -> Bool) -> [a] -> [a] \\
+{\color{white}.} \\
+above60 :: [a] -> [a] \\
+above60 = filter (>=60) \\
+{\color{white}.} \\
+above60 [1..65] -- [60,61,62,63,64,65]
+}
+
+\frame{\frametitle{Partially Applied Function}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+map :: (a -> b) -> [a] -> [b] \\
+{\color{white}.} \\
+div2 :: [Integer] -> [Integer] \\
+div2 = map (`div`2) \\
+{\color{white}.} \\
+div2 [1..5] -- [0,1,1,2,2]
+}
+
+\frame{\frametitle{Function Composition}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+(.) :: (b -> c) -> (a -> b) -> a -> c \\
+{\color{white}.} \\
+above60AndDiv2 :: [Integer] -> [Integer] \\
+above60AndDiv2 = div2 . above60 \\
+{\color{white}.} \\
+above60AndDiv2 [1..65] -- [30,30,31,31,32,32]
+}
+
+\frame{\frametitle{We're hiring}
+\begin{itemize}
+  \item[]{}
+  \item[]{}
+  \item[]{\includegraphics[width=0.5\textwidth]{image/cb.png}}
+  \item[]{\jref{http://cardinalblue.com/jobs}{http://cardinalblue.com/jobs}}
+  \item[]{}
+  \item[]{}
+\end{itemize}
+}

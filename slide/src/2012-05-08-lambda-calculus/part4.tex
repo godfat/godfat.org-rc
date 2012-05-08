@@ -377,6 +377,37 @@ above60AndDiv2 = div2 . above60 \\
 above60AndDiv2 [1..65] -- [30,30,31,31,32,32]
 }
 
+\frame{\frametitle{Function Composition}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+compose :: (b -> c) -> (a -> b) -> a -> c \\
+compose g f x = g (f x) \\
+}
+
+\frame{
+\vskip -2.6mm%
+\usebeamerfont*{font DejaVu Sans}
+Curried functions make function composition powerful, \\
+function composition makes curried function even more useful.
+}
+
+\frame{\frametitle{List of Partially Applied Functions}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+mapPlus = map (+) -- think of [(+), (+), ...] \\
+{\color{white}.} \\
+mapPlus1to5 = mapPlus [1..5] \\
+-- think of [(1+), (2+), ...] \\
+{\color{white}.} \\
+map (\$1) mapPlus1to5 -- [2,3,4,5,6] \\
+{\color{white}.} \\
+{\color{white}.} \\
+-- applicative functor style \\
+(+) <\$> [1..5] <*> [1] -- [2,3,4,5,6]
+}
+
 \frame{\frametitle{We're hiring}
 \begin{itemize}
   \item[]{}

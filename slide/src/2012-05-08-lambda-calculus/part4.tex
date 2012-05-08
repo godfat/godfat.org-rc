@@ -408,6 +408,84 @@ map (\$1) mapPlus1to5 -- [2,3,4,5,6] \\
 (+) <\$> [1..5] <*> [1] -- [2,3,4,5,6]
 }
 
+\frame{\frametitle{Exception Handling}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+data Expression = Literal Integer \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Plus Expression Expression \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Variable Name \\
+{\color{white}.} \\
+type Name = String \\
+type Environment = [(Name, Integer)] \\
+{\color{white}.} \\
+type {\color{darkblue}Value} = Maybe Integer \\
+{\color{white}.} \\
+evaluate :: Expression -> Environment -> {\color{darkblue}Value} \\
+}
+
+\frame{\frametitle{Exception Handling}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+data Expression = Literal Integer \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Plus Expression Expression \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Variable Name \\
+{\color{white}.} \\
+type Name = String \\
+type Environment = [(Name, Integer)] \\
+{\color{white}.} \\
+type {\color{darkblue}Value} = Maybe Integer \\
+{\color{white}.} \\
+evaluate :: Expression -> Environment -> {\color{darkblue}Value} \\
+evaluate (Literal i) \ \ \ \ \ \ \ env = Just i \\
+evaluate (Variable name) \ \ \ env = lookup name env
+}
+
+\frame{\frametitle{Exception Handling}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+evaluate (Plus expr0 expr1) env = \\
+ \ \ let val0 = evaluate expr0 env \\
+ \ \ \ \ \ \ val1 = evaluate expr1 env \\
+ \ \ in \\
+ \ \ \ \ \ \ case val0 of \\
+ \ \ \ \ \ \ \ \ (Nothing) -> Nothing \\
+ \ \ \ \ \ \ \ \ (Just i0) -> case val1 of \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Nothing) -> Nothing \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Just i1) -> Just (i0 + i1)
+}
+
+\frame{\frametitle{Maybe Monad with do notation}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+evaluate (Plus expr0 expr1) env = \\
+ \ \ do \\
+ \ \ \ \ val0 <- evaluate expr0 env \\
+ \ \ \ \ val1 <- evaluate expr1 env \\
+ \ \ \ \ return (val0 + val1)
+}
+
+\frame{\frametitle{Do notation underneath}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+evaluate (Plus expr0 expr1) env = \\
+ \ \ evaluate expr0 env >>= \textbackslash val0 -> \\
+ \ \ \ \ evaluate expr1 env >>= \textbackslash val1 -> return (val0 + val1)
+}
+
+\frame{\frametitle{liftM2}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+evaluate (Plus expr0 expr1) env = \\
+ \ \ evaluate expr0 env `plus` evaluate expr1 env where \\
+ \ \ plus = liftM2 (+)
+}
+
 \frame{\frametitle{We're hiring}
 \begin{itemize}
   \item[]{}

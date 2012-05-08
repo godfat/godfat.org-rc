@@ -13,7 +13,8 @@
   \end{itemize}
 }
 
-\frame{\frametitle{First Expression and evaluate}
+\frame{\frametitle{First Expression and evaluate (\jref{https://github.com/godfat/sandbox/blob/master/haskell/fpug/01/00.lhs
+}{source})}
 \footnotesize
 \usebeamerfont*{font DejaVu Sans Mono}
 module Main where \\
@@ -33,7 +34,8 @@ test2 = evaluate (Plus (Plus (Literal 1) \\
  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Literal 3))
 }
 
-\frame{\frametitle{First Expression and evaluate}
+\frame{\frametitle{First Expression and evaluate (\jref{https://github.com/godfat/sandbox/blob/master/haskell/fpug/01/00.lhs
+}{source})}
 \footnotesize
 \usebeamerfont*{font DejaVu Sans Mono}
 module Main where \\
@@ -53,7 +55,8 @@ test2 = evaluate (Plus (Plus (Literal 1) \\
  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Literal 3))
 }
 
-\frame{\frametitle{First Expression and evaluate}
+\frame{\frametitle{First Expression and evaluate (\jref{https://github.com/godfat/sandbox/blob/master/haskell/fpug/01/00.lhs
+}{source})}
 \footnotesize
 \usebeamerfont*{font DejaVu Sans Mono}
 module Main where \\
@@ -73,7 +76,8 @@ test2 = evaluate (Plus (Plus (Literal 1) \\
  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Literal 3))
 }
 
-\frame{\frametitle{First Expression and evaluate}
+\frame{\frametitle{First Expression and evaluate (\jref{https://github.com/godfat/sandbox/blob/master/haskell/fpug/01/00.lhs
+}{source})}
 \footnotesize
 \usebeamerfont*{font DejaVu Sans Mono}
 module Main where \\
@@ -127,8 +131,159 @@ evaluate (Plus expr0 expr1) = \\
  \ \ evaluate expr0 + evaluate expr1 \\
 {\color{white}. \\
 test0 = evaluate (Literal 1)} \\
-\usebeamerfont*{font DejaVu Sans} {\color{darkblue} Think of dyanamic\raisebox{.5mm}{\underline{ }}cast or instanceof with a switch if you like OOP} \\
+\usebeamerfont*{font DejaVu Sans} {\color{darkblue} Think of dynamic\raisebox{.5mm}{\underline{ }}cast or instanceof with a switch if you like OOP} \\
 \usebeamerfont*{font DejaVu Sans Mono} \color{white} test2 = evaluate (Plus (Plus (Literal 1) \\
  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Literal 2)) \\
  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Literal 3))
+}
+
+\frame{\frametitle{First Expression and evaluate (\jref{https://github.com/godfat/sandbox/blob/master/haskell/fpug/01/00.lhs
+}{source})}
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+module Main where \\
+{\color{white}.} \\
+data Expression = Literal Integer \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Plus Expression Expression \\
+{\color{white}.} \\
+evaluate :: Expression -> Integer \\
+evaluate (Literal i) \ \ \ \ \ \ \ = i \\
+evaluate (Plus expr0 expr1) = \\
+ \ \ evaluate expr0 + evaluate expr1 \\
+{\color{white}.} \\
+test0 = evaluate (Literal 1) \\
+test1 = evaluate (Plus (Literal 1) (Literal 2)) \\
+test2 = evaluate (Plus (Plus (Literal 1) \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Literal 2)) \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (Literal 3))
+}
+
+\frame{\frametitle{Variable and Environment (\jref{https://github.com/godfat/sandbox/blob/master/haskell/fpug/01/01.lhs
+}{source})}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+module Main where \\
+{\color{white}.} \\
+data Expression = Literal Integer \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Plus Expression Expression \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Variable String \\
+\color{white}. \\
+type Environment = [(String, Integer)] \\
+\color{white}. \\
+evaluate :: Expression -> Environment -> Integer \\
+evaluate (Literal i) \ \ \ \ \ \ \ env = i \\
+evaluate (Plus expr0 expr1) env = \\
+ \ \ evaluate expr0 env + evaluate expr1 env \\
+evaluate (Variable name) \ \ \ env = \\
+ \ \ case lookup name env of (Just i) -> i
+}
+
+\frame{\frametitle{Variable and Environment (\jref{https://github.com/godfat/sandbox/blob/master/haskell/fpug/01/01.lhs
+}{source})}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+module Main where \\
+{\color{white}.} \\
+data Expression = Literal Integer \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Plus Expression Expression \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Variable String \\
+{\color{white}.} \\
+type Environment = [(String, Integer)] \\
+\color{white}. \\
+evaluate :: Expression -> Environment -> Integer \\
+evaluate (Literal i) \ \ \ \ \ \ \ env = i \\
+evaluate (Plus expr0 expr1) env = \\
+ \ \ evaluate expr0 env + evaluate expr1 env \\
+evaluate (Variable name) \ \ \ env = \\
+ \ \ case lookup name env of (Just i) -> i
+}
+
+\frame{\frametitle{Variable and Environment (\jref{https://github.com/godfat/sandbox/blob/master/haskell/fpug/01/01.lhs
+}{source})}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+module Main where \\
+{\color{white}.} \\
+data Expression = Literal Integer \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Plus Expression Expression \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Variable String \\
+{\color{white}.} \\
+type Environment = [(String, Integer)] \\
+{\color{white}.} \\
+evaluate :: Expression -> Environment -> Integer \\
+\color{white} evaluate (Literal i) \ \ \ \ \ \ \ env = i \\
+evaluate (Plus expr0 expr1) env = \\
+ \ \ evaluate expr0 env + evaluate expr1 env \\
+evaluate (Variable name) \ \ \ env = \\
+ \ \ case lookup name env of (Just i) -> i
+}
+
+\frame{\frametitle{Variable and Environment (\jref{https://github.com/godfat/sandbox/blob/master/haskell/fpug/01/01.lhs
+}{source})}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+module Main where \\
+{\color{white}.} \\
+data Expression = Literal Integer \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Plus Expression Expression \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Variable String \\
+{\color{white}.} \\
+type Environment = [(String, Integer)] \\
+{\color{white}.} \\
+evaluate :: Expression -> Environment -> Integer \\
+evaluate (Literal i) \ \ \ \ \ \ \ env = i \\
+evaluate (Plus expr0 expr1) env = \\
+ \ \ evaluate expr0 env + evaluate expr1 env \\
+evaluate (Variable name) \ \ \ env = \\
+ \ \ case lookup name env of (Just i) -> i
+}
+
+\frame{\frametitle{Variable and Environment (\jref{https://github.com/godfat/sandbox/blob/master/haskell/fpug/01/01.lhs
+}{source})}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+test0 = evaluate (Variable "var") [("var", 1)] \\
+test1 = evaluate (Plus (Variable "var") (Literal 2)) [("var", 1)]
+}
+
+\frame{\frametitle{Type Alias}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+module Main where \\
+{\color{white}.} \\
+data Expression = Literal Integer \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Plus Expression Expression \\
+ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ | Variable {\color{darkblue}Name} \\
+{\color{white}.} \\
+type {\color{darkblue}Name} = String \\
+type Environment = [({\color{darkblue}Name}, Integer)] \\
+{\color{white}.} \\
+evaluate :: Expression -> Environment -> Integer \\
+evaluate (Literal i) \ \ \ \ \ \ \ env = i \\
+evaluate (Plus expr0 expr1) env = \\
+ \ \ evaluate expr0 env + evaluate expr1 env \\
+evaluate (Variable name) \ \ \ env = \\
+ \ \ case lookup name env of (Just i) -> i
+}
+\frame{\frametitle{Pair}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+("var", 2) :: (String, Integer) \\
+(2, "var") :: (Integer, String)
+}
+
+\frame{\frametitle{List}
+\vskip -2.6mm%
+\footnotesize
+\usebeamerfont*{font DejaVu Sans Mono}
+[1,2,3] :: [Integer] \\
+["a","b","c"] :: [String] \\
+("var", 1) :: [(String, Integer)]
 }

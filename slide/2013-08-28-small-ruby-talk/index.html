@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>Small Ruby Talk</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=792, user-scalable=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="http://fonts.googleapis.com/css?family=Roboto+Slab|Oxygen+Mono" rel="stylesheet" type="text/css">
+  <link href="screen.css" rel="stylesheet" type="text/css">
+</head>
+<body class="list">
+  <header class="caption"></header>
+
+<section class="slide shout"><div>
+  <h2>Small<br/>Ruby Talk</h2>
+</div></section>
+
+<section class="slide"><div>
+  <ul>
+    <li>Type System</li>
+    <ul>
+      <li class="next">Static Typing vs Dynamic Typing</li>
+    </ul>
+    <li class="next">Runtime System (object model)</li>
+    <ul>
+      <li class="next">Singleton class? pattern?</li>
+    </ul>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Singleton Pattern</h2>
+  <pre><code class="ruby">
+require 'singleton'
+class Mario
+  include Singleton
+
+
+  def greets
+    puts "It's me, Mario!"
+  end
+end
+Mario.instance.greets
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Singleton Pattern Underneath</h2>
+  <pre><code class="ruby">
+# (simplified)
+class Mario
+  def self.instance
+    @instance ||= new
+  end
+  def greets
+    puts "It's me, Mario!"
+  end
+end
+Mario.instance.greets
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Singleton Pattern *Simplest*</h2>
+  <pre><code class="ruby">
+
+Mario = Object.new
+
+
+
+  def Mario.greets
+    puts "It's me, Mario!"
+  end
+
+Mario.greets
+</code></pre>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2>Q?</h2>
+</div></section>
+
+  <div class="progress"><div></div></div>
+  <script src='highlight.pack.js' type='text/javascript'></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <script src="shower.min.js"></script>
+</body>
+</html>

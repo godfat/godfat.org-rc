@@ -43,7 +43,7 @@
 
 <section class="slide"><div>
   <h2>Valid, but don't do this:</h2>
-  <pre><code>
+  <pre><code class="ruby">
 p(if (class C; self; end)
   def f a=(def g a; 'g'; end)
     g a
@@ -67,7 +67,7 @@ end) # => 'g'</code></pre>
 
 <section class="slide"><div>
   <h2>There's more than one<br> way to do it (perlish)</h2>
-  <pre><code>
+  <pre><code class="ruby">
 Object.instance_method(:p).bind(self).call(self)
 # => main</code></pre>
   <h2>Equivalent to:</h2>
@@ -89,6 +89,31 @@ p self # => main</code></pre>
       <li class="next">Singleton class? Pattern?</li>
     </ul>
   </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Static Typing vs<br>Dynamic Typing</h2>
+  <ul>
+    <li>They are not conflicting</li>
+    <li class="next">
+      Think of DT as "unityped" in ST
+      <ul><li>ref: <a href="http://existentialtype.wordpress.com/2011/03/19/dynamic-languages-are-static-languages/">Dynamic languages are static languages</a></li></ul></li>
+    <li class="next">Downcasting is dynamic type checking</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Extracted from gson</h2>
+  <pre><code class="java">
+@SuppressWarnings("unchecked")
+public &lt;T&gt; T fromJson(String json, Type typeOfT) throws JsonSyntaxException {
+  if (json == null) {
+    return null;
+  }
+  StringReader reader = new StringReader(json);
+  T target = <em>(T)</em> fromJson(reader, typeOfT);
+  return target;
+}</code></pre>
 </div></section>
 
 <section class="slide"><div>

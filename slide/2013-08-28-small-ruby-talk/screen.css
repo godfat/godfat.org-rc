@@ -143,9 +143,11 @@ a {
   color: #4b86c2; }
 .slide b, .slide strong {
   font-weight: bold; }
-.slide i, .slide em {
+.slide i {
   font-style: italic; }
-.slide kbd, .slide code, .slide samp {
+.slide em {
+  color: crimson; }
+.slide kbd, .slide samp {
   padding: 3px 8px;
   border-radius: 8px;
   background: #fafaa2;

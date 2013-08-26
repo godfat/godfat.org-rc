@@ -12,18 +12,81 @@
   <header class="caption"></header>
 
 <section class="slide shout"><div>
-  <h2>Small<br/>Ruby Talk</h2>
+  <h2>Small<br/><img src="http://upload.wikimedia.org/wikipedia/commons/7/73/Ruby_logo.svg" alt="Ruby"> Talk</h2>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2>Lisp <em>+</em> Smalltalk</h2>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2>Lisp: <em>Everything</em> is an expression</h2>
 </div></section>
 
 <section class="slide"><div>
+  <h2>The followings are expressions:</h2>
+  <ul>
+    <li>Class definition</li>
+    <li class="next">Method definition</li>
+    <li class="next">if statement</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>The followings are expressions:</h2>
+  <ul>
+    <li>Class definition</li>
+    <li>Method definition</li>
+    <li>if <em><span style="text-decoration: line-through">statement</span></em> expression</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Valid, but don't do this:</h2>
+  <pre><code>
+p(if (class C; self; end)
+  def f a=(def g a; 'g'; end)
+    g a
+  end
+  g f
+end) # => 'g'</code></pre>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2>Smalltalk: <em>Everything</em> is an object</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>The followings are objects:</h2>
+  <ul>
+    <li>Class</li>
+    <li class="next">Method</li>
+    <li class="next">TOPLEVEL_BINDING</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>There's more than one<br> way to do it (perlish)</h2>
+  <pre><code>
+Object.instance_method(:p).bind(self).call(self)
+# => main</code></pre>
+  <h2>Equivalent to:</h2>
+    <pre><code>
+p self # => main</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Today's Topics:</h2>
   <ul>
     <li>Type System</li>
     <ul>
       <li class="next">Static Typing vs Dynamic Typing</li>
+      <li class="next">Strong or Weak? Coercion?</li>
     </ul>
     <li class="next">Runtime System (object model)</li>
     <ul>
-      <li class="next">Singleton class? pattern?</li>
+      <li class="next">Object is an Object itself</li>
+      <li class="next">Singleton class? Pattern?</li>
     </ul>
   </ul>
 </div></section>

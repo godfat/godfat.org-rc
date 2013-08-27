@@ -526,7 +526,7 @@ Object.new.greets
 
 <section class="slide"><div>
   <h2>So class methods are<br>singleton methods!</h2>
-  <pre><code>
+  <pre><code class="ruby">
 Time.class # => Class
 Time.at(0) # => 1970-01-01 08:00:00 +0800
 <span class="next">Hash.class # => Class
@@ -538,7 +538,7 @@ Hash.at(0) # => NoMethodError: undefined method</span>
 
 <section class="slide"><div>
   <h2>So class methods are<br>singleton methods!</h2>
-  <pre><code>
+  <pre><code class="ruby">
   def Mario.greet; puts "It's me, Mario!"; end
 Mario.singleton_class.module_eval do
   def       greet; puts "It's me, Mario!"; end
@@ -581,6 +581,57 @@ end</span>
 </div></section>
 
 <section class="slide"><div>
+  <h2>A taste of Muack</h2>
+  <pre><code class="ruby">
+require 'muack'
+include Muack::API
+Mario = 'Mario'
+mock(Mario).greet{ "It's me, #{Mario.reverse}!" }
+mock(Mario).reverse.proxy.returns(&:reverse)
+puts Mario.greet # "It's me, Mario!"
+Muack.verify
+</code></pre>
+  <ul>
+    <li class="next"><em>greet</em> and <em>reverse</em> is defined in Mario's singleton class</li>
+    <li class="next">Proxy would call <em>super</em> to call the original method</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>any_instance_of</h2>
+  <pre><code class="ruby">
+Luigi = Class.new{
+           def greet; "It's me, #{self}!" end }
+<em>any_instance_of</em>(Luigi) do |luigi|
+  mock(luigi).to_s.proxy.returns{ |s| s[/\w+/] }
+end
+puts Luigi.new.greet # It's me, Luigi!
+Muack.verify
+</code></pre>
+  <ul>
+    <li class="next"><em>greet</em> and <em>to_s</em> is defined in Luigi (not singleton class)</li>
+    <li class="next">Proxy would call <em>super</em> to call the original method</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Trick in AnyInstanceOf:</h2>
+  <pre><code class="ruby">
+Muack::AnyInstanceOf =
+  Class.new(Struct.new(:singleton_class))
+</code></pre>
+  <span class="next"><h2>Fake singleton class as class</h2>
+  <pre><code class="ruby">
+Muack::AnyInstanceOf.new(Luigi).
+  singleton_class == Luigi # true
+</code></pre></span>
+</div></section>
+
+<section class="slide"><div>
+  <h2>If</h2>
+  <h2>We need to go deeper</h2>
+  <h2>For Muack</h2>
+  <h2>Use the <a href="https://github.com/godfat/muack">Source</a>, Tux!</h2>
 </div></section>
 
 <section class="slide shout"><div>

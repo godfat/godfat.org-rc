@@ -176,14 +176,14 @@ else
 <section class="slide"><div>
   <h2>Perl Type Coercion</h2>
   <pre><code>
-'1' +  1  #   2
- 1  . '1' # '11'</code></pre>
+'1' +  1  <span class="next">#   2</span>
+ <span class="next">1  . '1' # '11'</span></code></pre>
   <span class="next"><h2>JavaScript Type <em>Nonsense</em></h2>
   <pre><code>
-'1' +  1  // '11'
- 1  + '1' // '11'
- true + true // 2
- true + []   // 'true'</code></pre></span>
+'1' +  1     <span class="next">// '11'</span>
+ <span class="next">1  + '1'</span>    <span class="next">// '11'</span>
+ <span class="next">true + true</span> <span class="next">//   2</span>
+ <span class="next">true + []</span>   <span class="next">// 'true'</span></code></pre></span>
 </div></section>
 
 <section class="slide"><div>
@@ -217,6 +217,13 @@ new Date(0) - 0  // 0
     </ul>
     <li><a href="https://github.com/godfat/muack">Muack</a> -- Yet Another Mocking Library</li>
   </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Object is an Object itself</h2>
+  <pre><code class="ruby">
+Object    .kind_of?(Object) <span class="next"># true</span>
+<span class="next">Object.new.kind_of?(Object)</span> <span class="next"># true</span></code></pre>
 </div></section>
 
 <section class="slide"><div>

@@ -70,9 +70,9 @@ end) # => 'g'</code></pre>
   <pre><code class="ruby">
 Object.instance_method(:p).bind(self).call(self)
 # => main</code></pre>
-  <h2>Equivalent to:</h2>
+  <span class="next"><h2>Equivalent to:</h2>
     <pre><code>
-p self # => main</code></pre>
+p self # => main</code></pre></span>
 </div></section>
 
 <section class="slide"><div>
@@ -88,6 +88,7 @@ p self # => main</code></pre>
       <li class="next">Object is an Object itself</li>
       <li class="next">Singleton class? Pattern?</li>
     </ul>
+    <li class="next">Muack -- Yet Another Mocking Library</li>
   </ul>
 </div></section>
 
@@ -114,6 +115,28 @@ public &lt;T&gt; T fromJson(String json, Type typeOfT) throws JsonSyntaxExceptio
   T target = <em>(T)</em> fromJson(reader, typeOfT);
   return target;
 }</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Duck Typing</h2>
+  <pre><code class="ruby">
+Duck.new.walk</code></pre>
+  <span class="next"><h2>Could be thought as:</h2>
+  <pre><code class="java">
+Object duck = new Duck();
+if(duck.isRespondingTo("walk"))
+    duck.dispatch("walk");
+else
+    throw new NoMethodError(duck, "walk");</code></pre></span>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Strong or Weak? Coercion?</h2>
+  <ul>
+    <li>Vague terms</li>
+    <li class="next">Implicit type coercion</li>
+    <li class="next"></li>
+  </ul>
 </div></section>
 
 <section class="slide"><div>

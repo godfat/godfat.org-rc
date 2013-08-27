@@ -24,7 +24,7 @@
 </div></section>
 
 <section class="slide"><div>
-  <h2>The followings are expressions:</h2>
+  <h2>The followings are <em>expressions</em>:</h2>
   <ul>
     <li>Class definition</li>
     <li class="next">Method definition</li>
@@ -33,7 +33,7 @@
 </div></section>
 
 <section class="slide"><div>
-  <h2>The followings are expressions:</h2>
+  <h2>The followings are <em>expressions</em>:</h2>
   <ul>
     <li>Class definition</li>
     <li>Method definition</li>
@@ -42,7 +42,7 @@
 </div></section>
 
 <section class="slide"><div>
-  <h2>Valid, but don't do this:</h2>
+  <h2><em>Valid</em>, but don't do this:</h2>
   <pre><code class="ruby">
 p(if (class C; self; end)
   def f a=(def g a; 'g'; end)
@@ -57,7 +57,7 @@ end) # => 'g'</code></pre>
 </div></section>
 
 <section class="slide"><div>
-  <h2>The followings are objects:</h2>
+  <h2>The followings are <em>objects</em>:</h2>
   <ul>
     <li>Class</li>
     <li class="next">Method</li>
@@ -88,7 +88,24 @@ p self # => main</code></pre></span>
       <li class="next">Object is an Object itself</li>
       <li class="next">Singleton class? Pattern?</li>
     </ul>
-    <li class="next">Muack -- Yet Another Mocking Library</li>
+    <li class="next"><a href="https://github.com/godfat/muack">Muack</a> -- Yet Another Mocking Library</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Today's Topics:</h2>
+  <ul>
+    <li>Type System</li>
+    <ul>
+      <li><em>Static Typing vs Dynamic Typing</em></li>
+      <li>Strong or Weak? Coercion?</li>
+    </ul>
+    <li>Runtime System (object model)</li>
+    <ul>
+      <li>Object is an Object itself</li>
+      <li>Singleton class? Pattern?</li>
+    </ul>
+    <li><a href="https://github.com/godfat/muack">Muack</a> -- Yet Another Mocking Library</li>
   </ul>
 </div></section>
 
@@ -97,14 +114,14 @@ p self # => main</code></pre></span>
   <ul>
     <li>They are not conflicting</li>
     <li class="next">
-      Think of DT as "unityped" in ST
+      Think of DT as "<em>unityped</em>" in ST
       <ul><li>ref: <a href="http://existentialtype.wordpress.com/2011/03/19/dynamic-languages-are-static-languages/">Dynamic languages are static languages</a></li></ul></li>
     <li class="next">Downcasting is dynamic type checking</li>
   </ul>
 </div></section>
 
 <section class="slide"><div>
-  <h2>Extracted from gson</h2>
+  <h2>Extracted from <em>gson</em></h2>
   <pre><code class="java">
 @SuppressWarnings("unchecked")
 public &lt;T&gt; T fromJson(String json, Type typeOfT) throws JsonSyntaxException {
@@ -124,18 +141,98 @@ Duck.new.walk</code></pre>
   <span class="next"><h2>Could be thought as:</h2>
   <pre><code class="java">
 Object duck = new Duck();
-if(duck.isRespondingTo("walk"))
+if(duck.<em>isRespondingTo</em>("walk"))
     duck.dispatch("walk");
 else
     throw new NoMethodError(duck, "walk");</code></pre></span>
 </div></section>
 
 <section class="slide"><div>
+  <h2>Today's Topics:</h2>
+  <ul>
+    <li>Type System</li>
+    <ul>
+      <li>Static Typing vs Dynamic Typing</li>
+      <li><em>Strong or Weak? Coercion?</em></li>
+    </ul>
+    <li>Runtime System (object model)</li>
+    <ul>
+      <li>Object is an Object itself</li>
+      <li>Singleton class? Pattern?</li>
+    </ul>
+    <li><a href="https://github.com/godfat/muack">Muack</a> -- Yet Another Mocking Library</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
   <h2>Strong or Weak? Coercion?</h2>
   <ul>
     <li>Vague terms</li>
-    <li class="next">Implicit type coercion</li>
-    <li class="next"></li>
+    <li class="next">It's not about static typing or dynamic typing</li>
+    <li class="next">Sometimes it means implicit type coercion</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Perl Type Coercion</h2>
+  <pre><code>
+'1' +  1  #   2
+ 1  . '1' # '11'</code></pre>
+  <span class="next"><h2>JavaScript Type <em>Nonsense</em></h2>
+  <pre><code>
+'1' +  1  // '11'
+ 1  + '1' // '11'
+ true + true // 2
+ true + []   // 'true'</code></pre></span>
+</div></section>
+
+<section class="slide"><div>
+  <h2><em>More</em><br> JavaScript Type <em>Nonsense</em></h2>
+  ref: <a href="http://ckknight.github.io/gorillascript/">GorillaScript</a>
+  <pre><code>
+true + null      // 1
+true + <em>undefined</em> // NaN
+true + {}        // 'true[object Object]'
+new Date(0) + 0  // 'Thu Jan 01 1970 08:00:00 GMT+0800 (CST)0'
+new Date(0) - 0  // 0
+</code></pre>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2><em>ლ(ಠ益ಠ╬)ლ</em></h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Today's Topics:</h2>
+  <ul>
+    <li>Type System</li>
+    <ul>
+      <li>Static Typing vs Dynamic Typing</li>
+      <li>Strong or Weak? Coercion?</li>
+    </ul>
+    <li>Runtime System (object model)</li>
+    <ul>
+      <li><em>Object is an Object itself</em></li>
+      <li>Singleton class? Pattern?</li>
+    </ul>
+    <li><a href="https://github.com/godfat/muack">Muack</a> -- Yet Another Mocking Library</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Today's Topics:</h2>
+  <ul>
+    <li>Type System</li>
+    <ul>
+      <li>Static Typing vs Dynamic Typing</li>
+      <li>Strong or Weak? Coercion?</li>
+    </ul>
+    <li>Runtime System (object model)</li>
+    <ul>
+      <li>Object is an Object itself</li>
+      <li><em>Singleton class? Pattern?</em></li>
+    </ul>
+    <li><a href="https://github.com/godfat/muack">Muack</a> -- Yet Another Mocking Library</li>
   </ul>
 </div></section>
 
@@ -185,6 +282,23 @@ Mario = Object.new
 
 Mario.greets
 </code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Today's Topics:</h2>
+  <ul>
+    <li>Type System</li>
+    <ul>
+      <li>Static Typing vs Dynamic Typing</li>
+      <li>Strong or Weak? Coercion?</li>
+    </ul>
+    <li>Runtime System (object model)</li>
+    <ul>
+      <li>Object is an Object itself</li>
+      <li>Singleton class? Pattern?</li>
+    </ul>
+    <li><a href="https://github.com/godfat/muack">Muack</a> <em>-- Yet Another Mocking Library</em></li>
+  </ul>
 </div></section>
 
 <section class="slide shout"><div>

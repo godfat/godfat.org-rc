@@ -628,3 +628,7 @@ pre .subst {
 pre .tex .formula {
   opacity: 0.7;
 }
+
+.invisible {
+  color: white;
+}

@@ -83,7 +83,7 @@ p self # => main</code></pre></span>
       <li class="next">Static Typing vs Dynamic Typing</li>
       <li class="next">Strong or Weak? Coercion?</li>
     </ul>
-    <li class="next">Runtime System (object model)</li>
+    <li class="next">Runtime System (Object Model)</li>
     <ul>
       <li class="next">Object is an Object itself</li>
       <li class="next">Singleton Pattern? Class?</li>
@@ -100,7 +100,7 @@ p self # => main</code></pre></span>
       <li><em>Static Typing vs Dynamic Typing</em></li>
       <li>Strong or Weak? Coercion?</li>
     </ul>
-    <li>Runtime System (object model)</li>
+    <li>Runtime System (Object Model)</li>
     <ul>
       <li>Object is an Object itself</li>
       <li>Singleton Pattern? Class?</li>
@@ -113,8 +113,7 @@ p self # => main</code></pre></span>
   <h2>Static Typing vs<br>Dynamic Typing</h2>
   <ul>
     <li>They are not conflicting</li>
-    <li class="next">
-      Think of DT as "<em>unityped</em>" in ST
+    <li class="next">Think of DT as "<em>unityped</em>" in ST
       <ul><li>ref: <a href="http://existentialtype.wordpress.com/2011/03/19/dynamic-languages-are-static-languages/">Dynamic languages are static languages</a></li></ul></li>
     <li class="next">Downcasting is dynamic type checking</li>
   </ul>
@@ -155,7 +154,7 @@ else
       <li>Static Typing vs Dynamic Typing</li>
       <li><em>Strong or Weak? Coercion?</em></li>
     </ul>
-    <li>Runtime System (object model)</li>
+    <li>Runtime System (Object Model)</li>
     <ul>
       <li>Object is an Object itself</li>
       <li>Singleton Pattern? Class?</li>
@@ -210,7 +209,7 @@ new Date(0) - 0  // 0
       <li>Static Typing vs Dynamic Typing</li>
       <li>Strong or Weak? Coercion?</li>
     </ul>
-    <li>Runtime System (object model)</li>
+    <li>Runtime System (Object Model)</li>
     <ul>
       <li><em>Object is an Object itself</em></li>
       <li>Singleton Pattern? Class?</li>
@@ -313,12 +312,45 @@ Object == Object.class.superclass.superclass.superclass
 # ...</code></pre>
 </div></section>
 
+<section class="slide"><div>
+  <h2>Thus:</h2>
+<pre><code class="ruby">
+Object.new.kind_of?(Object) # true
+# because
+Object == Object.new.class</code></pre>
+<span class="next"><h2>Also:</h2>
+<pre><code class="ruby">
+Object    .kind_of?(Object) # true
+# because
+Object == Object    .class.superclass.superclass</code></pre></span>
+</div></section>
+
 <section class="slide shout"><div>
   <h2>Smalltalk: <em>Everything</em> is an object</h2>
 </div></section>
 
 <section class="slide shout"><div>
   <h2>Ruby: Even Object is an Object itself</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Cool facts:<br>Class<span class="invisible">/Module</span> is also a Class<span class="invisible">/Module</span> itself</h2>
+<pre><code class="ruby">
+ Class.kind_of?(Class ) # => true
+<span class="next"># because
+ Class.class            # => Class</span>
+<span class="next"># thus
+ Class ==  Class.class</span></code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Cool facts:<br>Class/Module</span> is also a Class/Module itself</h2>
+<pre><code class="ruby">
+Module.kind_of?(Module) # => true
+# because
+Module.class            # => Class
+# thus
+Module == Module.class.superclass</code></pre>
 </div></section>
 
 <section class="slide"><div>
@@ -329,7 +361,7 @@ Object == Object.class.superclass.superclass.superclass
       <li>Static Typing vs Dynamic Typing</li>
       <li>Strong or Weak? Coercion?</li>
     </ul>
-    <li>Runtime System (object model)</li>
+    <li>Runtime System (Object Model)</li>
     <ul>
       <li>Object is an Object itself</li>
       <li><em>Singleton Pattern? Class?</em></li>
@@ -394,13 +426,20 @@ Mario.greets
       <li>Static Typing vs Dynamic Typing</li>
       <li>Strong or Weak? Coercion?</li>
     </ul>
-    <li>Runtime System (object model)</li>
+    <li>Runtime System (Object Model)</li>
     <ul>
       <li>Object is an Object itself</li>
       <li>Singleton Pattern? Class?</li>
     </ul>
     <li><a href="https://github.com/godfat/muack">Muack</a> <em>-- Yet Another Mocking Library</em></li>
   </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>If</h2>
+  <h2>We need to go deeper</h2>
+  <h2>For Method Dispatching</h2>
+  Checkout my other slides for: <a href="http://www.slideshare.net/godfat/20081221-rubinius">Rubinius</a> on 2008-12-21
 </div></section>
 
 <section class="slide shout"><div>

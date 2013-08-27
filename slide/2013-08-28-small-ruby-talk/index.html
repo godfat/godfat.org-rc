@@ -502,6 +502,58 @@ Object.new.greets
 </div></section>
 
 <section class="slide"><div>
+  <h2>So class methods are<br>singleton methods!</h2>
+  <h2><span class="invisible">.</span></h2>
+  <h2 class="next">Remember?</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>An instance's method is defined in its<br>singleton_class</h2>
+  <h2>If and only if</h2>
+  <h2><em>The other instances of the same class do not have the same method</em></h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2 class="next">Time is an instance of <em>Class</em>,
+  <br>But the other Classes
+  <br>Do not have this method:</h2>
+  <h2>Time.at(0)</h2>
+  <h2><em>The other instances of the same class do not have the same method</em></h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>So class methods are<br>singleton methods!</h2>
+  <pre><code>
+Time.class # => Class
+Time.at(0) # => 1970-01-01 08:00:00 +0800
+<span class="next">Hash.class # => Class
+Hash.at(0) # => NoMethodError: undefined method</span>
+</code></pre>
+  <h2 class="next"><em>Time.at</em> is defined in Time's singleton class.
+  <br>The same as <em>Mario.greet</em></h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>So class methods are<br>singleton methods!</h2>
+  <pre><code>
+  def Mario.greet; puts "It's me, Mario!"; end
+Mario.singleton_class.module_eval do
+  def       greet; puts "It's me, Mario!"; end
+end</span>
+</code></pre>
+  <h2><em>Time.at</em> is defined in Time's singleton class.
+  <br>The same as <em>Mario.greet</em></h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Don't get confused.</h2>
+  <h2>Ruby's <em>singleton class</em></h2>
+  <h2>Has nothing to do with</h2>
+  <h2><em>Singleton pattern</em>.</h2>
+  <h2 class="next">...It's <em>eigenclass</em> after all</h2>
+</div></section>
+
+<section class="slide"><div>
   <h2>If</h2>
   <h2>We need to go deeper</h2>
   <h2>For Method Dispatching</h2>

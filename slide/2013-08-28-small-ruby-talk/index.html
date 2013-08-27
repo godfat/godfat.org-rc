@@ -220,10 +220,97 @@ new Date(0) - 0  // 0
 </div></section>
 
 <section class="slide"><div>
-  <h2>Object is an Object itself</h2>
+  <h2>Object is an Object itself?</h2>
+  Ruby:
   <pre><code class="ruby">
-Object    .kind_of?(Object) <span class="next"># true</span>
-<span class="next">Object.new.kind_of?(Object)</span> <span class="next"># true</span></code></pre>
+Object.kind_of?(Object)   # true</code></pre>
+  Java:
+  <pre><code class="java">
+Object instanceof Object // ?</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>If A is a kind of B...<br>B must either be:</h2>
+<pre><code class="ruby">
+<span class="next">#    A's class
+     B ==      A.class</span>
+<span class="next"># or A's class' superclass
+     B ==      A.class.superclass</span>
+<span class="next"># or A's class' superclass' superclass
+     B ==      A.class.superclass.superclass</span>
+<span class="next"># or A's class' superclass' superclass' superclass
+     B ==      A.class.superclass.superclass.superclass
+# ...</span></code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Assume A and B<br>are both Objects...</h2>
+<pre><code class="ruby">
+#    A's class
+     B ==      A.class
+# or A's class' superclass
+     B ==      A.class.superclass
+# or A's class' superclass' superclass
+     B ==      A.class.superclass.superclass
+# or A's class' superclass' superclass' superclass
+     B ==      A.class.superclass.superclass.superclass
+# ...</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Assume A and B<br>are both Objects...</h2>
+<pre><code class="ruby">
+# =>      v Class
+Object == Object.class
+# or A's class' superclass
+     B ==      A.class.superclass
+# or A's class' superclass' superclass
+     B ==      A.class.superclass.superclass
+# or A's class' superclass' superclass' superclass
+     B ==      A.class.superclass.superclass.superclass
+# ...</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Assume A and B<br>are both Objects...</h2>
+<pre><code class="ruby">
+# =>      v Class
+Object == Object.class
+# =>      v Module
+Object == Object.class.superclass
+# or A's class' superclass' superclass
+     B ==      A.class.superclass.superclass
+# or A's class' superclass' superclass' superclass
+     B ==      A.class.superclass.superclass.superclass
+# ...</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Assume A and B<br>are both Objects...</h2>
+<pre><code class="ruby">
+# =>      v Class
+Object == Object.class
+# =>      v Module
+Object == Object.class.superclass
+# =>      v Object
+Object == Object.class.superclass.superclass
+# or A's class' superclass' superclass' superclass
+     B ==      A.class.superclass.superclass.superclass
+# ...</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Assume A and B<br>are both Objects...</h2>
+<pre><code class="ruby">
+# =>      v Class
+Object == Object.class
+# =>      v Module
+Object == Object.class.superclass
+# =>      v Object
+Object == Object.class.superclass.superclass
+# =>      v BasicObject
+Object == Object.class.superclass.superclass.superclass
+# ...</code></pre>
 </div></section>
 
 <section class="slide"><div>

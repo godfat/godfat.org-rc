@@ -625,10 +625,6 @@ pre .subst {
   color: #DAEFA3;
 }
 
-pre .css .class {
-  color: #FFFFFF;
-}
-
 pre .tex .formula {
   opacity: 0.7;
 }

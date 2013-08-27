@@ -49,7 +49,8 @@ p(if (class C; self; end)
     g a
   end
   g f
-end) # => 'g'</code></pre>
+end) # => 'g'
+</code></pre>
 </div></section>
 
 <section class="slide shout"><div>
@@ -69,10 +70,12 @@ end) # => 'g'</code></pre>
   <h2>There's more than one<br> way to do it (perlish)</h2>
   <pre><code class="ruby">
 Object.instance_method(:p).bind(self).call(self)
-# => main</code></pre>
+# => main
+</code></pre>
   <span class="next"><h2>Equivalent to:</h2>
-    <pre><code>
-p self # => main</code></pre></span>
+  <pre><code>
+p self # => main
+</code></pre></span>
 </div></section>
 
 <section class="slide"><div>
@@ -130,20 +133,23 @@ public &lt;T&gt; T fromJson(String json, Type typeOfT) throws JsonSyntaxExceptio
   StringReader reader = new StringReader(json);
   T target = <em>(T)</em> fromJson(reader, typeOfT);
   return target;
-}</code></pre>
+}
+</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>Duck Typing</h2>
   <pre><code class="ruby">
-Duck.new.walk</code></pre>
+Duck.new.walk
+</code></pre>
   <span class="next"><h2>Could be thought as:</h2>
   <pre><code class="java">
 Object duck = new Duck();
 if(duck.<em>isRespondingTo</em>("walk"))
     duck.dispatch("walk");
 else
-    throw new NoMethodError(duck, "walk");</code></pre></span>
+    throw new NoMethodError(duck, "walk");
+</code></pre></span>
 </div></section>
 
 <section class="slide"><div>
@@ -176,13 +182,15 @@ else
   <h2>Perl Type Coercion</h2>
   <pre><code>
 '1' +  1  <span class="next">#   2</span>
- <span class="next">1  . '1' # '11'</span></code></pre>
+ <span class="next">1  . '1' # '11'</span>
+</code></pre>
   <span class="next"><h2>JavaScript Type <em>Nonsense</em></h2>
   <pre><code>
 '1' +  1     <span class="next">// '11'</span>
  <span class="next">1  + '1'</span>    <span class="next">// '11'</span>
  <span class="next">true + true</span> <span class="next">//   2</span>
- <span class="next">true + []</span>   <span class="next">// 'true'</span></code></pre></span>
+ <span class="next">true + []</span>   <span class="next">// 'true'</span>
+</code></pre></span>
 </div></section>
 
 <section class="slide"><div>
@@ -222,15 +230,17 @@ new Date(0) - 0  // 0
   <h2>Object is an Object itself?</h2>
   Ruby:
   <pre><code class="ruby">
-Object.kind_of?(Object)   # true</code></pre>
+Object.kind_of?(Object)   # true
+</code></pre>
   Java:
   <pre><code class="java">
-Object instanceof Object // ?</code></pre>
+Object instanceof Object // ?
+</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>If A is a kind of B...<br>B must either be:</h2>
-<pre><code class="ruby">
+  <pre><code class="ruby">
 <span class="next">#    A's class
      B ==      A.class</span>
 <span class="next"># or A's class' superclass
@@ -239,12 +249,13 @@ Object instanceof Object // ?</code></pre>
      B ==      A.class.superclass.superclass</span>
 <span class="next"># or A's class' superclass' superclass' superclass
      B ==      A.class.superclass.superclass.superclass
-# ...</span></code></pre>
+# ...</span>
+</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>Assume A and B<br>are both Objects...</h2>
-<pre><code class="ruby">
+  <pre><code class="ruby">
 #    A's class
      B ==      A.class
 # or A's class' superclass
@@ -253,12 +264,13 @@ Object instanceof Object // ?</code></pre>
      B ==      A.class.superclass.superclass
 # or A's class' superclass' superclass' superclass
      B ==      A.class.superclass.superclass.superclass
-# ...</code></pre>
+# ...
+</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>Assume A and B<br>are both Objects...</h2>
-<pre><code class="ruby">
+  <pre><code class="ruby">
 # =>      v Class
 Object == Object.class
 # or A's class' superclass
@@ -267,12 +279,13 @@ Object == Object.class
      B ==      A.class.superclass.superclass
 # or A's class' superclass' superclass' superclass
      B ==      A.class.superclass.superclass.superclass
-# ...</code></pre>
+# ...
+</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>Assume A and B<br>are both Objects...</h2>
-<pre><code class="ruby">
+  <pre><code class="ruby">
 # =>      v Class
 Object == Object.class
 # =>      v Module
@@ -281,12 +294,13 @@ Object == Object.class.superclass
      B ==      A.class.superclass.superclass
 # or A's class' superclass' superclass' superclass
      B ==      A.class.superclass.superclass.superclass
-# ...</code></pre>
+# ...
+</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>Assume A and B<br>are both Objects...</h2>
-<pre><code class="ruby">
+  <pre><code class="ruby">
 # =>      v Class
 Object == Object.class
 # =>      v Module
@@ -295,12 +309,13 @@ Object == Object.class.superclass
 Object == Object.class.superclass.superclass
 # or A's class' superclass' superclass' superclass
      B ==      A.class.superclass.superclass.superclass
-# ...</code></pre>
+# ...
+</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>Assume A and B<br>are both Objects...</h2>
-<pre><code class="ruby">
+  <pre><code class="ruby">
 # =>      v Class
 Object == Object.class
 # =>      v Module
@@ -309,20 +324,23 @@ Object == Object.class.superclass
 Object == Object.class.superclass.superclass
 # =>      v BasicObject
 Object == Object.class.superclass.superclass.superclass
-# ...</code></pre>
+# ...
+</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>Thus:</h2>
-<pre><code class="ruby">
+  <pre><code class="ruby">
 Object.new.kind_of?(Object) # true
 # because
-Object == Object.new.class</code></pre>
+Object == Object.new.class
+</code></pre>
 <span class="next"><h2>Also:</h2>
-<pre><code class="ruby">
+  <pre><code class="ruby">
 Object    .kind_of?(Object) # true
 # because
-Object == Object    .class.superclass.superclass</code></pre></span>
+Object == Object    .class.superclass.superclass
+</code></pre></span>
 </div></section>
 
 <section class="slide shout"><div>
@@ -335,22 +353,24 @@ Object == Object    .class.superclass.superclass</code></pre></span>
 
 <section class="slide"><div>
   <h2>Cool facts:<br>Class<span class="invisible">/Module</span> is also a Class<span class="invisible">/Module</span> itself</h2>
-<pre><code class="ruby">
+  <pre><code class="ruby">
  Class.kind_of?(Class ) # => true
 <span class="next"># because
  Class.class            # => Class</span>
 <span class="next"># thus
- Class ==  Class.class</span></code></pre>
+ Class ==  Class.class</span>
+</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>Cool facts:<br>Class/Module</span> is also a Class/Module itself</h2>
-<pre><code class="ruby">
+  <pre><code class="ruby">
 Module.kind_of?(Module) # => true
 # because
 Module.class            # => Class
 # thus
-Module == Module.class.superclass</code></pre>
+Module == Module.class.superclass
+</code></pre>
 </div></section>
 
 <section class="slide"><div>
@@ -387,7 +407,7 @@ Mario.instance.greets
 </div></section>
 
 <section class="slide"><div>
-  <h2>Singleton Pattern Underneath</h2>
+  <h2>Singleton Pattern <em>Underneath</em></h2>
   <pre><code class="ruby">
 # (simplified)
 class Mario
@@ -403,7 +423,7 @@ Mario.instance.greets
 </div></section>
 
 <section class="slide"><div>
-  <h2>Singleton Pattern *Simplest*</h2>
+  <h2>Singleton Pattern *<em>Simplest</em>*</h2>
   <pre><code class="ruby">
 
 Mario = Object.new
@@ -416,6 +436,76 @@ Mario = Object.new
 
 Mario.greets
 </code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Introducing Singleton Class</h2>
+  <h2 class="next">Also called<br>
+  Metaclass (Smalltalk) or<br>
+  <a href="http://en.wikipedia.org/wiki/Eigenclass_model">Eigenclass</a></h2>
+  <pre class="next"><code class="ruby">
+Mario.singleton_class
+# => #&lt;Class:#&lt;Object:0xDEADBEEF&gt;&gt;
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Introducing Singleton Class</h2>
+  <h2>Also called<br>
+  Metaclass (Smalltalk) or<br>
+  <a href="http://en.wikipedia.org/wiki/Eigenclass_model">Eigenclass</a></h2>
+  <ul>
+    <li>An instance's method is defined in a class</li>
+    <li class="next">In its direct class, or</li>
+    <li class="next">In one of its direct class' superclasses, or</li>
+    <li class="next">In its <em>singleton_class</em></li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>An instance's method is defined in its<br><em>singleton_class</em></h2>
+  <h2 class="next">If and only if</h2>
+  <h2 class="next">The other instances of the same class do not have the same method</h2>
+  <span class="next">forget about some hacks for now</span>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Mario is an Object</h2>
+  <pre><code class="ruby">
+
+Mario = Object.new
+
+
+
+  def Mario.greets
+    puts "It's me, Mario!"
+  end
+
+Mario.greets
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>The other Objects do not greet</h2>
+  <pre><code class="ruby">
+# ...like a Mario!
+
+
+
+
+
+
+
+# NoMethodError: undefined method `greets'
+Object.new.greets
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>If</h2>
+  <h2>We need to go deeper</h2>
+  <h2>For Method Dispatching</h2>
+  Checkout my other slides for: <a href="http://www.slideshare.net/godfat/20081221-rubinius">Rubinius</a> on 2008-12-21
 </div></section>
 
 <section class="slide"><div>
@@ -433,13 +523,6 @@ Mario.greets
     </ul>
     <li><a href="https://github.com/godfat/muack">Muack</a> <em>-- Yet Another Mocking Library</em></li>
   </ul>
-</div></section>
-
-<section class="slide"><div>
-  <h2>If</h2>
-  <h2>We need to go deeper</h2>
-  <h2>For Method Dispatching</h2>
-  Checkout my other slides for: <a href="http://www.slideshare.net/godfat/20081221-rubinius">Rubinius</a> on 2008-12-21
 </div></section>
 
 <section class="slide shout"><div>

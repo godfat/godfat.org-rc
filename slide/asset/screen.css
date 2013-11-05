@@ -526,6 +526,10 @@ a {
   margin: 0;
   size: 1024px 640px; }
 
+.slide code{
+  font-family: 'Oxygen Mono', monospace;
+}
+
 .slide pre code{
   display: block;
   padding: 0 1em 1em 1em;

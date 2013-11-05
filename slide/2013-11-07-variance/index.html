@@ -104,18 +104,136 @@ class Cat extends Animal           {
 <section class="slide"><div>
 <h2>Mnemonic:<h2/>
 <h2 class="next"><br><br>
-<span style="text-decoration: underline">Return</span> <em>more</em> when asked;<br><span style="text-decoration: underline">Take</span> <em>less</em> when given.</h2>
+<span style="text-decoration: underline">Return</span> <em>more</em> when asked;<br><span style="text-decoration: underline">Take</span> <em>less</em> when given.<br><br></h2>
+<h2 class="next">Or...</h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2><code>a > a</code></h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2><code>- > +</code></h2>
 </div></section>
 
 <section class="slide"><div>
-Is Cat An Animal?
--T -> +R
+<h2>Example:</h2>
+<pre><code class="scala">
+val f: Function1[Cat, Animal] =
+   (a: Animal) => new Cat
+</code></pre>
+<span class="next"><h2>with Haskell syntax:<br>(but it <em>won't type check</em>)</h2>
+<pre><code class="haskell">
+f :: Cat -> Animal
+f = (\animal -> Cat) :: Animal -> Cat
+</code></pre></span>
+</div></section>
+
+<section class="slide"><div>
+<h2>That is,</h2>
+<h2 class="next"><br><br>(Cat -> Ani) &lt; (Ani -> Cat)</h2>
+</div></section>
+
+<section class="slide"><div>
+<h2>Given:</h2>
+<pre><code class="scala">
+trait Function1[-T, +R] extends AnyRef
+</code></pre>
+<h2 class="next">If T1 &gt; T2 (<em>-</em>), and R1 &lt; R2 (<em>+</em>)</h2>
+<h2 class="next">(T1 -> R1) &lt; (T2 -> R2)</h2>
+<h2 class="next">(Cat -> Ani) &lt; (Ani -> Cat)</h2></span>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Uncurried Function2</h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2><code><span style="color:white">.</span>(a, a) > a</code></h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2><code>-(a, a) > +</code></h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2><code><span style="color:white">.</span>(-, -) > +</code></h2>
+</div></section>
+
+<section class="slide"><div>
+<h2>Example:</h2>
+<pre><code class="scala">
+trait Function2[-T1, -T2, +R] extends AnyRef
+</code></pre>
+<h2 class="next"><br><br>It's the same thing</h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Curried Function</h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2><code>a > (a > a)</code></h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2><code>- > (- > +)</code></h2>
+</div></section>
+
+<section class="slide"><div>
+<h2>Example:</h2>
+<pre><code class="scala">
+trait Function1[-T1, Function1[-T2, +R]]
+</code></pre>
+<h2 class="next"><br><br>It's the same thing</h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Higher-order Function?</h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2><code><span style="color:white">.</span>(a > a)>a</code></h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2><code>-(- > +)>+</code></h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2><code><span style="color:white">.</span>(+ > -)>+</code></h2>
+</div></section>
+
+<section class="slide"><div>
+<h2>Example:</h2>
+<pre><code class="scala">
+val f: Function1[Function1[Animal, Cat], Animal] =
+</code></pre><pre class="next"><code class="scala">
+             (g: Function1[Cat, Animal]) => new Cat
+</code></pre><pre class="next"><code>
+                            +  ->  -  ->  +
+</code></pre>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Covariant List</h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Invariant Array</h2>
+</div></section>
+
+<section class="slide"><div>
 Java is not safe
 </div></section>
 
 <section class="slide"><div>
-  http://lambda-the-ultimate.org/node/4377#comment-67603
-  http://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29
+<h2>References:</h2>
+<ul>
+  <li><a href="http://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29">Covariance and contravariance (computer science)</a></li>
+  <li><a href="http://lambda-the-ultimate.org/node/4377#comment-67603">Is proper variance compatible with objects/classes?</a></li>
+  <li><a href="http://blogger.godfat.org/2010/05/scala-type-system-1-covariance-and.html">scala type system (1) covariance and contravariance</a></li>
+</ul>
 </div></section>
 
 <section class="slide shout"><div>

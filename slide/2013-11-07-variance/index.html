@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=792, user-scalable=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Oxygen+Mono" rel="stylesheet" type="text/css">
-  <link href="../2013-08-28-small-ruby-talk/screen.css" rel="stylesheet" type="text/css">
+  <link href="../asset/screen.css" rel="stylesheet" type="text/css">
 </head>
 <body class="list">
   <header class="caption"></header>
@@ -45,6 +45,68 @@
   <br><br><br>...typically subroutines or functions, written to operate on elements of the <em>supertype</em> can also operate on elements of the <em>subtype</em>.
 </div></section>
 
+<section class="slide shout"><div>
+<h2>Covariant Return Type</h2>
+</div></section>
+
+<section class="slide"><div>
+<h2>Given base class and <em>self</em>:</h2>
+<pre><code class="scala">
+class Animal              {
+  def self: Animal = this }
+</code></pre>
+<span class="next">
+<h2><em>self</em> could be overridden with:</h2>
+<pre><code class="scala">
+class Cat extends Animal  {
+  override
+  def self:    Cat = this }
+</code></pre></span>
+</div></section>
+
+<section class="slide"><div>
+<h2>It is safe as you can see...</h2>
+<pre><code class="scala">
+val animal: Animal = (new Cat).self</code></pre>
+<span class="next">
+<h2>And this works...</h2>
+<pre><code class="scala">
+val    cat:    Cat = (new Cat).self</code></pre></span>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Contravariant Argument Type</h2>
+</div></section>
+
+<section class="slide"><div>
+<h2>This is <em>not allowed</em> in Scala and most languages:</h2>
+<pre><code class="scala">
+class Animal                       {
+  def eat(food: Animal): Unit = () }
+</code></pre>
+<pre class="next"><code class="scala">
+class Cat extends Animal           {
+  override // Error: override nothing
+  def eat(food: Object): Unit = () }</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>Shall be safe as we ask less tho.</h2>
+<span class="next">
+<h2>Maybe it's just useless:</h2>
+<pre><code class="scala">
+(new Cat).eat(new Object)
+</code></pre></span>
+<span class="next"><h2>If we have more, why ask less?</h2></span>
+<span class="next"><h2>Type safety, maybe.</h2></span>
+</div></section>
+
+<section class="slide"><div>
+<h2>Mnemonic:<h2/>
+<h2 class="next"><br><br>
+<span style="text-decoration: underline">Return</span> <em>more</em> when asked;<br><span style="text-decoration: underline">Take</span> <em>less</em> when given.</h2>
+</div></section>
+
 <section class="slide"><div>
 Is Cat An Animal?
 -T -> +R
@@ -61,8 +123,8 @@ Java is not safe
 </div></section>
 
   <div class="progress"><div></div></div>
-  <script src='../2013-08-28-small-ruby-talk/highlight.pack.js' type='text/javascript'></script>
+  <script src='../asset/highlight.pack.js' type='text/javascript'></script>
   <script>hljs.initHighlightingOnLoad();</script>
-  <script src="../2013-08-28-small-ruby-talk/shower.min.js"></script>
+  <script src="../asset/shower.min.js"></script>
 </body>
 </html>

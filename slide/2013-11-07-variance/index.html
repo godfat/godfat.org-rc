@@ -80,18 +80,6 @@ val animal: Animal = new Cat
 </div></section>
 
 <section class="slide"><div>
-<h2>Covariant (immutable) List</h2>
-<pre class="next"><code class="scala">
-sealed abstract class List[+A] extends ...
-</code></pre>
-<span class="next"><h2>If <em>Animal</em> &lt; <em>Cat</em>, then</h2>
-<h2>List[<em>Animal</em>] &lt; List[<em>Cat</em>]</h2></span>
-<pre class="next"><code class="scala">
-val animals: List[Animal] = List(new Cat)
-</code></pre>
-</div></section>
-
-<section class="slide"><div>
 <h2>Invariant (mutable) Array</h2>
 <pre class="next"><code class="scala">
 final class Array[T] extends ...
@@ -113,6 +101,18 @@ public class Unsafe{
     System.out.println(b[0]);
   }
 }
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>Covariant (immutable) List</h2>
+<pre class="next"><code class="scala">
+sealed abstract class List[+A] extends ...
+</code></pre>
+<span class="next"><h2>If <em>Animal</em> &lt; <em>Cat</em>, then</h2>
+<h2>List[<em>Animal</em>] &lt; List[<em>Cat</em>]</h2></span>
+<pre class="next"><code class="scala">
+val animals: List[Animal] = List(new Cat)
 </code></pre>
 </div></section>
 

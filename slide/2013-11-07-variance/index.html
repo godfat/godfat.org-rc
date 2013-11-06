@@ -45,8 +45,97 @@
   <br><br><br>...typically subroutines or functions, written to operate on elements of the <em>supertype</em> can also operate on elements of the <em>subtype</em>.
 </div></section>
 
+<section class="slide"><div>
+<h2>Variance where it comes:</h2>
+<ul><li>Reference Assignment
+<pre class="next"><code class="scala">
+val animal: Animal = new Cat
+<span class="next">((animal: Animal) => {}) apply new Cat</span>
+</code></pre>
+    </li>
+    <li class="next">Method Overriding
+<pre class="next"><code class="scala">
+class Cat extends Animal {
+  override def eat(food: Animal): Animal = food
+}
+</code></pre>
+</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Variance where it comes:</h2>
+<ul><li><em>Reference Assignment</em>
+<pre><code class="scala">
+val animal: Animal = new Cat
+((animal: Animal) => {}) apply new Cat
+</code></pre>
+    </li>
+    <li>Method Overriding
+<pre><code class="scala">
+
+
+
+</code></pre>
+</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Covariant (immutable) List</h2>
+<pre class="next"><code class="scala">
+sealed abstract class List[+A] extends ...
+</code></pre>
+<span class="next"><h2>If <em>Animal</em> &lt; <em>Cat</em>, then</h2>
+<h2>List[<em>Animal</em>] &lt; List[<em>Cat</em>]</h2></span>
+<pre class="next"><code class="scala">
+val animals: List[Animal] = List(new Cat)
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>Invariant (mutable) Array</h2>
+<pre class="next"><code class="scala">
+final class Array[T] extends ...
+</code></pre>
+</div></section>
+
 <section class="slide shout"><div>
-<h2>Covariant Return Type</h2>
+<h2><em>Java</em> has covariant array which <em>is not type safe</em></h2>
+</div></section>
+
+<section class="slide"><div>
+<h2>ArrayStoreException: Integer</h2>
+<pre><code class="java">
+public class Unsafe{
+  public static void main(String[] args){
+    String[] a = new String[1];
+    Object[] b = a;
+    b[0] = 1; // HERE!
+    System.out.println(b[0]);
+  }
+}
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>Variance where it comes:</h2>
+<ul><li>Reference Assignment
+<pre><code class="scala">
+
+
+</code></pre>
+    </li>
+    <li><em>Method Overriding</em>
+<pre><code class="scala">
+class Cat extends Animal {
+  override def eat(food: Animal): Animal = food
+}
+</code></pre>
+</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><br><br><em>Covariant Return Type</em></h2>
+<h2><br><br>Contravariant Argument Type</h2>
 </div></section>
 
 <section class="slide"><div>
@@ -74,8 +163,9 @@ val animal: Animal = (new Cat).self</code></pre>
 val    cat:    Cat = (new Cat).self</code></pre></span>
 </div></section>
 
-<section class="slide shout"><div>
-<h2>Contravariant Argument Type</h2>
+<section class="slide"><div>
+<h2><br><br>Covariant Return Type</h2>
+<h2><br><br><em>Contravariant Argument Type</em></h2>
 </div></section>
 
 <section class="slide"><div>
@@ -99,6 +189,23 @@ class Cat extends Animal           {
 </code></pre></span>
 <span class="next"><h2>If we have more, why ask less?</h2></span>
 <span class="next"><h2>Type safety, maybe.</h2></span>
+</div></section>
+
+<section class="slide"><div>
+<h2>Back for Function1:</h2>
+<ul><li><em>Reference Assignment</em>
+<pre><code class="scala">
+val f: Function1[Cat, Animal] =
+   (a: Animal) => new Cat
+</code></pre>
+    </li>
+    <li>Method Overriding
+<pre><code class="scala">
+
+
+
+</code></pre>
+</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -215,24 +322,13 @@ val f: Function1[Function1[Animal, Cat], Animal] =
 </code></pre>
 </div></section>
 
-<section class="slide shout"><div>
-<h2>Covariant List</h2>
-</div></section>
-
-<section class="slide shout"><div>
-<h2>Invariant Array</h2>
-</div></section>
-
-<section class="slide"><div>
-Java is not safe
-</div></section>
-
 <section class="slide"><div>
 <h2>References:</h2>
 <ul>
   <li><a href="http://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29">Covariance and contravariance (computer science)</a></li>
   <li><a href="http://lambda-the-ultimate.org/node/4377#comment-67603">Is proper variance compatible with objects/classes?</a></li>
   <li><a href="http://blogger.godfat.org/2010/05/scala-type-system-1-covariance-and.html">scala type system (1) covariance and contravariance</a></li>
+  <li><a href="https://ocaml.janestreet.com/?q=node/99">+'a and -'a</a></li>
 </ul>
 </div></section>
 

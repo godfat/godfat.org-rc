@@ -117,6 +117,43 @@ val animals: List[Animal] = List(new Cat)
 </div></section>
 
 <section class="slide"><div>
+<h2>Covariant (immutable) List</h2>
+<pre><code class="scala">
+sealed abstract class List[+A] extends ...
+</code></pre>
+<h2>Nonsense:</h2>
+<pre><code class="scala">
+val what: <span class="next">List[Any]</span> = 1 :: "hey" :: List()
+<span class="next">val cats: List[Cat] = List(new Cat)
+cats.contains(<span class="next">1</span>) // false</span>
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>Covariant (immutable) List</h2>
+<pre><code class="scala">
+sealed abstract class List[+A] extends ...
+</code></pre>
+<h2>Arguments can't be covariant</h2>
+<pre><code class="scala">
+  def contains(elem: <em>Any</em>): Boolean
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>Null is a subclass of everything</h2>
+<pre><code class="scala">
+val cat: Cat = null
+<span class="next">val cats: List[Cat] = List(null)</span>
+</code></pre>
+<span class="next">
+<h2>But actually not really</h2>
+<pre><code>
+null.isInstanceOf[Cat] // false
+</code></pre></span>
+</div></section>
+
+<section class="slide"><div>
 <h2>Variance where it comes:</h2>
 <ul><li>Reference Assignment
 <pre><code class="scala">

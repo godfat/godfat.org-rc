@@ -193,11 +193,13 @@ class Cat extends Animal  {
 <section class="slide"><div>
 <h2>It is safe as you can see...</h2>
 <pre><code class="scala">
-val animal: Animal = (new Cat).self</code></pre>
+val a1: Animal = new Cat
+val a2: Animal = a1.self</code></pre>
 <span class="next">
 <h2>And this works...</h2>
 <pre><code class="scala">
-val    cat:    Cat = (new Cat).self</code></pre></span>
+val c1:    Cat = new Cat
+val c2:    Cat = c1.self</code></pre></span>
 </div></section>
 
 <section class="slide"><div>

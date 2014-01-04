@@ -422,6 +422,15 @@ as patching <b>bacon</b> does work</li></ul>
 </div></section>
 
 <section class="slide"><div>
+<h2>Mocks -- <a href="https://github.com/godfat/muack">muack</a></h2>
+<ul><li>I picked <b>rr</b> over <b>mocha</b> and <b>flexmock</b></li>
+<li>Then <b>rr</b> exceeded my pain threshold</li>
+<li>32x times faster (750s vs 23s) than <b>rr</b> for running <b>rib</b> tests</li>
+<li>I hope I have time to finish the doc and release 1.0 soon</li>
+<li>Thanks for <b>rails_admin</b> for the motivation to make <b>muack</b> better</li></ul>
+</div></section>
+
+<section class="slide"><div>
 <h2>Extending ripl -- <a href="https://github.com/godfat/ripl-rc">ripl-rc</a></h2>
 <ul><li><b>ripl</b> extension collection</li>
 <li class="next red"><b>ripl</b> doesn't really fit my ambition</li></ul>
@@ -453,11 +462,18 @@ as patching <b>bacon</b> does work</li></ul>
 </div></section>
 
 <section class="slide"><div>
-mocha, flexmock, and rr, finally muack
+<h2>Pico web library -- <a href="https://github.com/godfat/jellyfish">jellyfish</a></h2>
+<ul><li><b>sinatra</b> exceeded my pain threshold</li>
+<li>Keep it minimal, around 250 LoC</li>
+<li>Thus much faster than <b>sinatra</b></li>
+<li>Much less magic than <b>sinatra</b></li>
+<li>Not sure about <b>cuba</b></li></ul>
 </div></section>
 
 <section class="slide"><div>
-sinatra, cuba, camping, finally jellyfish
+<h2>Pico web framework, fishtank</h2>
+<ul><li>Integrate <b>jellyfish</b>, <b>sequel</b>, <b>rack</b>, <b>rake</b>, etc</li>
+<li class="next red">Not yet have time to extract this from private source</li></ul>
 </div></section>
 
 <section class="slide shout"><div>

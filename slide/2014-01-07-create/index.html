@@ -64,6 +64,10 @@
   <a href="http://godfat.org/slide/2014-01-07-create/">http://godfat.org/slide/2014-01-07-create/</a></span>
 </div></section>
 
+<section class="slide shout"><div>
+<h2>NO CODE TODAY</h2>
+</div></section>
+
 <section class="slide"><div>
   <h2>Who?</h2>
   <img class="avatar" src="../asset/spiritual_soul.jpg">
@@ -232,6 +236,223 @@
 </div></section>
 
 <section class="slide"><div>
+<h2>My very first gem -- <a href="https://github.com/godfat/ludy">ludy</a></h2>
+<ul><li>First commit: 2007-04-23 14:14:34 +0000</li>
+<li>Random stuffs -- like <b>facets</b> or <b>activesupport</b></li>
+<li>C++ preprocessing</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>User input -- <a href="https://github.com/godfat/friendly_format">friendly_format</a></h2>
+<ul><li>Allow customizable partial HTML</li>
+<li>Use <b>hpricot</b>, <b>libxml-ruby</b>, or <b>nokogiri</b></li>
+<li>Borrowed Drupal's regexp for autolinking</li>
+<li class="next red">I guess now we all use Markdown instead...</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Pagination -- <a href="https://github.com/godfat/pagify">pagify</a></h2>
+<ul><li><b>will_paginate</b> was too intrusive and not flexible</li>
+<li>There's no <b>kaminari</b> (don't recommend, either)</li>
+<li>For <b>activerecord</b> 2 and dm-core</li>
+<li>For <b>rails</b> 2 and <b>innate</b>, and <b>ramaze</b></li>
+<li class="next red">No longer my business...</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Thumbnails -- <a href="https://github.com/godfat/thumbo">thumbo</a></h2>
+<ul><li>The old chaotic <b>rails</b> plugins days...</li>
+<li>Namely <b>acts_as_attachable</b>, <b>attachment_fu</b>, etc</li>
+<li>There's no <b>paperclip</b> (ok)</li>
+<li><b>carrierwave</b> (<b>fog</b> is bad), <b>dragonfly</b> (<b>fog</b> is bad)</li>
+<li>Why not the official <b>aws-sdk</b>?</li>
+<li>We needed <b>mogilefs-client</b></li>
+<li class="next red">No longer my business...</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Deployment -- <a href="https://github.com/godfat/app-deploy">app-deploy</a></h2>
+<ul><li><b>capistrano</b> (<b>switchtower</b>) was awfully slow</li>
+<li><b>net-ssh</b> and other friends, seriously, why?</li>
+<li>Not sure how to use <b>vlad</b></li>
+<li>Just use the ssh command from openssh</li>
+<li class="next red">No longer my business...</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://github.com/godfat/source-tools">source-tools</a></h2>
+<ul><li>Stolen from <a href="https://github.com/datamapper/dm-dev">dm-dev</a> (not a gem)</li>
+<li>Strip trailing whitespace</li>
+<li>Normalize newlines</li>
+<li>Transcode big5</li>
+<li>Fix file permission (from FAT32)</li>
+<li class="next red">No longer working with Windows...</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Data sharing -- <a href="https://github.com/godfat/shere">shere</a></h2>
+<ul><li><b>heel</b> was using <b>thin</b>, slow as hell</li>
+<li>nginx to the rescue</li>
+<li>create tmp nginx config</li>
+<li class="next red">I didn't share a lot of files as before...</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Net receive -- <a href="https://github.com/godfat/nr">nr</a></h2>
+<ul><li>Why there's no reverse nc?</li>
+<li>nc does have listen mode...</li>
+<li class="next red">Now I am using socat</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>HTTPS for cool.io -- <a href="https://github.com/godfat/cool.io-http">cool.io-http</a></h2>
+<ul><li>There's no HTTPS support for <b>cool.io</b></li>
+<li>Built-in HTTP client didn't have a good API</li>
+<li class="next red">Who cares about <b>cool.io</b> now?</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Serialization -- <a href="https://github.com/cardinalblue/cerealize">cerealize</a></h2>
+<ul><li><b>rails</b>' default serialize is yaml based, which is slow</li>
+<li>Auto-detect encoding (yaml or marshal)</li>
+<li>Auto-convert encoding (yaml or marshal)</li>
+<li>Smarter and better dirty tracking!</li>
+<li class="next red">rails accepts custom codec now,<br>
+and I don't want to fight with it again!</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://github.com/cardinalblue/dm-is-reflective">dm-is-reflective</a> (dm-mapping)</h2>
+<ul><li>Make <b>dm-core</b> like <b>activerecord</b></li>
+<li>Model source codes generation</li>
+<li>Manipulating existing database would be easier</li>
+<li class="next red">I am not sure if <b>dm-core</b> is going anywhere</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://github.com/godfat/rainbows-emtp">rainbows-emtp</a></h2>
+<ul><li><b>eventmachine</b> thread pool for <b>rainbows</b></li>
+<li class="next red"><b>eventmachine</b> is not going anywhere, and please just use nginx</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://github.com/godfat/sync-defer">sync-defer</a></h2>
+<ul><li>Synchronizing between different strategies</li>
+<li>For threads, fibers, events, etc.</li>
+<li class="next red">Wrong approach</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://github.com/godfat/rack-rails-logger">rack-rails-logger</a></h2>
+<ul><li>Tell <b>rails</b> respect <b>rack</b>'s spec, i.e. <code>env['rack.logger']</code></li>
+<li>So we don't see some weird inconsistency</li>
+<li class="next red">This was actually a hack... could we fix <b>rails</b>?</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://github.com/godfat/rack-handlers">rack-handlers</a></h2>
+<ul><li>rack handlers for <b>unicorn</b> family</li>
+<li>So `<code>rails s</code>` would work for them</li>
+<li>Try to guess the config located at config/unicorn.rb, etc</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Stress test -- <a href="https://github.com/godfat/request-replay">request-replay</a></h2>
+<ul><li>Replay the request from a host to another host</li>
+<li>Could also be served as a reverse proxy (not implemented yet)</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Edit a gem -- <a href="https://github.com/godfat/gem-eit">gem-eit</a></h2>
+<ul><li>Open the EDITOR for a gem</li>
+<li>Detect versions, files</li>
+<li>gem-edit was already taken</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>grep a gem -- <a href="https://github.com/godfat/gem-grep">gem-grep</a></h2>
+<ul><li>grep or ag for a gem</li>
+<li>Detect versions, files</li>
+<li>grep from Gemfile (like a global search) (not implemented yet)</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Facebook client -- <a href="https://github.com/godfat/rest-graph">rest-graph</a></h2>
+<ul><li>No more <b>rfacebook</b> or <b>facebooker</b></li>
+<li>Only for Graph API</li>
+<li>As lightweight as possible</li>
+<li class="next red">I moved the development to <b>rest-core</b> and <b>rest-more</b></li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>API clients builder -- <a href="https://github.com/godfat/rest-core">rest-core</a></h2>
+<ul><li>Support callbacks and futures</li>
+<li>With <b>em-http-request</b> or <b>rest-client</b> with threads</li>
+<li>As flexible as possible</li>
+<li>Quite complex internally...</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Clients collection -- <a href="https://github.com/godfat/rest-more">rest-more</a></h2>
+<ul><li>Using <b>rest-core</b> to build clients</li>
+<li>Support Facebook, Twitter, etc</li>
+<li>Has rails helpers</li>
+<li>Facebook support was ported from <b>rest-graph</b></li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>net/http wrapper, rest-request</h2>
+<ul><li>Not yet implemented</li>
+<li>Fork from <b>rest-client</b></li>
+<li>Remove culprits (<a href="https://github.com/rest-client/rest-client/pull/103">0</a>) (<a href="https://github.com/rest-client/rest-client/pull/118">1</a>)</li>
+<li>Remove unnecessary features (no way to pass some params)</li>
+<li class="next red">Haven't got a time to do this,<br>
+and motivation is not strong enough,<br>
+as patching <b>rest-client</b> does work</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><b>bacon</b> fork</h2>
+<ul><li>Not yet implemented</li>
+<li>Remove unnecessary features (this.is.meaningless)</li>
+<li>Add a <a href="https://github.com/chneukirchen/bacon/pull/19">diff output</a></li>
+<li class="next red">Haven't got a time to do this,<br>
+and motivation is not strong enough,<br>
+as patching <b>bacon</b> does work</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Extending ripl -- <a href="https://github.com/godfat/ripl-rc">ripl-rc</a></h2>
+<ul><li><b>ripl</b> extension collection</li>
+<li class="next red"><b>ripl</b> doesn't really fit my ambition</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>ripl redo -- <a href="https://github.com/godfat/rib">rib</a></h2>
+<ul><li>Just like <b>ripl</b> but easier to extend for some plugins</li>
+<li>Namely <code>Rib.anchor</code> for nested shells</li>
+<li>We need a better readline on JRuby!</li>
+<li><b>rib</b> tests for JRuby has a lot of readline issues</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://github.com/godfat/readline_buffer">readline_buffer</a></h2>
+<ul><li>Introduce <code>Readline.line_buffer=</code></li>
+<li>Has a small C extension interacting readline extension</li>
+<li>Used for autoindent for <b>rib</b></li>
+<li>Works fine for Linux</li>
+<li>Works on older Mac</li>
+<li>Broken on newer Mac, no idea why?</li>
+<li>Do not work on Mac's editline</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://github.com/godfat/rib-heroku">rib-heroku</a></h2>
+<ul><li>Use <b>rib</b> on Heroku easily</li>
+<li class="next red">It's broken right now... use `<code>heroku run rib all auto</code>` instead</li></ul>
+</div></section>
+
+<section class="slide"><div>
 mocha, flexmock, and rr, finally muack
 </div></section>
 
@@ -239,61 +460,11 @@ mocha, flexmock, and rr, finally muack
 sinatra, cuba, camping, finally jellyfish
 </div></section>
 
-<section class="slide"><div>
-irb, ripl, finally rib
-</div></section>
-
-<section class="slide"><div>
-readline_buffer
-</div></section>
-
-<section class="slide"><div>
-will_paginate, pagify, and kaminari??
-</div></section>
-
-<section class="slide"><div>
-acts_as_attachable, attachment_fu, and thumbo
-</div></section>
-
-<section class="slide"><div>
-rack-handlers
-</div></section>
-
-<section class="slide"><div>
-capstrano, app-deploy
-</div></section>
-
-<section class="slide"><div>
-dm-is-reflective
-
-bacon
-
-gem-eit
-gem-grep
-gem-path
-
-nr, nc, socat
-
-heel, shere
-
-dm-core, source-tools
-
-rack-cluster
-request-replay
-ludy
-rack-rails-logger
-cool.io-http
-
-rest-request, rest-core, rest-graph
-</div></section>
-
 <section class="slide shout"><div>
   <h2>Q?</h2>
 </div></section>
 
   <div class="progress"><div></div></div>
-  <script src='../asset/highlight.pack.js' type='text/javascript'></script>
-  <script>hljs.initHighlightingOnLoad();</script>
   <script src="../asset/shower.min.js"></script>
 </body>
 </html>

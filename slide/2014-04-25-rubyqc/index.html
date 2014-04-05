@@ -1,0 +1,410 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>RubyQC -- A conceptual QuickCheck library for Ruby</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=792, user-scalable=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Oxygen+Mono" rel="stylesheet" type="text/css">
+  <link href="../asset/screen.css" rel="stylesheet" type="text/css">
+  <style>
+    .avatar{
+      width: 56px;
+      height: 57px;
+      padding-right: 10px;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    .date{
+      font-family: monospace;
+    }
+    .slide .chart{
+      margin-top: -85px;
+      line-height: 1.5em;
+      list-style: none;
+    }
+    .slide .hide li:before{
+      color: #fff;
+    }
+    .slide .hide li{
+      color: #fff;
+    }
+    .slide .show li:before{
+      color: #bbb;
+    }
+    .slide .show li{
+      color: #000;
+    }
+    a:link, a:visited{
+      color: teal;
+    }
+    .lib{
+      color: teal;
+    }
+    .red{
+      color: #cf6a4c;
+    }
+    .blue, #blue{
+      /* #blue is for overwriting colors from .hide */
+      color: #4b86c2;
+    }
+    #cost li:before{
+      content: '+\00A0';
+      margin-left: 50px;
+    }
+    .slide div.universe,
+    .slide div.proof,
+    .slide div.proof-invisible,
+    .slide div.program, .slide div.test{
+      padding: 0;
+      top: 2.5%;
+      margin: auto;
+      position: relative;
+      border-radius: 50%;
+      text-align: center;
+    }
+    .slide div.universe{
+      width: 600px;
+      height: 600px;
+      background-color: #4b86c2;
+    }
+    .slide div.proof-invisible{
+      width: 500px;
+      height: 500px;
+      background-color: #4b86c2;
+    }
+    .slide div.proof{
+      width: 500px;
+      height: 500px;
+      background-color: teal;
+    }
+    .slide div.program{
+      width: 400px;
+      height: 400px;
+      background-color: #cf6a4c;
+    }
+    .slide div.test{
+      width: 300px;
+      height: 300px;
+      background-color: orange;
+    }
+  </style>
+</head>
+<body class="list">
+  <header class="caption"></header>
+
+<section class="slide shout"><div>
+  <h2 style="top:38%">
+    <a href="https://github.com/godfat/rubyqc">RubyQC</a></h2>
+  <br><br><br><br><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  A conceptual QuickCheck library for Ruby</span>
+  <br><br><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="http://www.godfat.org/slide/2014-04-25-rubyqc/">http://godfat.org/slide/2014-04-25-rubyqc/</a></span>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Who?</h2>
+  <img class="avatar" src="../asset/spiritual_soul.jpg">
+  godfat (Lin Jen-Shin)
+  <p>
+    <li><span class="date">2001~2004:</span> C</li>
+    <li><span class="date">2004~2009:</span> ActionScript</li>
+    <li><span class="date">2005~2008:</span> C++</li>
+    <li><span class="date">2006~<span class="lib">2014</span>:</span> <span class="red">Ruby</span></li>
+    <li><span class="date">2007~<span class="lib">2014</span>:</span> (learning) <span class="blue">Haskell</span></li>
+  </p>
+</div></section>
+
+<section class="slide shout"><div>
+  <blockquote class="next">In <a href="http://en.wikipedia.org/wiki/Theoretical_computer_science">theoretical computer science</a>, correctness of an algorithm is asserted when it is said that the algorithm is correct with respect to a <a href="http://en.wikipedia.org/wiki/Formal_specification">specification</a>.</blockquote>
+  <h2><br><a href="http://en.wikipedia.org/wiki/Correctness_%28computer_science%29">Correctness</a></h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Or informally... (too many words here)</h2>
+  <ul>
+    <li>Do what we expected.</li>
+    <li>Not what we said (wrote).</li>
+    <li>You know, computers are stupid, they can't think for you.</li>
+    <li>And sometimes we just didn't mean what we said...</li>
+    <li>We need something to make sure what we said is what we meant.</li></ul>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2>Proofs</h2>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2 style="text-decoration: line-through">Proofs</h2>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2>Tests</h2>
+</div></section>
+
+<section class="slide">
+  <div class="universe">Universe
+  <div class="proof-invisible">&nbsp;
+  <div class="program">Program</div></div></div>
+</section>
+
+<section class="slide">
+  <div class="universe">Universe
+  <div class="proof">Proofs
+  <div class="program">Program
+  <div class="test next">Tests</div></div></div></div>
+</section>
+
+<section class="slide"><div>
+  <h2>Tests</h2>
+  <ul>
+    <li>Scenario based tests</li>
+    <li class="next"><a href="http://en.wikipedia.org/wiki/QuickCheck">QuickCheck</a></li></ul>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2>+</h2>
+</div></section>
+
+<section class="slide"><div>
+<pre><code>
+def plus <span class="red">x</span>, <span class="constant">y</span>
+  <span class="red">x</span> + <span class="constant">y</span>
+end
+</code></pre>
+<div class="next">For scenario based test:
+<span class="next red">&nbsp;&nbsp;Only a small subset of the program</span>
+<pre><code>
+plus(1, 1).should == 2
+plus(1, 2).should == 3
+plus(2, 1).should == 3
+plus(2, 2).should == 4
+</code></pre>
+</div>
+</div></section>
+
+<section class="slide"><div>
+<pre><code>
+def plus <span class="red">x</span>, <span class="constant">y</span>
+  <span class="red">x</span> + <span class="constant">y</span>
+end
+</code></pre>
+<div>What if we test all possible inputs?
+<span class="next red">&nbsp;&nbsp;Nah, it ain't gonna stop.</span>
+<pre><code>
+-Infinity..+Infinity.each do |<span class="red">x</span>|
+  -Infinity..+Infinity.each do |<span class="constant">y</span>|
+  end
+end
+</code></pre>
+</div>
+</div></section>
+
+<section class="slide"><div>
+<pre><code>
+def plus <span class="red">x</span>, <span class="constant">y</span>
+  <span class="red">x</span> + <span class="constant">y</span>
+end
+</code></pre>
+<div>What if we only sample it 100 times?
+<pre><code>
+100.times do
+  <span class="red">x</span>, <span class="constant">y</span> = rand, rand
+
+end
+</code></pre>
+</div>
+</div></section>
+
+<section class="slide"><div>
+<pre><code>
+def plus <span class="red">x</span>, <span class="constant">y</span>
+  <span class="red">x</span> + <span class="constant">y</span>
+end
+</code></pre>
+<div>What if we only sample it 100 times?
+<span class="red">&nbsp;&nbsp;Kinda work, but...</span>
+<pre><code>
+100.times do
+  <span class="red">x</span>, <span class="constant">y</span> = rand, rand
+  plus(<span class="red">x</span>, <span class="constant">y</span>).should ==            #  ?
+end
+</code></pre>
+</div>
+</div></section>
+
+<section class="slide"><div>
+<pre><code>
+def plus <span class="red">x</span>, <span class="constant">y</span>
+  <span class="red">x</span> + <span class="constant">y</span>
+end
+</code></pre>
+<div>What if we only sample it 100 times?
+<span class="red">&nbsp;&nbsp;Kinda work, but...</span>
+<pre><code>
+100.times do
+  <span class="red">x</span>, <span class="constant">y</span> = rand, rand
+  plus(<span class="red">x</span>, <span class="constant">y</span>).should == <span class="red">x</span> + <span class="constant">y</span>      #  ?
+end
+</code></pre>
+</div>
+</div></section>
+
+<section class="slide"><div>
+<pre><code>
+def plus <span class="red">x</span>, <span class="constant">y</span>
+  <span class="red">x</span> + <span class="constant">y</span>
+end
+</code></pre>
+<div>What if we only sample it 100 times?
+<span class="red">&nbsp;&nbsp;Kinda work, but...</span>
+<pre><code>
+100.times do
+  <span class="red">x</span>, <span class="constant">y</span> = rand, rand
+  plus(<span class="red">x</span>, <span class="constant">y</span>).should == plus(<span class="red">x</span>, <span class="constant">y</span>) # ???
+end
+</code></pre>
+</div>
+</div></section>
+
+<section class="slide"><div>
+<pre><code>
+def plus <span class="red">x</span>, <span class="constant">y</span>
+  <span class="red">x</span> + <span class="constant">y</span>
+end
+</code></pre>
+<div>What if we only sample it 100 times?
+<span class="red">&nbsp;&nbsp;Kinda work, but...</span>
+<pre><code>
+100.times do
+  <span class="red">x</span>, <span class="constant">y</span> = rand, rand
+  plus(<span class="red">x</span>, <span class="constant">y</span>).should == plus(<span class="constant">y</span>, <span class="red">x</span>) # ???
+end
+</code></pre>
+</div>
+</div></section>
+
+<section class="slide"><div>
+<pre><code>
+
+
+
+</code></pre>
+<div>&nbsp;
+<pre><code>
+
+
+  plus(<span class="red">x</span>, <span class="constant">y</span>).should == plus(<span class="constant">y</span>, <span class="red">x</span>) # ???
+
+</code></pre>
+</div>
+</div></section>
+
+<section class="slide"><div>
+<h2>Commutativity</h2>
+<pre><code class="ruby">
+
+<span class="red">x</span> + <span class="constant">y</span> == <span class="constant">y</span> + <span class="red">x</span>
+
+</code></pre>
+<span class="next"><h2>Associativity</h2>
+<pre><code class="ruby">
+
+(<span class="red">x</span> + <span class="constant">y</span>) + <span class="string">z</span> == <span class="red">x</span> + (<span class="constant">y</span> + <span class="string">z</span>)
+
+</code></pre></span>
+</div></section>
+
+<section class="slide"><div>
+<h2>Commutativity</h2>
+<pre><code class="ruby">
+check(Fixnum, Fixnum) do |<span class="red">x</span>, <span class="constant">y</span>|
+  plus(<span class="red">x</span>, <span class="constant">y</span>).should == plus(<span class="constant">y</span>, <span class="red">x</span>)
+end
+</code></pre>
+<h2>Associativity</h2>
+<pre><code class="ruby">
+
+(<span class="red">x</span> + <span class="constant">y</span>) + <span class="string">z</span> == <span class="red">x</span> + (<span class="constant">y</span> + <span class="string">z</span>)
+
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>Commutativity</h2>
+<pre><code class="ruby">
+check(Fixnum, Fixnum) do |<span class="red">x</span>, <span class="constant">y</span>|
+  plus(<span class="red">x</span>, <span class="constant">y</span>).should == plus(<span class="constant">y</span>, <span class="red">x</span>)
+end
+</code></pre>
+<h2>Associativity</h2>
+<pre><code class="ruby">
+check(Fixnum, Fixnum, Fixnum) do |<span class="red">x</span>, <span class="constant">y</span>, <span class="string">z</span>|
+ plus(plus(<span class="red">x</span>, <span class="constant">y</span>), <span class="string">z</span>).should == plus(<span class="red">x</span>, plus(<span class="constant">y</span>, <span class="string">z</span>))
+end
+</code></pre>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2>sort</h2>
+</div></section>
+
+<section class="slide"><div style="padding-top:50px; height:600px">
+<pre><code>
+require 'bacon'
+require 'rubyqc'
+
+Bacon.summary_on_exit
+Bacon::Context.include RubyQC::API
+
+describe Array do
+  describe 'sort' do
+    should 'Any former should be &lt;= any latter' do
+      check([Fixnum]*100).times(10) do |array|
+        array.sort.each_cons(2).each do |<span class="red">x</span>, <span class="constant">y</span>|
+          <span class="red">x</span>.should &lt;= <span class="constant">y</span>
+        end
+      end
+    end
+  end
+end
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>So with QuickCheck</h2>
+<ul>
+  <li>We think properties instead of scenarios.</li>
+  <li>It complements scenarios tests, not replaces them.</li></ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Design of RubyQC</h2>
+<ul>
+  <li>Testing framework agnostic.</li>
+  <li>Therefore could be treated as an arbitrary object generator</li>
+  <li>Think about <a href="http://en.wikipedia.org/wiki/Combinator_library">combinator</a></li>
+  <li>Self hosted (Test RubyQC with RubyQC!)</li></ul>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Q?</h2>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://github.com/godfat/rubyqc">https://github.com/godfat/rubyqc</a>
+<br><br><br><br><br><br>
+<pre><code class="ruby">
+<span class="red">gem</span> <span class="string">install</span> <span class="constant">rubyqc</span></code></pre>
+</div></section>
+
+  <div class="progress"><div></div></div>
+  <script src="../asset/shower.min.js"></script>
+  <script src='../asset/highlight.pack.js' type='text/javascript'></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

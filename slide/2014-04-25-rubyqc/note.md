@@ -63,7 +63,7 @@ So, to verify, we could either: (next slide)
 
 ## 5
 
-Proof it. (next slide)
+Prove it. (next slide)
 
 ## 6
 

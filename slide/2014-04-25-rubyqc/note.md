@@ -136,10 +136,10 @@ Anyway, some algorithm here. (next bullet)
 For scenario based tests, we wrote (point at the tests). This looks like
 RSpec but personally I use bacon, they share similar API.
 
-Given 1 and 1, when we put them together, we expect the result should be 2.
-Given 1 and 2, when we put them together, we expect the result should be 3.
-Given 2 and 1, when we put them together, we expect the result should be 3.
-Given 2 and 2, when we put them together, we expect the result should be 4.
+* Given 1 and 1, when we put them together, we expect the result should be 2.
+* Given 1 and 2, when we put them together, we expect the result should be 3.
+* Given 2 and 1, when we put them together, we expect the result should be 3.
+G* iven 2 and 2, when we put them together, we expect the result should be 4.
 
 Instances of the possible execution. (next bullet) Of course they are only
 a small subset of the program. We're not testing the other possible inputs.

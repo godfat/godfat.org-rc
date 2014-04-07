@@ -10,7 +10,7 @@ RubyQC itself. It's merely an example to demonstrate the idea.
 
 That means, if you already know what's QuickCheck, sorry, you might not
 find this talk very interesting. You could checkout this slide, following
-this URL (point at the URL to the slide), moving forward, or reading RubyQC
+this URL (point at the URL to the slide), moving forward, or read RubyQC
 source (point at the RubyQC words), this is the link to the source on Github.
 
 ## 2

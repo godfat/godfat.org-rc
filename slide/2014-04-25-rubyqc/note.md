@@ -224,7 +224,7 @@ What properties does array sort have?
 
 We know that for any former elements, any latter elements relative to the
 former elements would be greater or equal to the former elements. We don't
-really have to check all the combinations, according to Mathematical
+really have to check all the combinations, according to mathematical
 induction, we only need to verify for each cons of two.
 
 Using RubyQC API here (point at [Fixnum]*100) means we want a random array

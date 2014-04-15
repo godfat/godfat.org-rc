@@ -116,7 +116,7 @@ a {
     height: 80px;
     color: #FFF;
     counter-increment: slide;
-    content: counter(slide);
+    /*content: counter(slide);*/
     text-align: center;
     font-size: 20px; }
   .slide > div {

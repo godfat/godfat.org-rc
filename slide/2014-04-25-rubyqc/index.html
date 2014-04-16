@@ -438,7 +438,7 @@ describe 'Hash#compare_by_identity' do
     str = 'str'
     forall([true, false],
            [str, 'str'],
-           [str, 'str']) do |flag, a, b|
+           [str, 'nnf']) do |flag, a, b|
       h = {}
       h.compare_by_identity if flag
       h[a] = h[b] = true
@@ -462,7 +462,7 @@ describe 'Hash#compare_by_identity' do
     str = 'str'
     forall(booleans,
            [str, 'str'],
-           [str, 'str']) do |flag, a, b|
+           [str, 'nnf']) do |flag, a, b|
       h = {}
       h.compare_by_identity if flag
       h[a] = h[b] = true

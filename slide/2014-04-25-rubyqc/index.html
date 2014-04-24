@@ -509,9 +509,9 @@ end
 
 <section class="slide"><div style="padding-top:50px; height:600px">
 <pre><code>
-class User &lt; Struct.new(:id, :name)
+class User &lt; Struct.new(:name, :gold)
   def self.rubyqc
-    new(Fixnum.rubyqc, String.rubyqc)
+    new(String.rubyqc, Fixnum.rubyqc)
   end
 end
 
@@ -519,8 +519,8 @@ describe 'User.rubyqc' do
   should 'Generate random users' do
     check(User) do |user|
       user     .should.kind_of User
-      user.id  .should.kind_of Fixnum
       user.name.should.kind_of String
+      user.gold.should.kind_of Fixnum
     end
   end
 end

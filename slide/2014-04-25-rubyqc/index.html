@@ -521,13 +521,56 @@ class User &lt; Struct.new(:name, :gold)
   end
 end
 
-describe 'User.rubyqc' do
+describe User do
   should 'Generate random users' do
     check(User) do |user|
       user     .should.kind_of User
       user.name.should.kind_of String
       user.gold.should.kind_of Fixnum
     end
+  end
+end
+</code></pre>
+</div></section>
+
+<section class="slide"><div style="padding-top:50px; height:600px">
+<pre><code>
+class User &lt; Struct.new(:name, :gold)
+  def self.rubyqc
+    new(String.rubyqc, (0..99).rubyqc)
+  end
+
+  def give that, amount
+    if gold >= amount
+      self.gold -= amount
+      that.gold += amount
+      true
+    else
+      false
+    end
+  end
+end
+</code></pre>
+</div></section>
+
+<section class="slide"><div style="padding-top:50px; height:600px">
+<pre><code>
+class User &lt; Struct.new(:name, :gold)
+  def self.rubyqc
+    new(String.rubyqc, (0..99).rubyqc)
+  end
+end
+
+should 'Give gold to others' do
+  check(User, User, 0..99) do |a, b, gold|
+    total = a.gold + b.gold # Given
+    agold = a.gold
+
+    a.give(b, gold).should == gold &lt;= agold # When
+
+    a.gold.should >= 0 # Then
+    b.gold.should >= 0
+    (a.gold + b.gold).should == total
   end
 end
 </code></pre>

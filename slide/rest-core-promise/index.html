@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>The Promise of rest-core</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=792, user-scalable=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Oxygen+Mono" rel="stylesheet" type="text/css">
+  <link href="../asset/screen.css" rel="stylesheet" type="text/css">
+  <style>
+    .avatar{
+      width: 56px;
+      height: 57px;
+      padding-right: 10px;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    .date{
+      font-family: monospace;
+    }
+    .slide .chart{
+      margin-top: -85px;
+      line-height: 1.5em;
+      list-style: none;
+    }
+    .slide .hide li:before{
+      color: #fff;
+    }
+    .slide .hide li{
+      color: #fff;
+    }
+    .slide .show li:before{
+      color: #bbb;
+    }
+    .slide .show li{
+      color: #000;
+    }
+    a:link, a:visited{
+      color: teal;
+    }
+    .lib{
+      color: teal;
+    }
+    .red{
+      color: #cf6a4c;
+    }
+    .blue, #blue{
+      /* #blue is for overwriting colors from .hide */
+      color: #4b86c2;
+    }
+    #cost li:before{
+      content: '+\00A0';
+      margin-left: 50px;
+    }
+    .slide div.universe,
+    .slide div.proof,
+    .slide div.proof-invisible,
+    .slide div.program, .slide div.test{
+      padding: 0;
+      top: 2.5%;
+      margin: auto;
+      position: relative;
+      border-radius: 50%;
+      text-align: center;
+    }
+    .slide div.universe{
+      width: 600px;
+      height: 600px;
+      background-color: #4b86c2;
+    }
+    .slide div.proof-invisible{
+      width: 500px;
+      height: 500px;
+      background-color: #4b86c2;
+    }
+    .slide div.proof{
+      width: 500px;
+      height: 500px;
+      background-color: teal;
+    }
+    .slide div.program{
+      width: 400px;
+      height: 400px;
+      background-color: #cf6a4c;
+    }
+    .slide div.test{
+      width: 300px;
+      height: 300px;
+      background-color: orange;
+    }
+  </style>
+</head>
+<body class="list">
+  <header class="caption"></header>
+
+<section class="slide shout"><div>
+  <h2 style="top:38%; line-height:1em">
+    The Promise<br>of
+    <a style="border-bottom:none" href="https://github.com/godfat/rest-core">rest-core</a></h2>
+  <br><br><br><br><br><br><br><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="http://godfat.org/slide/rest-core-promise/">http://godfat.org/slide/rest-core-promise/</a></span>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Who?</h2>
+  <img class="avatar" src="../asset/spiritual_soul.jpg">
+  Lin Jen-Shin (godfat)
+  <p>
+    <ul><li><span class="date">2001~2004:</span> C</li>
+        <li><span class="date">2004~2009:</span> ActionScript</li>
+        <li><span class="date">2005~2008:</span> C++</li>
+        <li><span class="date">2006~<span class="lib">2014</span>:</span> <span class="red">Ruby</span></li>
+        <li><span class="date">2007~<span class="lib">2014</span>:</span> (learning) <span class="blue">Haskell</span></li></ul>
+  </p>
+</div></section>
+
+<section class="slide shout" style="background-color:#073648"><div>
+  <h2>
+    <a style="border-bottom:0" href="https://www.codementor.io"><img src="LightningTalk2014RubyConf.png"></a>
+  </h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Table of Contents</h2>
+  <ul><li>Introduction</li>
+      <li class="next">The API / Use Cases</li>
+      <li class="next">Concurrency Model</li>
+      <li class="next">Streaming, the EventSource</li>
+      <li class="next">The Timeout Quest</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Table of Contents</h2>
+  <ul><li class="red">Introduction</li>
+      <li>The API / Use Cases</li>
+      <li>Concurrency Model</li>
+      <li>Streaming, the EventSource</li>
+      <li>The Timeout Quest</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="http://rubyconf.tw/2011/#6">RubyConf.TW 2011</a></h2>
+  <ul><li>rest-core — <a href="http://www.godfat.org/slide/2011-08-27-rest-core.html">A modular Ruby REST client collection/infrastructure</a></li>
+      <li class="next">Middleware</li>
+      <li class="next"><a href="https://github.com/godfat/rest-more">rest-more</a></li>
+      <li class="next">RestCore::RailsUtilUtil</li>
+      <li class="next">RC::Dropbox (via OAuth 1.0a)</li>
+      <li class="next">RC::Facebook (via OAuth 2, most completed)</li>
+      <li class="next">RC::Github (via OAuth 2)</li>
+      <li class="next">RC::Instagram (via OAuth 2)</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="http://rubyconf.tw/2011/#6">RubyConf.TW 2011</a></h2>
+  <ul><li>rest-core — <a href="http://www.godfat.org/slide/2011-08-27-rest-core.html">A modular Ruby REST client collection/infrastructure</a></li>
+      <li>Middleware</li>
+      <li><a href="https://github.com/godfat/rest-more">rest-more</a></li>
+      <li>RC::Linkedin (via OAuth 1.0a)</li>
+      <li>RC::Dropbox (via OAuth 1.0a)</li>
+      <li>RC::Facebook (via OAuth 2, most completed)</li>
+      <li>RC::Github (via OAuth 2)</li>
+      <li>RC::Instagram (via OAuth 2)</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="http://rubyconf.tw/2011/#6">RubyConf.TW 2011</a></h2>
+  <ul><li>rest-core — <a href="http://www.godfat.org/slide/2011-08-27-rest-core.html">A modular Ruby REST client collection/infrastructure</a></li>
+      <li>Middleware</li>
+      <li>RC::StackExchange (via OAuth 2)</li>
+      <li>RC::Linkedin (via OAuth 1.0a)</li>
+      <li>RC::Dropbox (via OAuth 1.0a)</li>
+      <li>RC::Facebook (via OAuth 2, most completed)</li>
+      <li>RC::Github (via OAuth 2)</li>
+      <li>RC::Instagram (via OAuth 2)</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="http://rubyconf.tw/2011/#6">RubyConf.TW 2011</a></h2>
+  <ul><li>rest-core — <a href="http://www.godfat.org/slide/2011-08-27-rest-core.html">A modular Ruby REST client collection/infrastructure</a></li>
+      <li>RC::Twitter (via OAuth 1.0a)</li>
+      <li>RC::StackExchange (via OAuth 2)</li>
+      <li>RC::Linkedin (via OAuth 1.0a)</li>
+      <li>RC::Dropbox (via OAuth 1.0a)</li>
+      <li>RC::Facebook (via OAuth 2, most completed)</li>
+      <li>RC::Github (via OAuth 2)</li>
+      <li>RC::Instagram (via OAuth 2)</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="http://rubyconf.tw/2011/#6">RubyConf.TW 2011</a></h2>
+  <ul><li>Firebase: <a href="https://github.com/CodementorIO/rest-firebase">rest-firebase</a></li>
+      <li class="next">TopCoder: <a href="https://github.com/miaout17/topcoder">topcoder</a></li>
+      <li class="next">YahooBuy: <a href="https://github.com/GoodLife/rest-more-yahoo_buy">rest-more-yahoo_buy</a></li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="http://rubyconf.tw/2012/">RubyConf.TW 2012</a></h2>
+  <ul><li><a href="http://www.godfat.org/slide/2012-12-07-concurrent.pdf">Concurrent Ruby Application Servers</a></li>
+      <li class="next"><a href="http://en.wikipedia.org/wiki/Data_dependency">Data dependency</a></li>
+      <li class="next">Linear/Mixed data dependency</li>
+      <li class="next">Callback/Futures</li>
+      <li class="next">CPU or I/O bound</li>
+      <li class="next">Unicorn/Rainbows!/Thin/Puma</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>&nbsp;</h2>
+  <ul><li>rest-core — <a href="http://www.godfat.org/slide/2011-08-27-rest-core.html">A modular Ruby REST client collection/infrastructure</a></li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>&nbsp;</h2>
+  <ul><li>rest-core — <span class="lib">Modular Ruby clients interface for REST APIs</span></li>
+      <li class="next">(<span class="red">Middleware</span>) Modular interface for REST clients similar to WSGI/Rack for servers.</li>
+      <li class="next">(<span class="red">Promises/Futures</span>) Concurrent requests with synchronous or asynchronous interfaces with threads.</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>&nbsp;</h2>
+  <ul><li>rest-core — <span class="lib">Modular Ruby clients interface for REST APIs</span></li>
+      <li>(<span class="red">Middleware</span>) Modular interface for REST clients similar to WSGI/Rack for servers.</li>
+      <li>(<span class="red">Promises/Futures</span>) <span class="blue">Concurrent requests with synchronous or asynchronous interfaces with threads.</span></li></ul>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Q?</h2>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://github.com/godfat/rest-core">https://github.com/godfat/rest-core</a>
+<br><br><br><br><br><br>
+<pre><code class="ruby">
+<span class="red">gem</span> <span class="string">install</span> <span class="constant">rest-core</span></code></pre>
+</div></section>
+
+  <div class="progress"><div></div></div>
+  <script src="../asset/shower.min.js"></script>
+  <script src='../asset/highlight.pack.js' type='text/javascript'></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

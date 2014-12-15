@@ -42,11 +42,12 @@ This could be tough, be prepared!
     - Callback Hell?
       * %w[godfat fatgot].each{ |username| client.get("#{username}/friends"){ |r| client.get("#{r.first['username']}/friends"){ |r| client.post("#{r.first['username']}/messages", 'Hi! Friend of friend.') } }
       * %w[godfat fatgod].each{ |username| client.get("#{username}/friends"){ |r| friends = client.get("#{r.first['username']}/friends"); client.post("#{friends.first['username']}/messages", 'Hi! Friend of friend.') } }
-  * Wait!
+  * Wait! It's not yet done
     - Client#wait
     - Client.wait
     - Tracking WeakRef
-  * Promises Chain
+  * Promise.claim
+  * Promises Chain: Promise#then
     - RC::Github#all
       * Get Repositories -> Get All Pages at once
       * repos = client.get('godfat/repos'); repos[pages].flat_map{ |page| client.get(page) }.inject(&:+)
@@ -58,7 +59,7 @@ This could be tough, be prepared!
   * Thread Spawn (Default)
     - pool_size = 0
     - Setup Backtrace for Exceptions
-  * Thread Pool
+  * Thread Pool (Throttling)
     - pool_size > 0
     - Connection Throttle
     - Beware of Deadlock!
@@ -67,11 +68,13 @@ This could be tough, be prepared!
     - Auto-shrinking when a worker is idling (with timeout)
     - Shutting down (along with Client.wait)
 - Streaming, the EventSource
-  * Accept: text/event-stream
+  * Server-Sent Events
+  * Rack Hijacking
   * Firebase Daemon (rest-firebase)
-  * Auto-reconnect
+  * onreconnect Callback
+  * Wait! It's not yet done
+  * Accept: text/event-stream
   * JavaScript like API
-  * EventSource#wait
 - The Timeout Quest
   * `Thread#kill` is unsafe
   * `Thread#raise` is unsafe without masking

@@ -1,17 +1,16 @@
 
 # rest-core 的承諾
 
-在 [RubyConf.TW 2011][]，我分享了 *[rest-core][]*，_一個模組化的 Ruby REST
-客戶端組合包與工具組_。因為組合包的東西被抽至 *[rest-more][]*，所以後來改稱其為_模組化的
-Ruby REST 應用程式客戶端介面_。
+在 [RubyConf.TW 2011][]，我介紹了 [rest-core][]，是用 Ruby 寫成的模組化 REST
+client 組合包與工具組。後來組合包的東西被抽至 [rest-more][]，於是變成給 REST APIs 使用的模組化 Ruby clients interface。
 
-在 [RubyConf.TW 2012][]，我分享了
-_Ruby 的並行應用程式伺服器_。後來在 rest-core
-內加入我從以上所學到的東西使它能夠輕易地發出並行請求。
+在 [RubyConf.TW 2012][]，我介紹了 Ruby 上的 concurrent 應用程式伺服器。之後在 rest-core 內，加入我從以上所學到的東西，使它能輕易地發出 concurrent requests。
 
-我們在不同情況下，有時候需要使用承諾，有時候需要使用回乎。這次我將分享我們怎麼利用*承諾*來達成用我們所熟習的同步風格，發出並行請求；同時又能繼續用回乎發出非同步的並行請求。
+在不同的使用情況下，我們有時候需要使用 promise、有時候需要使用
+callback。這次我將介紹該怎麼利用 promise 來達成以我們所熟習的同步風格，發出
+concurrent requests；同時也能繼續用 callback 發出非同步的 concurrent requests。
 
-我也將會分享所有噁心的實作細節。可能會很複雜，請有心理準備！
+我也會分享所有噁心的實作細節。可能會很複雜，請有心理準備！
 
 # The Promise of rest-core
 

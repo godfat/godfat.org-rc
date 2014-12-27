@@ -43,29 +43,23 @@ This could be tough, be prepared!
 - The API / Use Cases
   * Futures / Synchronous / Blocking
     - Print the Name
-      * client.get('godfat')['name']
     - Print the Names
-      * names = [client.get('godfat'), client.get('fatgod')].map{ |r| r['name'] }
-      * a, b = client.get('godfat'), client.get('fatgod'); a['name']; b['name']
-    - Fire and Forget (without callback)
-      * client.post('godfat/message', 'Hi!')
+    - Fire and Forget
+    - Fire and Call
   * Callbacks / Asynchronous / Non-blocking
-    - Fire and Forget (with callback)
-      * client.post('godfat/messages', 'Hi!'){ |response| }
+    - Fire and Call
+    - Fire and Rescue
     - Callback Hell?
-      * %w[godfat fatgot].each{ |username| client.get("#{username}/friends"){ |r| client.get("#{r.first['username']}/friends"){ |r| client.post("#{r.first['username']}/messages", 'Hi! Friend of friend.') } }
-      * %w[godfat fatgod].each{ |username| client.get("#{username}/friends"){ |r| friends = client.get("#{r.first['username']}/friends"); client.post("#{friends.first['username']}/messages", 'Hi! Friend of friend.') } }
+    - We Still need Callbacks
   * Wait! It's not yet done
     - Client#wait
     - Client.wait
     - Tracking WeakRef
-  * Promise.claim
-  * Promises Chain: Promise#then
+  * Promise Chain: Promise#then
+    - Why: It's Not Blocking Here
     - RC::Github#all
-      * Get Repositories -> Get All Pages at once
-      * repos = client.get('godfat/repos'); repos[pages].flat_map{ |page| client.get(page) }.inject(&:+)
-      * then + future_response
-  * Use Whatever API Intuitive to You
+  * Promise.claim
+    - Forging Response, for middleware RC::Cache
 - Concurrency Model
   * None / Blocking (For debugging purpose)
     - pool_size = -1

@@ -509,6 +509,13 @@ end</code></pre>
 </div></section>
 
 <section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>None / Blocking<br>(For debugging purpose)</h2>
+  <pre><code class="ruby">
+RC::Universal.pool_size = -1</code></pre>
+</div></section>
+
+<section class="slide"><div>
   <h2>Concurrency Model</h2>
   <ul><li>None / Blocking (For debugging purpose)</li>
       <li class="red">Thread Spawn (Default)</li>
@@ -516,10 +523,25 @@ end</code></pre>
 </div></section>
 
 <section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Thread Spawn<br>(Default)</h2>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 0</code></pre>
+</div></section>
+
+<section class="slide"><div>
   <h2>Concurrency Model</h2>
   <ul><li>None / Blocking (For debugging purpose)</li>
       <li>Thread Spawn (Default)</li>
       <li class="red">Thread Pool (Throttling)</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Thread Pool<br>(Throttling)</h2>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 10</code></pre>
+  <ul><li>For limited database/http connection</li></ul>
 </div></section>
 
 <section class="slide"><div>

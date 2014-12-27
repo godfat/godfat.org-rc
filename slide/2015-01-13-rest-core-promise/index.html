@@ -181,8 +181,8 @@
   <ul><li class="red">Futures / Synchronous / Blocking</li>
       <li>Callbacks / Asynchronous / Non-blocking</li>
       <li>Wait! It's not yet done</li>
-      <li>Promise.claim</li>
-      <li>Promises Chain: Promise#then</li></ul>
+      <li>Promise Chain: Promise#then</li>
+      <li>Promise.claim</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -232,8 +232,8 @@ client.post('ruby/cut', style: 'brilliant'){}</code></pre></span>
   <ul><li>Futures / Synchronous / Blocking</li>
       <li class="red">Callbacks / Asynchronous / Non-blocking</li>
       <li>Wait! It's not yet done</li>
-      <li>Promise.claim</li>
-      <li>Promises Chain: Promise#then</li></ul>
+      <li>Promise Chain: Promise#then</li>
+      <li>Promise.claim</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -316,8 +316,8 @@ end</code></pre>
   <ul><li>Futures / Synchronous / Blocking</li>
       <li>Callbacks / Asynchronous / Non-blocking</li>
       <li class="red">Wait! It's not yet done</li>
-      <li>Promise.claim</li>
-      <li>Promises Chain: Promise#then</li></ul>
+      <li>Promise Chain: Promise#then</li>
+      <li>Promise.claim</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -386,8 +386,8 @@ puts r</code></pre>
   <ul><li>Futures / Synchronous / Blocking</li>
       <li>Callbacks / Asynchronous / Non-blocking</li>
       <li>Wait! It's not yet done</li>
-      <li class="red">Promise.claim</li>
-      <li>Promises Chain: Promise#then</li></ul>
+      <li class="red">Promise Chain: Promise#then</li>
+      <li>Promise.claim</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -395,8 +395,29 @@ puts r</code></pre>
   <ul><li>Futures / Synchronous / Blocking</li>
       <li>Callbacks / Asynchronous / Non-blocking</li>
       <li>Wait! It's not yet done</li>
-      <li>Promise.claim</li>
-      <li class="red">Promises Chain: Promise#then</li></ul>
+      <li>Promise Chain: Promise#then</li>
+      <li class="red">Promise.claim</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Promise.claim</h1>
+  <h2>Forging Response,<br>for middleware <code>RC::Cache</code></h2>
+  <pre><code class="ruby">
+RC::Promise.
+  claim(res, k, body, 200, 'Header' => 'Here').
+  future_response</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Promise.claim</h1>
+  <h2>Forging Response,<br>for middleware <code>RC::Cache</code></h2>
+  <pre><code class="ruby">
+def RC::Promise.claim env, k=RC.id,
+                      body, status, headers
+  promise = new(env, k)
+  promise.fulfill(body, status, headers)
+  promise
+end</code></pre>
 </div></section>
 
 <section class="slide"><div>

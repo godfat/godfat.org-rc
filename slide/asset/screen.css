@@ -133,7 +133,8 @@ a {
 .slide h2 {
   margin: 0 0 37px;
   color: #333;
-  font: bold 50px/1 'Roboto Slab', sans-serif; }
+  font: bold 50px/1 'Roboto Slab', sans-serif;
+  line-height: 1.2em; }
 .slide p {
   margin: 0 0 50px; }
 .slide p.note {

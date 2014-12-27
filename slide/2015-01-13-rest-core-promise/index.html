@@ -183,6 +183,48 @@
 </div></section>
 
 <section class="slide"><div>
+  <h1>Futures / Synchronous / Blocking</h1>
+  <h2>Print the name</h2>
+  <pre><code class="ruby">
+puts client.get('ruby')['name']
+  </code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Futures / Synchronous / Blocking</h1>
+  <h2>Print the names</h2>
+  <pre><code class="ruby">
+puts client.get('ruby')['name']<span class="next"> # -- this blocks</span>
+puts client.get('opal')['name']</code></pre>
+  <span class="next"><h2>Better:</h2>
+  <pre><code class="ruby">
+puts %w[ruby opal].map{ |n| client.get(n) }.
+                   map{ |r| r['name'] }</code></pre></span>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Futures / Synchronous / Blocking</h1>
+  <h2>Or:</h2>
+  <pre><code class="ruby">
+a, b = client.get('ruby'), client.get('opal')
+puts a['name'], b['name']</code></pre>
+  <h2>Better:</h2>
+  <pre><code class="ruby">
+puts %w[ruby opal].map{ |n| client.get(n) }.
+                   map{ |r| r['name'] }</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Futures / Synchronous / Blocking</h1>
+  <h2>Fire and Forget</h2>
+  <pre><code class="ruby">
+client.post('ruby/cut', :style => 'brilliant')</code></pre>
+  <span class="next"><h2>Fire and Call</h2>
+  <pre><code class="ruby">
+client.post('ruby/cut', :style => 'brilliant'){}</code></pre></span>
+</div></section>
+
+<section class="slide"><div>
   <h2>The API / Use Cases</h2>
   <ul><li>Futures / Synchronous / Blocking</li>
       <li class="red">Callbacks / Asynchronous / Non-blocking</li>

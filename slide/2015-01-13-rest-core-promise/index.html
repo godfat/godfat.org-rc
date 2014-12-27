@@ -272,7 +272,7 @@ c = client
 %w[ruby opal].each do |n|
   c.get("#{n}/friends") do |f|
     c.get("#{f.first['name']}/friends") do |ff|
-      c.post("#{ff.first['name']}/message", 'Hi')
+      c.post("#{ff.first['name']}/mails", 'Hi')
     end
   end
 end</code></pre>
@@ -285,8 +285,8 @@ end</code></pre>
 c = client
 %w[ruby opal].each do |n|
   c.get("#{n}/friends") do |f|
-    ff = client.get("#{f.first['name']}/friends")
-    c.post("#{ff.first['name']}/messages", 'Hi')
+    ff = c.get("#{f.first['name']}/friends")
+    c.post("#{ff.first['name']}/mails", 'Hi')
   end
 end</code></pre>
 </div></section>
@@ -299,9 +299,9 @@ c = client
 %w[ruby opal].map do |n|
   c.get("#{n}/friends")
 end.map do |f|
-  client.get("#{<span class="highlight">f.first</span>['name']}/friends")
+  c.get("#{<span class="highlight">f.first</span>['name']}/friends")
 end.map do |ff|
-  c.post("#{ff.first['name']}/messages", 'Hi')
+  c.post("#{ff.first['name']}/mails", 'Hi')
 end</code></pre>
 </div></section>
 
@@ -318,6 +318,67 @@ end</code></pre>
       <li class="red">Wait! It's not yet done</li>
       <li>Promise.claim</li>
       <li>Promises Chain: Promise#then</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Wait! It's not yet done</h1>
+  <h2>RC::Client#wait</h2>
+  <pre><code class="ruby">
+c = client
+%w[ruby opal].each do |n|
+  c.get("#{n}/friends") do |f|
+    ff = c.get("#{f.first['name']}/friends")
+    c.post("#{ff.first['name']}/mails", 'Hi')
+  end
+end
+
+
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Wait! It's not yet done</h1>
+  <h2>RC::Client#wait</h2>
+  <pre><code class="ruby">
+r = []
+%w[ruby opal].each do |n|
+  c.get("#{n}/friends") do |f|
+    ff = c.get("#{f.first['name']}/friends")
+    r &lt;&lt; c.post("#{ff.first['name']}/mails", 'Hi')
+  end
+end
+c.wait       # only for this client instance
+puts r</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Wait! It's not yet done</h1>
+  <h2>RC::Client.wait</h2>
+  <pre><code class="ruby">
+r = []
+%w[ruby opal].each do |n|
+  c.get("#{n}/friends") do |f|
+    ff = c.get("#{f.first['name']}/friends")
+    r &lt;&lt; c.post("#{ff.first['name']}/mails", 'Hi')
+  end
+end
+c.class.wait # for all requests from this class
+puts r</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Wait! It's not yet done</h1>
+  <h2>RC::Client.wait</h2>
+  <pre><code class="ruby">
+r = []
+%w[ruby opal].each do |n|
+  c.get("#{n}/friends") do |f|
+    ff = c.get("#{f.first['name']}/friends")
+    r &lt;&lt; c.post("#{ff.first['name']}/mails", 'Hi')
+  end
+end
+c.class.wait # useful for gracefully shutdown
+puts r</code></pre>
 </div></section>
 
 <section class="slide"><div>

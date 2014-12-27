@@ -96,7 +96,3 @@ This could be tough, be prepared!
     - Inaccurate
     - Setup Interval
     - Auto-shutdown
-
-Parallel and Concurrent Programming in Haskell:
-Chapter 9. Cancellation and Timeouts:
-<http://chimera.labs.oreilly.com/books/1230000000929/ch09.html>

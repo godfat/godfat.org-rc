@@ -35,6 +35,9 @@
     .blue{
       color: #4b86c2;
     }
+    .highlight{
+      background-color: #cf6a4c;
+    }
   </style>
 </head>
 <body class="list">
@@ -184,7 +187,7 @@
 
 <section class="slide"><div>
   <h1>Futures / Synchronous / Blocking</h1>
-  <h2>Print the name</h2>
+  <h2>Print the Name</h2>
   <pre><code class="ruby">
 puts client.get('ruby')['name']
   </code></pre>
@@ -192,11 +195,11 @@ puts client.get('ruby')['name']
 
 <section class="slide"><div>
   <h1>Futures / Synchronous / Blocking</h1>
-  <h2>Print the names</h2>
+  <h2>Print the Names (Bad)</h2>
   <pre><code class="ruby">
-puts client.get('ruby')['name']<span class="next"> # -- this blocks</span>
+puts client.get('ruby')<span class="highlight">['name']</span> # -- this blocks
 puts client.get('opal')['name']</code></pre>
-  <span class="next"><h2>Better:</h2>
+  <span class="next"><h2>Non-blocking (Better)</h2>
   <pre><code class="ruby">
 puts %w[ruby opal].map{ |n| client.get(n) }.
                    map{ |r| r['name'] }</code></pre></span>
@@ -204,11 +207,11 @@ puts %w[ruby opal].map{ |n| client.get(n) }.
 
 <section class="slide"><div>
   <h1>Futures / Synchronous / Blocking</h1>
-  <h2>Or:</h2>
+  <h2>Or Easier to Read:</h2>
   <pre><code class="ruby">
 a, b = client.get('ruby'), client.get('opal')
 puts a['name'], b['name']</code></pre>
-  <h2>Better:</h2>
+  <h2>Non-blocking (Better)</h2>
   <pre><code class="ruby">
 puts %w[ruby opal].map{ |n| client.get(n) }.
                    map{ |r| r['name'] }</code></pre>
@@ -218,10 +221,10 @@ puts %w[ruby opal].map{ |n| client.get(n) }.
   <h1>Futures / Synchronous / Blocking</h1>
   <h2>Fire and Forget</h2>
   <pre><code class="ruby">
-client.post('ruby/cut', :style => 'brilliant')</code></pre>
+client.post('ruby/cut', style: 'brilliant')</code></pre>
   <span class="next"><h2>Fire and Call</h2>
   <pre><code class="ruby">
-client.post('ruby/cut', :style => 'brilliant'){}</code></pre></span>
+client.post('ruby/cut', style: 'brilliant'){}</code></pre></span>
 </div></section>
 
 <section class="slide"><div>
@@ -231,6 +234,81 @@ client.post('ruby/cut', :style => 'brilliant'){}</code></pre></span>
       <li>Wait! It's not yet done</li>
       <li>Promise.claim</li>
       <li>Promises Chain: Promise#then</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Callbacks / Asynchronous / Non-blocking</h1>
+  <h2>Fire and Call</h2>
+  <pre><code class="ruby">
+client.post('ruby/cut', style: 'brilliant'){}
+
+
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Callbacks / Asynchronous / Non-blocking</h1>
+  <h2>Fire and Call</h2>
+  <pre><code class="ruby">
+client.post('ruby/cut', style: 'brilliant') do |r|
+  puts r['status']
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Callbacks / Asynchronous / Non-blocking</h1>
+  <h2>Fire and Rescue</h2>
+  <pre><code class="ruby">
+client.post('ruby/cut', style: 'brilliant') do |r|
+  puts r.kind_of?(Exception)
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Callbacks / Asynchronous / Non-blocking</h1>
+  <h2>Callback Hell?</h2>
+  <pre><code class="ruby">
+c = client
+%w[ruby opal].each do |n|
+  c.get("#{n}/friends") do |f|
+    c.get("#{f.first['name']}/friends") do |ff|
+      c.post("#{ff.first['name']}/message", 'Hi')
+    end
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Callbacks / Asynchronous / Non-blocking</h1>
+  <h2>Callback Hell? Eliminate One</h2>
+  <pre><code class="ruby">
+c = client
+%w[ruby opal].each do |n|
+  c.get("#{n}/friends") do |f|
+    ff = client.get("#{f.first['name']}/friends")
+    c.post("#{ff.first['name']}/messages", 'Hi')
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Callbacks / Asynchronous / Non-blocking</h1>
+  <h2>Callback Hell? But This Blocks!</h2>
+  <pre><code class="ruby">
+c = client
+%w[ruby opal].map do |n|
+  c.get("#{n}/friends")
+end.map do |f|
+  client.get("#{<span class="highlight">f.first</span>['name']}/friends")
+end.map do |ff|
+  c.post("#{ff.first['name']}/messages", 'Hi')
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Callbacks / Asynchronous / Non-blocking</h1>
+  <h2>We Still Need Callbacks</h2>
+  <a href="http://www.godfat.org/slide/2012-12-07-concurrent.pdf"><img src="data-tmp-01.png" style="position:relative; top:-210px; left:-100px"></a>
 </div></section>
 
 <section class="slide"><div>

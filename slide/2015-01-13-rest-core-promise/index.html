@@ -391,6 +391,78 @@ puts r</code></pre>
 </div></section>
 
 <section class="slide"><div>
+  <h1>Promise Chain: Promise#then</h1>
+  <h2>Without Waiting... Change This:</h2>
+  <pre><code class="ruby">
+r = []
+%w[ruby opal].each do |n|
+  c.get("#{n}/friends") do |f|
+    ff = c.get("#{f.first['name']}/friends")
+    r &lt;&lt; c.post("#{ff.first['name']}/mails", 'Hi')
+  end
+end
+c.wait
+puts r</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Promise Chain: Promise#then</h1>
+  <h2>Without Waiting... To This:</h2>
+  <pre><code class="ruby">
+r = %w[ruby opal].map do |n|
+  c.get("#{n}/friends", {},
+        RC::RESPONSE_KEY => RC::PROMISE).
+        then do |res|
+    f = res[RC::RESPONSE_BODY]
+    ff = c.get("#{f.first['name']}/friends")
+    st = c.post("#{ff.first['name']}/mails", 'Hi')
+    res.merge(RC::RESPONSE_BODY => st)
+  end.future_response[RC::RESPONSE_BODY]
+end
+puts r</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Promise Chain: Promise#then</h1>
+  <h2>Why: It's Not Blocking Here</h2>
+  <pre><code class="ruby">
+r = %w[ruby opal].map do |n|
+  c.get("#{n}/friends", {},
+        RC::RESPONSE_KEY => RC::PROMISE).
+        then do |res|
+    f = res[RC::RESPONSE_BODY]
+    ff = c.get("#{f.first['name']}/friends")
+    st = c.post("#{ff.first['name']}/mails", 'Hi')
+    res.merge(RC::RESPONSE_BODY => st)
+  end.future_response[RC::RESPONSE_BODY]
+end
+puts r</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <pre style="position:relative; top:-100px"><code class="ruby">
+# <a href="https://github.com/godfat/rest-more/blob/rest-more-3.3.1/lib/rest-core/client/github.rb#L62-L78">RC::Github#all</a>
+
+def all p, query={}, o={}
+  q = {:per_page => MAX_PER_PAGE}.merge(query)
+  r = <span class="highlight">get</span>(p, q, o.merge(RESPONSE_KEY => PROMISE)).
+      then{ |res|
+    b = res[RESPONSE_BODY] +
+        page_range(res).<span class="highlight">map</span>{ |page|
+          <span class="highlight">get</span>(p, q.merge(:page => page),
+            o.merge(RESPONSE_KEY=>RESPONSE_BODY))
+        }.inject([], &amp;:+)
+    res.merge(RESPONSE_BODY => b)
+  }.future_response
+  if block_given?
+    yield(r[response_key(o)]); self
+  else
+    r[response_key(o)]
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
   <h2>The API / Use Cases</h2>
   <ul><li>Futures / Synchronous / Blocking</li>
       <li>Callbacks / Asynchronous / Non-blocking</li>

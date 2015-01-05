@@ -38,6 +38,10 @@
     .highlight{
       background-color: #cf6a4c;
     }
+    .fullscreen{
+      position: relative;
+      top: -100px;
+    }
   </style>
 </head>
 <body class="list">
@@ -440,7 +444,7 @@ puts r</code></pre>
 </div></section>
 
 <section class="slide"><div>
-  <pre style="position:relative; top:-100px"><code class="ruby">
+  <pre class="fullscreen"><code class="ruby">
 # <a href="https://github.com/godfat/rest-more/blob/rest-more-3.3.1/lib/rest-core/client/github.rb#L62-L78">RC::Github#all</a>
 
 def all p, query={}, o={}
@@ -513,6 +517,70 @@ end</code></pre>
   <h2>None / Blocking<br>(For debugging purpose)</h2>
   <pre><code class="ruby">
 RC::Universal.pool_size = -1</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model - None / Blocking (For debugging purpose)</h1>
+  <pre><code class="ruby">
+def defer # RC::Promise#defer
+  if pool_size &lt; 0
+    # set working thread
+    self.thread = Thread.current
+    # set timeout
+    env[TIMER].on_timeout{ cancel_task } if
+      env[TIMER]
+    # avoid any exception and do the job
+    protected_yield{ yield }
+  else
+    # ...
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <pre class="fullscreen"><code class="ruby">
+def cancel_task bt=nil # RC::Promise#cancel_task
+  mutex.synchronize do
+    next if done? # don't cancel if it's done
+    if t = thread || task.thread
+      # raise Timeout::Error to working thread
+      t.raise(env[TIMER].error)
+    else # task was queued and never started,
+      begin # just cancel it and fulfil the
+        task.cancel # promise with Timeout::Error
+        rejecting(env[TIMER].error)
+      rescue Exception => e
+        # log user callback error
+        callback_error(e) do
+          e.set_backtrace(e.backtrace + (bt||[]))
+        end
+      end
+    end
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <pre class="fullscreen"><code class="ruby">
+def protected_yield # RC::Promise#protected_yield
+  yield
+rescue Exception => e # could be Timeout::Error
+  mutex.synchronize do
+    never_raise_yield do
+      env[TIMER].cancel if env[TIMER]
+      self.class.set_backtrace(e)
+    end
+    if done? # log user callback error
+      callback_error(e)
+    else # IOError, SystemCallError, etc
+      begin
+        rejecting(e) # would call user callback
+      rescue Exception => f
+        callback_error(f)# log user callback error
+      end
+    end
+  end
+end</code></pre>
 </div></section>
 
 <section class="slide"><div>

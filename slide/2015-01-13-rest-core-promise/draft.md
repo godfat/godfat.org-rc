@@ -52,14 +52,14 @@ This could be tough, be prepared!
     - Callback Hell?
     - We Still need Callbacks
   * Wait! It's not yet done
-    - Client#wait
-    - Client.wait
-    - Tracking WeakRef
-  * Promise Chain: Promise#then
+    - `Client#wait`
+    - `Client.wait`
+    - Tracking `WeakRef`
+  * Promise Chain: `Promise#then`
     - Why: It's Not Blocking Here
-    - RC::Github#all
+    - `RC::Github#all`
   * Promise.claim
-    - Forging Response, for middleware RC::Cache
+    - Forging Response, for middleware `RC::Cache`
 - Concurrency Model
   * None / Blocking (For debugging purpose)
     - pool_size = -1

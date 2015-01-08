@@ -507,39 +507,162 @@ end</code></pre>
 
 <section class="slide"><div>
   <h2>Concurrency Model</h2>
-  <ul><li class="red">None / Blocking (For debugging purpose)</li>
-      <li>Thread Spawn (Default)</li>
-      <li>Thread Pool (Throttling)</li></ul>
+  <ul><li>None / Blocking (<span class="blue">For debugging purpose</span>)</li>
+      <li>Thread Spawn (<span class="blue">Default</span>)</li>
+      <li>Thread Pool (<span class="blue">Throttling</span>)</li></ul>
 </div></section>
 
 <section class="slide"><div>
   <h1>Concurrency Model</h1>
-  <h2>None / Blocking<br>(For debugging purpose)</h2>
-  <pre><code class="ruby">
-RC::Universal.pool_size = -1</code></pre>
+  <h2>Implementation Detail</h2>
+  <ul><li class="red">Promise#defer</li>
+      <li>Promise#protected_yield</li>
+      <li>Promise#cancel_task</li></ul>
 </div></section>
 
 <section class="slide"><div>
   <h1>Concurrency Model - None / Blocking (For debugging purpose)</h1>
   <pre><code class="ruby">
-def defer # RC::Promise#defer
+RC::Universal.pool_size = -1
+
+<span class="next">def defer
   if pool_size &lt; 0
     # set working thread
     self.thread = Thread.current
-    # set timeout
-    env[TIMER].on_timeout{ cancel_task } if
-      env[TIMER]
     # avoid any exception and do the job
     protected_yield{ yield }
   else
     # ...
+  end
+end</span></code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model - Thread Spawn (default)</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size =  0
+<span class="next">def defer
+  if pool_size &lt; 0 # none / blocking
+  else
+    # retain the backtrace so far
+    backtrace = caller + self.class.backtrace
+    if pool_size &gt; 0 # thread pool
+    else
+      self.thread = Thread.new do
+        Thread.current[:backtrace] = backtrace
+        protected_yield{ yield }
+      end
+    end
+  end
+end</span></code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model - Thread Pool (Throttling)</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 10</code></pre>
+  <ul><li>For limited database/http connection</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model - Thread Pool (Throttling)</h1>
+  <pre><code class="ruby">
+def defer
+  if pool_size &lt; 0 # none / blocking
+  else # retain the backtrace so far
+    backtrace = caller + self.class.backtrace
+    if pool_size &gt; 0
+      self.task = client_class.thread_pool.
+        defer(mutex) do
+          Thread.current[:backtrace] = backtrace
+          protected_yield{ yield }
+          Thread.current[:backtrace] = nil
+        end
+    else # thread spawn
+    end
   end
 end</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <pre class="fullscreen"><code class="ruby">
-def cancel_task bt=nil # RC::Promise#cancel_task
+def defer
+  if pool_size &lt; 0
+    self.thread = Thread.current
+    protected_yield{ yield }
+  else
+    backtrace = caller + self.class.backtrace
+    if pool_size &gt; 0
+      self.task = client_class.thread_pool.defer(mutex) do
+        Thread.current[:backtrace] = backtrace
+        protected_yield{ yield }
+        Thread.current[:backtrace] = nil
+      end
+    else
+      self.thread = Thread.new do
+        Thread.current[:backtrace] = backtrace
+        protected_yield{ yield }
+      end
+    end
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Implementation Detail</h2>
+  <ul><li>Promise#defer</li>
+      <li class="red">Promise#protected_yield</li>
+      <li>Promise#cancel_task</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <pre class="fullscreen"><code class="ruby">
+def protected_yield
+  if env[TIMER]
+    timeout_protected_yield{ yield }
+  else
+    yield
+  end
+rescue Exception => e # could be Timeout::Error
+  mutex.synchronize do
+    self.class.set_backtrace(e)
+    if done? # log user callback error
+      callback_error(e)
+    else # IOError, SystemCallError, etc
+      begin
+        rejecting(e) # would call user callback
+      rescue Exception => f
+        callback_error(f)# log user callback error
+      end
+    end
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Promise#timeout_protected_yield</h1>
+  <pre><code class="ruby">
+def timeout_protected_yield
+  # set timeout
+  env[TIMER].on_timeout{ cancel_task }
+  yield
+ensure
+  env[TIMER].cancel
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Implementation Detail</h2>
+  <ul><li>Promise#defer</li>
+      <li>Promise#protected_yield</li>
+      <li class="red">Promise#cancel_task</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <pre class="fullscreen"><code class="ruby">
+def cancel_task bt=nil
   mutex.synchronize do
     next if done? # don't cancel if it's done
     if t = thread || task.thread
@@ -558,58 +681,6 @@ def cancel_task bt=nil # RC::Promise#cancel_task
     end
   end
 end</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <pre class="fullscreen"><code class="ruby">
-def protected_yield # RC::Promise#protected_yield
-  yield
-rescue Exception => e # could be Timeout::Error
-  mutex.synchronize do
-    never_raise_yield do
-      env[TIMER].cancel if env[TIMER]
-      self.class.set_backtrace(e)
-    end
-    if done? # log user callback error
-      callback_error(e)
-    else # IOError, SystemCallError, etc
-      begin
-        rejecting(e) # would call user callback
-      rescue Exception => f
-        callback_error(f)# log user callback error
-      end
-    end
-  end
-end</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h2>Concurrency Model</h2>
-  <ul><li>None / Blocking (For debugging purpose)</li>
-      <li class="red">Thread Spawn (Default)</li>
-      <li>Thread Pool (Throttling)</li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model</h1>
-  <h2>Thread Spawn<br>(Default)</h2>
-  <pre><code class="ruby">
-RC::Universal.pool_size = 0</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h2>Concurrency Model</h2>
-  <ul><li>None / Blocking (For debugging purpose)</li>
-      <li>Thread Spawn (Default)</li>
-      <li class="red">Thread Pool (Throttling)</li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model</h1>
-  <h2>Thread Pool<br>(Throttling)</h2>
-  <pre><code class="ruby">
-RC::Universal.pool_size = 10</code></pre>
-  <ul><li>For limited database/http connection</li></ul>
 </div></section>
 
 <section class="slide"><div>

@@ -54,7 +54,6 @@ This could be tough, be prepared!
   * Wait! It's not yet done
     - `Client#wait`
     - `Client.wait`
-    - Tracking `WeakRef`
   * Promise Chain: `Promise#then`
     - Why: It's Not Blocking Here
     - `RC::Github#all`
@@ -76,9 +75,7 @@ This could be tough, be prepared!
     - Weird Backtrace for Exceptions
     - Beware of Deadlock!
     - Beware of Timeout!
-    - Auto-scale when all workers are busy (with maximum)
-    - Auto-shrinking when a worker is idling (with timeout)
-    - Shutting down (along with Client.wait)
+    - Shutting down gracefully
 - Streaming, the EventSource
   * Server-Sent Events
   * Rack Hijacking
@@ -89,7 +86,7 @@ This could be tough, be prepared!
   * JavaScript like API
 - The Timeout Quest
   * `Thread#kill` is unsafe
-  * `Thread#raise` is unsafe without masking
+  * `Thread#raise` is unsafe without `Thread.handle_interrupt`
   * The Timer Thread
     - Single threaded (unlike timeout)
     - Inaccurate

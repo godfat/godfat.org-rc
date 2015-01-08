@@ -513,8 +513,15 @@ end</code></pre>
 </div></section>
 
 <section class="slide"><div>
+  <h2>Concurrency Model</h2>
+  <ul><li class="red">Promise Detail</li>
+      <li>ThreadPool Detail</li>
+      <li>Gotcha!</li></ul>
+</div></section>
+
+<section class="slide"><div>
   <h1>Concurrency Model</h1>
-  <h2>Implementation Detail</h2>
+  <h2>Promise Detail</h2>
   <ul><li class="red">Promise#defer</li>
       <li>Promise#protected_yield</li>
       <li>Promise#cancel_task</li></ul>
@@ -610,7 +617,7 @@ end</code></pre>
 
 <section class="slide"><div>
   <h1>Concurrency Model</h1>
-  <h2>Implementation Detail</h2>
+  <h2>Promise Detail</h2>
   <ul><li>Promise#defer</li>
       <li class="red">Promise#protected_yield</li>
       <li>Promise#cancel_task</li></ul>
@@ -654,7 +661,7 @@ end</code></pre>
 
 <section class="slide"><div>
   <h1>Concurrency Model</h1>
-  <h2>Implementation Detail</h2>
+  <h2>Promise Detail</h2>
   <ul><li>Promise#defer</li>
       <li>Promise#protected_yield</li>
       <li class="red">Promise#cancel_task</li></ul>
@@ -681,6 +688,20 @@ def cancel_task bt=nil
     end
   end
 end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Concurrency Model</h2>
+  <ul><li>Promise Detail</li>
+      <li class="red">ThreadPool Detail</li>
+      <li>Gotcha!</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Concurrency Model</h2>
+  <ul><li>Promise Detail</li>
+      <li>ThreadPool Detail</li>
+      <li class="red">Gotcha!</li></ul>
 </div></section>
 
 <section class="slide"><div>

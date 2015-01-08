@@ -62,13 +62,18 @@ This could be tough, be prepared!
     - Forging Response, for middleware `RC::Cache`
 - Concurrency Model
   * None / Blocking (For debugging purpose)
-    - pool_size = -1
   * Thread Spawn (Default)
-    - pool_size = 0
-    - Setup Backtrace for Exceptions
   * Thread Pool (Throttling)
-    - pool_size > 0
-    - Connection Throttle
+  * Promise Detail
+    - Promise#defer
+    - Promise#protected_yield
+    - Promise#cancel_task
+  * ThreadPool Detail
+    - ThreadPool#defer
+    - ThreadPool#spawn_worker
+    - ThreadPool::Task
+  * Gotcha!
+    - Weird Backtrace for Exceptions
     - Beware of Deadlock!
     - Beware of Timeout!
     - Auto-scale when all workers are busy (with maximum)

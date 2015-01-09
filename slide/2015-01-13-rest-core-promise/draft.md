@@ -64,13 +64,13 @@ This could be tough, be prepared!
   * Thread Spawn (Default)
   * Thread Pool (Throttling)
   * Promise Detail
-    - Promise#defer
-    - Promise#protected_yield
-    - Promise#cancel_task
+    - `Promise#defer`
+    - `Promise#protected_yield`
+    - `Promise#cancel_task`
   * ThreadPool Detail
-    - ThreadPool#defer
-    - ThreadPool#spawn_worker
-    - ThreadPool::Task
+    - `ThreadPool#defer`
+    - `ThreadPool#spawn_worker`
+    - `ThreadPool::Task`
   * Gotcha!
     - Weird Backtrace for Exceptions
     - Shutting down gracefully

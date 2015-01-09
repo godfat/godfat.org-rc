@@ -37,10 +37,19 @@
     }
     .highlight{
       background-color: #cf6a4c;
+      border-radius: 0.3em;
     }
     .fullscreen{
       position: relative;
-      top: -100px;
+      top: -87px;
+    }
+    pre code.lift{
+      padding-top: 0.5em;
+      padding-bottom: 0.3em;
+    }
+    .slide > div{
+      top: -15px;
+      height: 555px;
     }
   </style>
 </head>
@@ -522,15 +531,14 @@ end</code></pre>
 <section class="slide"><div>
   <h1>Concurrency Model</h1>
   <h2>Promise Detail</h2>
-  <ul><li class="red">Promise#defer</li>
-      <li>Promise#protected_yield</li>
-      <li>Promise#cancel_task</li></ul>
+  <ul><li class="red"><code>Promise#defer</code></li>
+      <li><code>Promise#protected_yield</code></li>
+      <li><code>Promise#cancel_task</code></li></ul>
 </div></section>
 
 <section class="slide"><div>
   <h1>Concurrency Model - None / Blocking (For debugging purpose)</h1>
-  <pre><code class="ruby">
-RC::Universal.pool_size = -1
+  <pre><code class="ruby lift">RC::Universal.pool_size = -1
 
 <span class="next">def defer
   if pool_size &lt; 0
@@ -546,8 +554,7 @@ end</span></code></pre>
 
 <section class="slide"><div>
   <h1>Concurrency Model - Thread Spawn (default)</h1>
-  <pre><code class="ruby">
-RC::Universal.pool_size =  0
+  <pre><code class="ruby lift">RC::Universal.pool_size =  0
 <span class="next">def defer
   if pool_size &lt; 0 # none / blocking
   else
@@ -573,8 +580,7 @@ RC::Universal.pool_size = 10</code></pre>
 
 <section class="slide"><div>
   <h1>Concurrency Model - Thread Pool (Throttling)</h1>
-  <pre><code class="ruby">
-def defer
+  <pre><code class="ruby lift">def defer
   if pool_size &lt; 0 # none / blocking
   else # retain the backtrace so far
     backtrace = caller + self.class.backtrace
@@ -592,8 +598,7 @@ end</code></pre>
 </div></section>
 
 <section class="slide"><div>
-  <pre class="fullscreen"><code class="ruby">
-def defer
+  <pre class="fullscreen"><code class="ruby lift">def defer
   if pool_size &lt; 0
     self.thread = Thread.current
     protected_yield{ yield }
@@ -618,14 +623,13 @@ end</code></pre>
 <section class="slide"><div>
   <h1>Concurrency Model</h1>
   <h2>Promise Detail</h2>
-  <ul><li>Promise#defer</li>
-      <li class="red">Promise#protected_yield</li>
-      <li>Promise#cancel_task</li></ul>
+  <ul><li><code>Promise#defer</code></li>
+      <li class="red"><code>Promise#protected_yield</code></li>
+      <li><code>Promise#cancel_task</code></li></ul>
 </div></section>
 
 <section class="slide"><div>
-  <pre class="fullscreen"><code class="ruby">
-def protected_yield
+  <pre class="fullscreen"><code class="ruby lift">def protected_yield
   if env[TIMER]
     timeout_protected_yield{ yield }
   else
@@ -648,7 +652,7 @@ end</code></pre>
 </div></section>
 
 <section class="slide"><div>
-  <h1>Promise#timeout_protected_yield</h1>
+  <h1><code>Promise#timeout_protected_yield</code></h1>
   <pre><code class="ruby">
 def timeout_protected_yield
   # set timeout
@@ -662,9 +666,9 @@ end</code></pre>
 <section class="slide"><div>
   <h1>Concurrency Model</h1>
   <h2>Promise Detail</h2>
-  <ul><li>Promise#defer</li>
-      <li>Promise#protected_yield</li>
-      <li class="red">Promise#cancel_task</li></ul>
+  <ul><li><code>Promise#defer</code></li>
+      <li><code>Promise#protected_yield</code></li>
+      <li class="red"><code>Promise#cancel_task</code></li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -700,13 +704,13 @@ end</code></pre>
 <section class="slide"><div>
   <h1>Concurrency Model</h1>
   <h2>ThreadPool Detail</h2>
-  <ul><li class="red">ThreadPool#defer</li>
-      <li>ThreadPool#spawn_worker</li>
-      <li>ThreadPool::Task</li></ul>
+  <ul><li class="red"><code>ThreadPool#defer</code></li>
+      <li><code>ThreadPool#spawn_worker</code></li>
+      <li><code>ThreadPool::Task</code></li></ul>
 </div></section>
 
 <section class="slide"><div>
-  <h1>Concurrency Model - ThreadPool#defer</h1>
+  <h1>Concurrency Model - <code>ThreadPool#defer</code></h1>
   <pre><code class="ruby">
 def defer mutex=nil, &amp;job
   mutex.synchronize do
@@ -722,13 +726,13 @@ end</code></pre>
 <section class="slide"><div>
   <h1>Concurrency Model</h1>
   <h2>ThreadPool Detail</h2>
-  <ul><li>ThreadPool#defer</li>
-      <li class="red">ThreadPool#spawn_worker</li>
-      <li>ThreadPool::Task</li></ul>
+  <ul><li><code>ThreadPool#defer</code></li>
+      <li class="red"><code>ThreadPool#spawn_worker</code></li>
+      <li><code>ThreadPool::Task</code></li></ul>
 </div></section>
 
 <section class="slide"><div>
-  <h1>Concurrency Model - ThreadPool#spawn_worker</h1>
+  <h1>Concurrency Model - <code>ThreadPool#spawn_worker</code></h1>
   <pre><code class="ruby">
 def spawn_worker
   workers &lt;&lt; Thread.new{
@@ -748,13 +752,13 @@ end</code></pre>
 <section class="slide"><div>
   <h1>Concurrency Model</h1>
   <h2>ThreadPool Detail</h2>
-  <ul><li>ThreadPool#defer</li>
-      <li>ThreadPool#spawn_worker</li>
-      <li class="red">ThreadPool::Task</li></ul>
+  <ul><li><code>ThreadPool#defer</code></li>
+      <li><code>ThreadPool#spawn_worker</code></li>
+      <li class="red"><code>ThreadPool::Task</code></li></ul>
 </div></section>
 
 <section class="slide"><div>
-  <h1>Concurrency Model - ThreadPool::Task</h1>
+  <h1>Concurrency Model - <code>ThreadPool::Task</code></h1>
   <pre><code class="ruby">
 class Task &lt; Struct.new(:job, :mutex, :thread,
                         :cancelled)

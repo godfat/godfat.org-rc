@@ -73,9 +73,9 @@ This could be tough, be prepared!
     - ThreadPool::Task
   * Gotcha!
     - Weird Backtrace for Exceptions
+    - Shutting down gracefully
     - Beware of Deadlock!
     - Beware of Timeout!
-    - Shutting down gracefully
 - Streaming, the EventSource
   * Server-Sent Events
   * Rack Hijacking

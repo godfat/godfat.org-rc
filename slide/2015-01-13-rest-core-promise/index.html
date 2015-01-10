@@ -523,9 +523,181 @@ end</code></pre>
 
 <section class="slide"><div>
   <h2>Concurrency Model</h2>
-  <ul><li class="red">Promise Detail</li>
-      <li>ThreadPool Detail</li>
-      <li>Gotcha!</li></ul>
+  <ul><li class="red">Gotcha!</li>
+      <li>Promise Detail</li>
+      <li>ThreadPool Detail</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Gotcha!</h2>
+  <ul><li class="red">Weird Backtrace for Exceptions</li>
+      <li>Shutting down gracefully</li>
+      <li>Beware of Deadlock!</li>
+      <li>Beware of Timeout!</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Weird Backtrace for Exceptions</h2>
+  <pre><code class="ruby">
+def f n=1
+  if n.zero?
+    # Thread.new do
+      raise '' rescue p $!.backtrace
+    # end.join
+  else
+    f(n-1)
+  end
+end
+f # => ["-:4:in `f'", "-:7:in `f'",
+  #     "-:10:in `&lt;main&gt;'"]</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Weird Backtrace for Exceptions</h2>
+  <pre><code class="ruby">
+def f n=1
+  if n.zero?
+    Thread.new do
+      raise '' rescue p $!.backtrace
+    end.join
+  else
+    f(n-1)
+  end
+end
+f # => <span class="next">["-:4:in `block in f'"]</span>
+  #</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Retaining backtrace to ease debugging</h1>
+  <pre><code class="ruby">
+def defer
+  if pool_size &lt; 0 # none / blocking
+  else
+    # retain the backtrace so far
+    <span class="highlight">backtrace</span> = caller + self.class.backtrace
+    if pool_size &gt; 0 # thread pool
+    else
+      self.thread = Thread.new do
+        Thread.current[:backtrace] = <span class="highlight">backtrace</span>
+        protected_yield{ yield }
+      end
+    end
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Retaining backtrace to ease debugging</h1>
+  <ul><li>Not always correct</li>
+      <li class="next">Might be weird for <code>ThreadPool</code></li>
+      <li class="next">Just some hints!</li>
+      <li class="next">Could consume a bit memory given large call stacks</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Gotcha!</h2>
+  <ul><li>Weird Backtrace for Exceptions</li>
+      <li class="red">Shutting down gracefully</li>
+      <li>Beware of Deadlock!</li>
+      <li>Beware of Timeout!</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>&nbsp;</h1>
+  <pre class="fullscreen"><code class="ruby">
+at_exit do
+  RC::Universal.shutdown
+end
+
+def shutdown # RC::Client.shutdown
+  thread_pool.shutdown
+  wait
+end
+
+def shutdown # RC::ThreadPool#shutdown
+  workers.size.times{ trim(true) }
+  workers.first.join &amp;&amp; trim(true) until
+    workers.empty?
+  queue.clear
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Gotcha!</h2>
+  <ul><li>Weird Backtrace for Exceptions</li>
+      <li>Shutting down gracefully</li>
+      <li class="red">Beware of Deadlock!</li>
+      <li class="red">Beware of Timeout!</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Beware of Deadlock!</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 1
+client = RC::Universal.new
+client.get('ruby/friends') do |response|
+  path = "#{response.first['name']}/friends"
+  puts client.get(path).first['name']
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Beware of Deadlock!</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 1
+client = RC::Universal.new
+client.get('ruby/friends') do |response|
+  path = "#{response.first['name']}/friends"
+  puts client.get(path)<span class="highlight">.first</span>['name'] # DEADLOCK!
+end</code></pre>
+  <h2>Need at least two threads!</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Beware of Timeout!</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 1
+client = RC::Universal.new(:timeout => 10)
+client.get('ruby/friends') do |response|
+  path = "#{response.first['name']}/friends"
+  puts client.get(path)<span class="highlight">.first</span>['name'] # DEADLOCK!
+end</code></pre>
+  <h2>Raise timeout in this case</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Beware of Timeout!</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 1
+client = RC::Universal.new(:timeout => 10)
+
+1000.times do |i|
+  client.get("ruby/#{i}"){ |res| puts res }
+end</code></pre>
+  <h2>If the request needs &gt; <code>10ms</code></h2>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Beware of Timeout!</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 10
+client = RC::Universal.new(:timeout => 10)
+
+1000.times do |i|
+  client.get("ruby/#{i}"){ |res| puts res }
+end</code></pre>
+  <h2>If the request needs &gt; <code>100ms</code></h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Concurrency Model</h2>
+  <ul><li>Gotcha!</li>
+      <li class="red">Promise Detail</li>
+      <li>ThreadPool Detail</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -701,9 +873,9 @@ end</code></pre>
 
 <section class="slide"><div>
   <h2>Concurrency Model</h2>
-  <ul><li>Promise Detail</li>
-      <li class="red">ThreadPool Detail</li>
-      <li>Gotcha!</li></ul>
+  <ul><li>Gotcha!</li>
+      <li>Promise Detail</li>
+      <li class="red">ThreadPool Detail</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -777,178 +949,6 @@ class Task &lt; Struct.new(:job, :mutex, :thread,
   # we should probably synchronize this, too!
   def cancel; self.cancelled = true; end
 end</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h2>Concurrency Model</h2>
-  <ul><li>Promise Detail</li>
-      <li>ThreadPool Detail</li>
-      <li class="red">Gotcha!</li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model</h1>
-  <h2>Gotcha!</h2>
-  <ul><li class="red">Weird Backtrace for Exceptions</li>
-      <li>Shutting down gracefully</li>
-      <li>Beware of Deadlock!</li>
-      <li>Beware of Timeout!</li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h2>Weird Backtrace for Exceptions</h2>
-  <pre><code class="ruby">
-def f n=1
-  if n.zero?
-    # Thread.new do
-      raise '' rescue p $!.backtrace
-    # end.join
-  else
-    f(n-1)
-  end
-end
-f # => ["-:4:in `f'", "-:7:in `f'",
-  #     "-:10:in `&lt;main&gt;'"]</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h2>Weird Backtrace for Exceptions</h2>
-  <pre><code class="ruby">
-def f n=1
-  if n.zero?
-    Thread.new do
-      raise '' rescue p $!.backtrace
-    end.join
-  else
-    f(n-1)
-  end
-end
-f # => <span class="next">["-:4:in `block in f'"]</span>
-  #</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Retaining backtrace to ease debugging</h1>
-  <pre><code class="ruby">
-def defer
-  if pool_size &lt; 0 # none / blocking
-  else
-    # retain the backtrace so far
-    <span class="highlight">backtrace</span> = caller + self.class.backtrace
-    if pool_size &gt; 0 # thread pool
-    else
-      self.thread = Thread.new do
-        Thread.current[:backtrace] = <span class="highlight">backtrace</span>
-        protected_yield{ yield }
-      end
-    end
-  end
-end</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Retaining backtrace to ease debugging</h1>
-  <ul><li>Not always correct</li>
-      <li class="next">Might be weird for <code>ThreadPool</code></li>
-      <li class="next">Just some hints!</li>
-      <li class="next">Could consume a bit memory given large call stacks</li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model</h1>
-  <h2>Gotcha!</h2>
-  <ul><li>Weird Backtrace for Exceptions</li>
-      <li class="red">Shutting down gracefully</li>
-      <li>Beware of Deadlock!</li>
-      <li>Beware of Timeout!</li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h1>&nbsp;</h1>
-  <pre class="fullscreen"><code class="ruby">
-at_exit do
-  RC::Universal.shutdown
-end
-
-def shutdown # RC::Client.shutdown
-  thread_pool.shutdown
-  wait
-end
-
-def shutdown # RC::ThreadPool#shutdown
-  workers.size.times{ trim(true) }
-  workers.first.join &amp;&amp; trim(true) until
-    workers.empty?
-  queue.clear
-end</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model</h1>
-  <h2>Gotcha!</h2>
-  <ul><li>Weird Backtrace for Exceptions</li>
-      <li>Shutting down gracefully</li>
-      <li class="red">Beware of Deadlock!</li>
-      <li class="red">Beware of Timeout!</li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Beware of Deadlock!</h1>
-  <pre><code class="ruby">
-RC::Universal.pool_size = 1
-client = RC::Universal.new
-client.get('ruby/friends') do |response|
-  path = "#{response.first['name']}/friends"
-  puts client.get(path).first['name']
-end</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Beware of Deadlock!</h1>
-  <pre><code class="ruby">
-RC::Universal.pool_size = 1
-client = RC::Universal.new
-client.get('ruby/friends') do |response|
-  path = "#{response.first['name']}/friends"
-  puts client.get(path)<span class="highlight">.first</span>['name'] # DEADLOCK!
-end</code></pre>
-  <h2>Need at least two threads!</h2>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Beware of Timeout!</h1>
-  <pre><code class="ruby">
-RC::Universal.pool_size = 1
-client = RC::Universal.new(:timeout => 10)
-client.get('ruby/friends') do |response|
-  path = "#{response.first['name']}/friends"
-  puts client.get(path)<span class="highlight">.first</span>['name'] # DEADLOCK!
-end</code></pre>
-  <h2>Raise timeout in this case</h2>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Beware of Timeout!</h1>
-  <pre><code class="ruby">
-RC::Universal.pool_size = 1
-client = RC::Universal.new(:timeout => 10)
-
-1000.times do |i|
-  client.get("ruby/#{i}"){ |res| puts res }
-end</code></pre>
-  <h2>If the request needs &gt; <code>10ms</code></h2>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Beware of Timeout!</h1>
-  <pre><code class="ruby">
-RC::Universal.pool_size = 10
-client = RC::Universal.new(:timeout => 10)
-
-1000.times do |i|
-  client.get("ruby/#{i}"){ |res| puts res }
-end</code></pre>
-  <h2>If the request needs &gt; <code>100ms</code></h2>
 </div></section>
 
 <section class="slide"><div>

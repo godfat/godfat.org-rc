@@ -63,6 +63,11 @@ This could be tough, be prepared!
   * None / Blocking (For debugging purpose)
   * Thread Spawn (Default)
   * Thread Pool (Throttling)
+  * Gotcha!
+    - Weird Backtrace for Exceptions
+    - Shutting down gracefully
+    - Beware of Deadlock!
+    - Beware of Timeout!
   * Promise Detail
     - `Promise#defer`
     - `Promise#protected_yield`
@@ -71,11 +76,6 @@ This could be tough, be prepared!
     - `ThreadPool#defer`
     - `ThreadPool#spawn_worker`
     - `ThreadPool::Task`
-  * Gotcha!
-    - Weird Backtrace for Exceptions
-    - Shutting down gracefully
-    - Beware of Deadlock!
-    - Beware of Timeout!
 - Streaming, the EventSource
   * Server-Sent Events
   * Rack Hijacking

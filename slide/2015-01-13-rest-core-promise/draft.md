@@ -59,6 +59,14 @@ This could be tough, be prepared!
     - `RC::Github#all`
   * Promise.claim
     - Forging Response, for middleware `RC::Cache`
+- Streaming, the EventSource
+  * Server-Sent Events
+  * Rack Hijacking
+  * Firebase Daemon (rest-firebase)
+  * onreconnect Callback
+  * Wait! It's not yet done
+  * Accept: text/event-stream
+  * JavaScript like API
 - Concurrency Model
   * None / Blocking (For debugging purpose)
   * Thread Spawn (Default)
@@ -76,14 +84,6 @@ This could be tough, be prepared!
     - `ThreadPool#defer`
     - `ThreadPool#spawn_worker`
     - `ThreadPool::Task`
-- Streaming, the EventSource
-  * Server-Sent Events
-  * Rack Hijacking
-  * Firebase Daemon (rest-firebase)
-  * onreconnect Callback
-  * Wait! It's not yet done
-  * Accept: text/event-stream
-  * JavaScript like API
 - The Timeout Quest
   * `Thread#kill` is unsafe
   * `Thread#raise` is unsafe without `Thread.handle_interrupt`

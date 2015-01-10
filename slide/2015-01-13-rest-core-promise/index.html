@@ -888,16 +888,66 @@ end</code></pre>
   <ul><li>Weird Backtrace for Exceptions</li>
       <li>Shutting down gracefully</li>
       <li class="red">Beware of Deadlock!</li>
-      <li>Beware of Timeout!</li></ul>
+      <li class="red">Beware of Timeout!</li></ul>
 </div></section>
 
 <section class="slide"><div>
-  <h1>Concurrency Model</h1>
-  <h2>Gotcha!</h2>
-  <ul><li>Weird Backtrace for Exceptions</li>
-      <li>Shutting down gracefully</li>
-      <li>Beware of Deadlock!</li>
-      <li class="red">Beware of Timeout!</li></ul>
+  <h1>Beware of Deadlock!</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 1
+client = RC::Universal.new
+client.get('ruby/friends') do |response|
+  path = "#{response.first['name']}/friends"
+  puts client.get(path).first['name']
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Beware of Deadlock!</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 1
+client = RC::Universal.new
+client.get('ruby/friends') do |response|
+  path = "#{response.first['name']}/friends"
+  puts client.get(path)<span class="highlight">.first</span>['name'] # DEADLOCK!
+end</code></pre>
+  <h2>Need at least two threads!</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Beware of Timeout!</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 1
+client = RC::Universal.new(:timeout => 10)
+client.get('ruby/friends') do |response|
+  path = "#{response.first['name']}/friends"
+  puts client.get(path)<span class="highlight">.first</span>['name'] # DEADLOCK!
+end</code></pre>
+  <h2>Raise timeout in this case</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Beware of Timeout!</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 1
+client = RC::Universal.new(:timeout => 10)
+
+1000.times.map do |i|
+  client.get("ruby/#{i}")
+end.join # Very likely to timeout</code></pre>
+  <h2>If the request needs &gt; <code>10ms</code></h2>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Beware of Timeout!</h1>
+  <pre><code class="ruby">
+RC::Universal.pool_size = 10
+client = RC::Universal.new(:timeout => 10)
+
+1000.times.map do |i|
+  client.get("ruby/#{i}")
+end.join # Very likely to timeout</code></pre>
+  <h2>If the request needs &gt; <code>100ms</code></h2>
 </div></section>
 
 <section class="slide"><div>

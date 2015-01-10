@@ -573,42 +573,45 @@ end</span></code></pre>
 
 <section class="slide"><div>
   <h1>Concurrency Model - Thread Pool (Throttling)</h1>
-  <pre><code class="ruby">
-RC::Universal.pool_size = 10</code></pre>
-  <ul><li>For limited database/http connection</li></ul>
+  <pre><code class="ruby lift">RC::Universal.pool_size = 10</code></pre>
+  <ul><li>For limited database or HTTP connection</li></ul>
 </div></section>
 
 <section class="slide"><div>
   <h1>Concurrency Model - Thread Pool (Throttling)</h1>
-  <pre><code class="ruby lift">def defer
-  if pool_size &lt; 0 # none / blocking
-  else # retain the backtrace so far
-    backtrace = caller + self.class.backtrace
-    if pool_size &gt; 0
-      self.task = client_class.thread_pool.
-        defer(mutex) do
-          Thread.current[:backtrace] = backtrace
-          protected_yield{ yield }
-          Thread.current[:backtrace] = nil
-        end
-    else # thread spawn
-    end
+  <pre><code class="ruby lift">if pool_size &gt; 0
+  mutex.synchronize do
+    # still timing it out if the task
+    # never processed
+    env[TIMER].on_timeout{cancel_task}
+      if env[TIMER]
+    self.task = client_class.thread_pool.
+      defer(mutex) do
+        Thread.current[:backtrace] = backtrace
+        protected_yield{ yield }
+        Thread.current[:backtrace] = nil
+      end
   end
+else # thread spawn
 end</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <pre class="fullscreen"><code class="ruby lift">def defer
-  if pool_size &lt; 0
-    self.thread = Thread.current
-    protected_yield{ yield }
+  if pool_size &lt; 0 # negative number for blocking call
+    self.thread = Thread.current # set working thread
+    protected_yield{ yield } # avoid any exception and do the job
   else
-    backtrace = caller + self.class.backtrace
+    backtrace = caller + self.class.backtrace # retain the backtrace so far
     if pool_size &gt; 0
-      self.task = client_class.thread_pool.defer(mutex) do
-        Thread.current[:backtrace] = backtrace
-        protected_yield{ yield }
-        Thread.current[:backtrace] = nil
+      mutex.synchronize do
+        # still timing it out if the task never processed
+        env[TIMER].on_timeout{ cancel_task } if env[TIMER]
+        self.task = client_class.thread_pool.defer(mutex) do
+          Thread.current[:backtrace] = backtrace
+          protected_yield{ yield }
+          Thread.current[:backtrace] = nil
+        end
       end
     else
       self.thread = Thread.new do
@@ -655,8 +658,9 @@ end</code></pre>
   <h1><code>Promise#timeout_protected_yield</code></h1>
   <pre><code class="ruby">
 def timeout_protected_yield
-  # set timeout
-  env[TIMER].on_timeout{ cancel_task }
+  # timeout might already be set for thread_pool (pool_size > 0)
+  env[TIMER].on_timeout{ cancel_task } unless
+    env[TIMER].timer
   yield
 ensure
   env[TIMER].cancel
@@ -713,13 +717,11 @@ end</code></pre>
   <h1>Concurrency Model - <code>ThreadPool#defer</code></h1>
   <pre><code class="ruby">
 def defer mutex=nil, &amp;job
-  mutex.synchronize do
-    task = Task.new(job, mutex)
-    <span class="highlight">queue</span> &lt;&lt; task
-    spawn_worker if waiting == 0 &amp;&amp;
-                    workers.size &lt; <span class="highlight">max_size</span>
-    task
-  end
+  task = Task.new(job, mutex)
+  <span class="highlight">queue</span> &lt;&lt; task
+  spawn_worker if waiting == 0 &amp;&amp;
+                  workers.size &lt; <span class="highlight">max_size</span>
+  task
 end</code></pre>
 </div></section>
 
@@ -840,7 +842,7 @@ def defer
       end
     end
   end
-end</span></code></pre>
+end</code></pre>
 </div></section>
 
 <section class="slide"><div>
@@ -858,6 +860,26 @@ end</span></code></pre>
       <li class="red">Shutting down gracefully</li>
       <li>Beware of Deadlock!</li>
       <li>Beware of Timeout!</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>&nbsp;</h1>
+  <pre class="fullscreen"><code class="ruby">
+at_exit do
+  RC::Universal.shutdown
+end
+
+def shutdown # RC::Client.shutdown
+  thread_pool.shutdown
+  wait
+end
+
+def shutdown # RC::ThreadPool#shutdown
+  workers.size.times{ trim(true) }
+  workers.first.join &amp;&amp; trim(true) until
+    workers.empty?
+  queue.clear
+end</code></pre>
 </div></section>
 
 <section class="slide"><div>

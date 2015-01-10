@@ -658,7 +658,8 @@ end</code></pre>
   <h1><code>Promise#timeout_protected_yield</code></h1>
   <pre><code class="ruby">
 def timeout_protected_yield
-  # timeout might already be set for thread_pool (pool_size > 0)
+  # timeout might already be set for
+  # thread_pool (pool_size > 0)
   env[TIMER].on_timeout{ cancel_task } unless
     env[TIMER].timer
   yield
@@ -932,9 +933,9 @@ end</code></pre>
 RC::Universal.pool_size = 1
 client = RC::Universal.new(:timeout => 10)
 
-1000.times.map do |i|
-  client.get("ruby/#{i}")
-end.join # Very likely to timeout</code></pre>
+1000.times do |i|
+  client.get("ruby/#{i}"){ |res| puts res }
+end</code></pre>
   <h2>If the request needs &gt; <code>10ms</code></h2>
 </div></section>
 
@@ -944,9 +945,9 @@ end.join # Very likely to timeout</code></pre>
 RC::Universal.pool_size = 10
 client = RC::Universal.new(:timeout => 10)
 
-1000.times.map do |i|
-  client.get("ruby/#{i}")
-end.join # Very likely to timeout</code></pre>
+1000.times do |i|
+  client.get("ruby/#{i}"){ |res| puts res }
+end</code></pre>
   <h2>If the request needs &gt; <code>100ms</code></h2>
 </div></section>
 

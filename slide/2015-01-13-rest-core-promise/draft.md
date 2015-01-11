@@ -59,9 +59,9 @@ This could be tough, be prepared!
     - `RC::Github#all`
   * Promise.claim
     - Forging Response, for middleware `RC::Cache`
-- Streaming, the EventSource
-  * Server-Sent Events
-  * Rack Hijacking
+- Streaming, the `EventSource`
+  * SSE, Server-Sent Events
+  * SSE with Rack Hijacking
   * Firebase Daemon (rest-firebase)
 - Concurrency Model
   * None / Blocking (For debugging purpose)

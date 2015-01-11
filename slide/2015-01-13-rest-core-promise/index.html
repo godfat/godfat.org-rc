@@ -640,10 +640,10 @@ EVENT: put, DATA:
   <h1>Concurrency Model</h1>
   <h2>Gotcha!</h2>
   <ul><li class="red">Weird Backtrace for Exceptions</li>
-      <li>Shutting down gracefully</li>
+      <li>Shutting Down Gracefully</li>
       <li>Beware of Deadlock!</li>
       <li>Beware of Timeout!</li>
-      <li><code>Timer.interval</code></li></ul>
+      <li>Inaccurate Timeout</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -679,7 +679,7 @@ f # => <span class="next">["-:4:in `block in f'"]</span>
 </div></section>
 
 <section class="slide"><div>
-  <h1>Retaining backtrace to ease debugging</h1>
+  <h1>Retaining Backtrace to Ease Debugging</h1>
   <pre><code class="ruby">
 def defer
   if pool_size &lt; 0 # none / blocking
@@ -698,21 +698,21 @@ end</code></pre>
 </div></section>
 
 <section class="slide"><div>
-  <h1>Retaining backtrace to ease debugging</h1>
+  <h1>Retaining Backtrace to Ease Debugging</h1>
   <ul><li>Not always correct</li>
-      <li class="next">Might be weird for <code>ThreadPool</code></li>
-      <li class="next">Just some hints!</li>
-      <li class="next">Could consume a bit memory given large call stacks</li></ul>
+      <li>Might be weird for <code>ThreadPool</code></li>
+      <li>Just some hints!</li>
+      <li>Could consume a bit memory given large call stacks</li></ul>
 </div></section>
 
 <section class="slide"><div>
   <h1>Concurrency Model</h1>
   <h2>Gotcha!</h2>
   <ul><li>Weird Backtrace for Exceptions</li>
-      <li class="red">Shutting down gracefully</li>
+      <li class="red">Shutting Down Gracefully</li>
       <li>Beware of Deadlock!</li>
       <li>Beware of Timeout!</li>
-      <li><code>Timer.interval</code></li></ul>
+      <li>Inaccurate Timeout</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -739,10 +739,10 @@ end</code></pre>
   <h1>Concurrency Model</h1>
   <h2>Gotcha!</h2>
   <ul><li>Weird Backtrace for Exceptions</li>
-      <li>Shutting down gracefully</li>
+      <li>Shutting Down Gracefully</li>
       <li class="red">Beware of Deadlock!</li>
       <li class="red">Beware of Timeout!</li>
-      <li><code>Timer.interval</code></li></ul>
+      <li>Inaccurate Timeout</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -808,10 +808,20 @@ end</code></pre>
   <h1>Concurrency Model</h1>
   <h2>Gotcha!</h2>
   <ul><li>Weird Backtrace for Exceptions</li>
-      <li>Shutting down gracefully</li>
+      <li>Shutting Down Gracefully</li>
       <li>Beware of Deadlock!</li>
       <li>Beware of Timeout!</li>
-      <li class="red"><code>Timer.interval</code></li></ul>
+      <li class="red">Inaccurate Timeout</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Inaccurate Timeout</h1>
+  <ul><li>Single threaded (<span class="red">timeout.rb</span> uses a thread for each task)</li>
+      <li>Auto-shutting down</li>
+      <li>Check per <code>Timer.interval</code> (thus inaccurate)</li></ul>
+  <span class="next"><h2>Increase Polling Interval</h2>
+  <pre><code class="ruby">
+RC::Timer.interval = 0.5 # Default 1 second</code></pre></span>
 </div></section>
 
 <section class="slide"><div>

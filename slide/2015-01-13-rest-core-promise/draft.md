@@ -72,6 +72,7 @@ This could be tough, be prepared!
     - Shutting down gracefully
     - Beware of Deadlock!
     - Beware of Timeout!
+    - Inaccurate Timeout
   * Promise Detail
     - `Promise#defer`
     - `Promise#protected_yield`
@@ -80,11 +81,3 @@ This could be tough, be prepared!
     - `ThreadPool#defer`
     - `ThreadPool#spawn_worker`
     - `ThreadPool::Task`
-- The Timeout Quest
-  * `Thread#kill` is unsafe
-  * `Thread#raise` is unsafe without `Thread.handle_interrupt`
-  * The Timer Thread
-    - Single threaded (unlike timeout)
-    - Inaccurate
-    - Setup Interval
-    - Auto-shutdown

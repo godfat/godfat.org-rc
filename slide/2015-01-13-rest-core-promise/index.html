@@ -518,9 +518,7 @@ end</code></pre>
   <h2>Streaming, the <code>EventSource</code></h2>
   <ul><li class="red">SSE, Server-Sent Events</li>
       <li class="red">SSE with Rack Hijacking</li>
-      <li>Firebase Daemon (rest-firebase)</li>
-      <li>onreconnect Callback</li>
-      <li>Wait! It's not yet done</li></ul>
+      <li>Firebase Daemon (rest-firebase)</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -560,27 +558,63 @@ end</code></pre>
   <h2>Streaming, the <code>EventSource</code></h2>
   <ul><li>SSE, Server-Sent Events</li>
       <li>SSE with Rack Hijacking</li>
-      <li class="red">Firebase Daemon (rest-firebase)</li>
-      <li>onreconnect Callback</li>
-      <li>Wait! It's not yet done</li></ul>
+      <li class="red">Firebase Daemon (rest-firebase)</li></ul>
 </div></section>
 
 <section class="slide"><div>
-  <h2>Streaming, the <code>EventSource</code></h2>
-  <ul><li>SSE, Server-Sent Events</li>
-      <li>SSE with Rack Hijacking</li>
-      <li>Firebase Daemon (rest-firebase)</li>
-      <li class="red">onreconnect Callback</li>
-      <li>Wait! It's not yet done</li></ul>
+  <h1>Streaming, the <code>EventSource</code></h1>
+  <h2><a href="https://github.com/CodementorIO/rest-firebase/blob/30b7c3308ca446c090d1dd8bfa925ad85ae461e7/example/daemon.rb">Firebase Daemon</a> (rest-firebase)</h2>
+  <pre><code class="ruby">
+require 'rest-firebase'
+
+es = RestFirebase.new(auth: false).event_source(
+       'https://SampleChat.firebaseIO-demo.com/')</code></pre>
 </div></section>
 
 <section class="slide"><div>
-  <h2>Streaming, the <code>EventSource</code></h2>
-  <ul><li>SSE, Server-Sent Events</li>
-      <li>SSE with Rack Hijacking</li>
-      <li>Firebase Daemon (rest-firebase)</li>
-      <li>onreconnect Callback</li>
-      <li class="red">Wait! It's not yet done</li></ul>
+  <h1>Streaming, the <code>EventSource</code></h1>
+  <h2><a href="https://github.com/CodementorIO/rest-firebase/blob/30b7c3308ca446c090d1dd8bfa925ad85ae461e7/example/daemon.rb">Firebase Daemon</a> (rest-firebase)</h2>
+  <pre><code class="ruby">
+es.onerror do |error|
+  puts "ERROR: #{error}"
+end
+
+es.onreconnect do
+  !!@start # always reconnect unless stopping
+end
+
+es.onmessage do |event, data|
+  puts "EVENT: #{event}, DATA: #{data}"
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Streaming, the <code>EventSource</code></h1>
+  <h2><a href="https://github.com/CodementorIO/rest-firebase/blob/30b7c3308ca446c090d1dd8bfa925ad85ae461e7/example/daemon.rb">Firebase Daemon</a> (rest-firebase)</h2>
+  <pre><code class="ruby">
+@start = true
+es.start
+
+rd, wr = IO.pipe
+Signal.trap('INT') do # intercept ctrl-c
+  @start = false      # stop reconnecting
+  es.close            # close socket
+  es.wait             # wait for shutting down
+  wr.puts             # unblock main thread
+end
+rd.gets               # main thread blocks here</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Streaming, the <code>EventSource</code></h1>
+  <h2><a href="https://github.com/CodementorIO/rest-firebase/blob/30b7c3308ca446c090d1dd8bfa925ad85ae461e7/example/daemon.rb">Firebase Daemon</a> (rest-firebase)</h2>
+  <pre><code class="bash">
+curl <span class="hljs-operator">-X</span> POST -d '{"message": "Hi!"}' \
+https://SampleChat.firebaseIO-demo.com/ruby.json</code></pre>
+  <pre class="next"><code>
+EVENT: put, DATA:
+  {"path"=>"/ruby/-JfOWDn1LQJn-ng9EcF6",
+   "data"=>{"message"=>"Hi!"}}</code></pre>
 </div></section>
 
 <section class="slide"><div>

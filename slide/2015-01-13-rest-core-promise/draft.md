@@ -63,10 +63,6 @@ This could be tough, be prepared!
   * Server-Sent Events
   * Rack Hijacking
   * Firebase Daemon (rest-firebase)
-  * onreconnect Callback
-  * Wait! It's not yet done
-  * Accept: text/event-stream
-  * JavaScript like API
 - Concurrency Model
   * None / Blocking (For debugging purpose)
   * Thread Spawn (Default)

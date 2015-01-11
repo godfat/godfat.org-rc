@@ -595,6 +595,7 @@ pre .hljs-number {
 
 pre .hljs-variable,
 pre .hljs-vbscript,
+pre .hljs-operator,
 pre .hljs-literal {
   color: #F9EE98;
 }

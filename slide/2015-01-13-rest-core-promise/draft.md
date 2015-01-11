@@ -67,6 +67,7 @@ This could be tough, be prepared!
   * Race Conditions
   * `Mutex` (mutual exclusion) (lock)
   * `ConditionVariable` (monitor)
+  * `WeakRef` (weak reference)
 - Concurrency Model
   * None / Blocking (For debugging purpose)
   * Thread Spawn (Default)
@@ -85,3 +86,10 @@ This could be tough, be prepared!
     - `ThreadPool#defer`
     - `ThreadPool#spawn_worker`
     - `ThreadPool::Task`
+  * Wait! Detail
+    - `Client.wait`
+    - `Promise#wait`
+    - `Promise#fulfilling`
+    - `Promise#rejecting`
+    - `Future#method_missing`
+    - `Promise#yield`

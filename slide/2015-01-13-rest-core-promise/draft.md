@@ -63,6 +63,10 @@ This could be tough, be prepared!
   * SSE, Server-Sent Events
   * SSE with Rack Hijacking
   * Firebase Daemon (rest-firebase)
+- Some Background...
+  * Race Conditions
+  * `Mutex` (mutual exclusion) (lock)
+  * `ConditionVariable` (monitor)
 - Concurrency Model
   * None / Blocking (For debugging purpose)
   * Thread Spawn (Default)

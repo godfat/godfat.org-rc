@@ -529,6 +529,7 @@ a {
 
 .invisible {
   color: white;
+  background-color: white;
 }
 
 .slide code{

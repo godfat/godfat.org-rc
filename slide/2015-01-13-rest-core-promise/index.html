@@ -89,22 +89,23 @@
   <ul><li class="red">Introduction</li>
       <li>The API / Use Cases</li>
       <li>Streaming, the <code>EventSource</code></li>
+      <li>Some Background...</li>
       <li>Concurrency Model</li></ul>
 </div></section>
 
 <section class="slide"><div>
   <h2><a href="http://rubyconf.tw/2011/#6">RubyConf.TW 2011</a></h2>
-  <ul><li><code style="background-color:#fff"></code>rest-core — <a href="http://www.godfat.org/slide/2011-08-27-rest-core.html">A modular Ruby REST client collection/infrastructure</a>
-      <li class="next"><code style="background-color:#fff"></code>Middleware</li>
-      <li class="next"><code style="background-color:#fff"></code><a href="https://github.com/godfat/rest-more">rest-more</a></li>
+  <ul><li><code class="invisible"></code>rest-core — <a href="http://www.godfat.org/slide/2011-08-27-rest-core.html">A modular Ruby REST client collection/infrastructure</a>
+      <li class="next"><code class="invisible"></code>Middleware</li>
+      <li class="next"><code class="invisible"></code><a href="https://github.com/godfat/rest-more">rest-more</a></li>
       <li class="next"><code>RestCore::RailsUtilUtil</code></li></ul>
 </div></section>
 
 <section class="slide"><div>
   <h2><a href="http://rubyconf.tw/2011/#6">RubyConf.TW 2011</a></h2>
-  <ul><li><code style="background-color:#fff"></code>rest-core — <a href="https://github.com/godfat/rest-core">Modular Ruby clients interface for REST APIs</a></li>
-      <li><code style="background-color:#fff"></code>Middleware</li>
-      <li><code style="background-color:#fff"></code><a href="https://github.com/godfat/rest-more">rest-more</a></li>
+  <ul><li><code class="invisible"></code>rest-core — <a href="https://github.com/godfat/rest-core">Modular Ruby clients interface for REST APIs</a></li>
+      <li><code class="invisible"></code>Middleware</li>
+      <li><code class="invisible"></code><a href="https://github.com/godfat/rest-more">rest-more</a></li>
       <li><code>RestCore::RailsUtilUtil</code></li>
       <li class="next"><code>RC::Dropbox</code> (via OAuth 1.0a)</li>
       <li class="next"><code>RC::Facebook</code> (via OAuth 2, most completed)</li>
@@ -114,9 +115,9 @@
 
 <section class="slide"><div>
   <h2><a href="http://rubyconf.tw/2011/#6">RubyConf.TW 2011</a></h2>
-  <ul><li><code style="background-color:#fff"></code>rest-core — <a href="https://github.com/godfat/rest-core">Modular Ruby clients interface for REST APIs</a></li>
-      <li><code style="background-color:#fff"></code>Middleware</li>
-      <li><code style="background-color:#fff"></code><a href="https://github.com/godfat/rest-more">rest-more</a></li>
+  <ul><li><code class="invisible"></code>rest-core — <a href="https://github.com/godfat/rest-core">Modular Ruby clients interface for REST APIs</a></li>
+      <li><code class="invisible"></code>Middleware</li>
+      <li><code class="invisible"></code><a href="https://github.com/godfat/rest-more">rest-more</a></li>
       <li><code>RC::Linkedin</code> (via OAuth 1.0a)</li>
       <li><code>RC::Dropbox</code> (via OAuth 1.0a)</li>
       <li><code>RC::Facebook</code> (via OAuth 2, most completed)</li>
@@ -126,8 +127,8 @@
 
 <section class="slide"><div>
   <h2><a href="http://rubyconf.tw/2011/#6">RubyConf.TW 2011</a></h2>
-  <ul><li><code style="background-color:#fff"></code>rest-core — <a href="https://github.com/godfat/rest-core">Modular Ruby clients interface for REST APIs</a></li>
-      <li><code style="background-color:#fff"></code>Middleware</li>
+  <ul><li><code class="invisible"></code>rest-core — <a href="https://github.com/godfat/rest-core">Modular Ruby clients interface for REST APIs</a></li>
+      <li><code class="invisible"></code>Middleware</li>
       <li><code>RC::StackExchange</code> (via OAuth 2)</li>
       <li><code>RC::Linkedin</code> (via OAuth 1.0a)</li>
       <li><code>RC::Dropbox</code> (via OAuth 1.0a)</li>
@@ -138,7 +139,7 @@
 
 <section class="slide"><div>
   <h2><a href="http://rubyconf.tw/2011/#6">RubyConf.TW 2011</a></h2>
-  <ul><li><code style="background-color:#fff"></code>rest-core — <a href="https://github.com/godfat/rest-core">Modular Ruby clients interface for REST APIs</a></li>
+  <ul><li><code class="invisible"></code>rest-core — <a href="https://github.com/godfat/rest-core">Modular Ruby clients interface for REST APIs</a></li>
       <li><code>RC::Twitter</code> (via OAuth 1.0a)</li>
       <li><code>RC::StackExchange</code> (via OAuth 2)</li>
       <li><code>RC::Linkedin</code> (via OAuth 1.0a)</li>
@@ -184,6 +185,7 @@
   <ul><li>Introduction</li>
       <li class="red">The API / Use Cases</li>
       <li>Streaming, the <code>EventSource</code></li>
+      <li>Some Background...</li>
       <li>Concurrency Model</li></ul>
 </div></section>
 
@@ -508,6 +510,7 @@ end</code></pre>
   <ul><li>Introduction</li>
       <li>The API / Use Cases</li>
       <li class="red">Streaming, the <code>EventSource</code></li>
+      <li>Some Background...</li>
       <li>Concurrency Model</li></ul>
 </div></section>
 
@@ -619,6 +622,96 @@ EVENT: put, DATA:
   <ul><li>Introduction</li>
       <li>The API / Use Cases</li>
       <li>Streaming, the <code>EventSource</code></li>
+      <li class="red">Some Background...</li>
+      <li>Concurrency Model</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Some Background...</h2>
+  <ul><li class="red">Race Conditions</li>
+      <li class="red"><code>Mutex</code> (mutual exclusion) (lock)</li>
+      <li><code>ConditionVariable</code> (monitor)</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2><code class="invisible"></code><a href="http://en.wikipedia.org/wiki/Race_condition">Race Conditions</a></h2>
+  <pre><code class="ruby">
+@i = 0         #
+#---thread a---#---thread b-----
+
+  tmp = @i
+  @i  = tmp + 1
+
+
+                   tmp = @i
+                   @i  = tmp + 1
+
+# -------------#----------------
+@i # =&gt; 2      #</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2><code class="invisible"></code><a href="http://en.wikipedia.org/wiki/Race_condition">Race Conditions</a></h2>
+  <pre><code class="ruby">
+@i = 0         #
+#---thread a---#---thread b-----
+
+  tmp = @i
+
+                   tmp = @i
+  @i  = tmp + 1
+
+                   @i  = tmp + 1
+
+# -------------#----------------
+@i # =&gt; 2      #</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2><code>Mutex</code> (<a href="http://en.wikipedia.org/wiki/Lock_%28computer_science%29">lock</a>)</h2>
+  <pre><code class="ruby">
+@i = 0         #
+#---thread a---#---thread b-----
+synchronize do
+  tmp = @i
+  @i  = tmp + 1
+end
+                 synchronize do
+                   tmp = @i
+                   @i  = tmp + 1
+                 end
+# -------------#----------------
+@i # =&gt; 2      #</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Some Background...</h2>
+  <ul><li>Race Conditions</li>
+      <li><code>Mutex</code> (mutual exclusion) (lock)</li>
+      <li class="red"><code>ConditionVariable</code> (monitor)</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2><code>ConditionVariable</code> (<a href="http://en.wikipedia.org/wiki/Monitor_%28synchronization%29">monitor</a>)</h2>
+  <pre><code class="ruby">
+#---thread a---#---thread b----------------------
+synchronize do # &lt;= a acquires lock
+  condv.wait   # &lt;= a releases lock and sleeps
+                 synchronize do # b acquires lock
+                   @i = 1
+                   condv.signal # a wakes up
+                 end            # b releases lock
+               # &lt;= a acquires lock
+  puts @i      # =&gt; 1
+end            # &lt;= a releases lock</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Table of Contents</h2>
+  <ul><li>Introduction</li>
+      <li>The API / Use Cases</li>
+      <li>Streaming, the <code>EventSource</code></li>
+      <li>Some Background...</li>
       <li class="red">Concurrency Model</li></ul>
 </div></section>
 

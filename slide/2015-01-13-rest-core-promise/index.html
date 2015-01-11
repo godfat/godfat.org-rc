@@ -89,8 +89,7 @@
   <ul><li class="red">Introduction</li>
       <li>The API / Use Cases</li>
       <li>Streaming, the <code>EventSource</code></li>
-      <li>Concurrency Model</li>
-      <li>The Timeout Quest</li></ul>
+      <li>Concurrency Model</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -185,8 +184,7 @@
   <ul><li>Introduction</li>
       <li class="red">The API / Use Cases</li>
       <li>Streaming, the <code>EventSource</code></li>
-      <li>Concurrency Model</li>
-      <li>The Timeout Quest</li></ul>
+      <li>Concurrency Model</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -510,8 +508,7 @@ end</code></pre>
   <ul><li>Introduction</li>
       <li>The API / Use Cases</li>
       <li class="red">Streaming, the <code>EventSource</code></li>
-      <li>Concurrency Model</li>
-      <li>The Timeout Quest</li></ul>
+      <li>Concurrency Model</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -622,8 +619,7 @@ EVENT: put, DATA:
   <ul><li>Introduction</li>
       <li>The API / Use Cases</li>
       <li>Streaming, the <code>EventSource</code></li>
-      <li class="red">Concurrency Model</li>
-      <li>The Timeout Quest</li></ul>
+      <li class="red">Concurrency Model</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -646,7 +642,8 @@ EVENT: put, DATA:
   <ul><li class="red">Weird Backtrace for Exceptions</li>
       <li>Shutting down gracefully</li>
       <li>Beware of Deadlock!</li>
-      <li>Beware of Timeout!</li></ul>
+      <li>Beware of Timeout!</li>
+      <li><code>Timer.interval</code></li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -714,7 +711,8 @@ end</code></pre>
   <ul><li>Weird Backtrace for Exceptions</li>
       <li class="red">Shutting down gracefully</li>
       <li>Beware of Deadlock!</li>
-      <li>Beware of Timeout!</li></ul>
+      <li>Beware of Timeout!</li>
+      <li><code>Timer.interval</code></li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -743,7 +741,8 @@ end</code></pre>
   <ul><li>Weird Backtrace for Exceptions</li>
       <li>Shutting down gracefully</li>
       <li class="red">Beware of Deadlock!</li>
-      <li class="red">Beware of Timeout!</li></ul>
+      <li class="red">Beware of Timeout!</li>
+      <li><code>Timer.interval</code></li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -803,6 +802,16 @@ client = RC::Universal.new(:timeout => 10)
   client.get("ruby/#{i}"){ |res| puts res }
 end</code></pre>
   <h2>If the request needs &gt; <code>100ms</code></h2>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Gotcha!</h2>
+  <ul><li>Weird Backtrace for Exceptions</li>
+      <li>Shutting down gracefully</li>
+      <li>Beware of Deadlock!</li>
+      <li>Beware of Timeout!</li>
+      <li class="red"><code>Timer.interval</code></li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -1068,29 +1077,7 @@ end</code></pre>
   <ul><li>Introduction</li>
       <li>The API / Use Cases</li>
       <li>Streaming, the <code>EventSource</code></li>
-      <li>Concurrency Model</li>
-      <li class="red">The Timeout Quest</li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h2>The Timeout Quest</h2>
-  <ul><li class="red"><code>Thread#kill</code> is unsafe</li>
-      <li><code>Thread#raise</code> is unsafe without masking</li>
-      <li>The Timer Thread</li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h2>The Timeout Quest</h2>
-  <ul><li><code>Thread#kill</code> is unsafe</li>
-      <li class="red"><code>Thread#raise</code> is unsafe without masking</li>
-      <li>The Timer Thread</li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h2>The Timeout Quest</h2>
-  <ul><li><code>Thread#kill</code> is unsafe</li>
-      <li><code>Thread#raise</code> is unsafe without masking</li>
-      <li class="red">The Timer Thread</li></ul>
+      <li>Concurrency Model</li></ul>
 </div></section>
 
 <section class="slide"><div>

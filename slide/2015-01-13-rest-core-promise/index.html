@@ -545,9 +545,9 @@ source.onmessage = function (event) {
 get '/api/sse' do # (<a href="https://github.com/godfat/saya/commit/0bfb3bd470f70e20ca77d8cf3b47d1613c324a87">jellyfish's</a>/<a href="https://gist.github.com/raggi/ff7971991297e5c8a1ce">raggi's</a> example)
   headers_merge(
     'Content-Type' => 'text/event-stream',
-    'rack.hijack'  => lambda do |io|
+    'rack.hijack'  => lambda do |sock|
       loop do
-        io.write("data: Aloha!\n\n")
+        sock.write("data: Aloha!\n\n")
         sleep 5
       end
     end)

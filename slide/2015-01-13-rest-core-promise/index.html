@@ -772,9 +772,9 @@ p ref # raise WeakRef::RefError
 <section class="slide"><div>
   <h2>Concurrency Model</h2>
   <ul><li class="red">Gotcha!</li>
+      <li>Wait! Detail</li>
       <li><code>Promise</code> Detail</li>
-      <li><code>ThreadPool</code> Detail</li>
-      <li>Wait! Detail</li></ul>
+      <li><code>ThreadPool</code> Detail</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -968,9 +968,140 @@ RC::Timer.interval = 0.5 # Default 1 second</code></pre></span>
 <section class="slide"><div>
   <h2>Concurrency Model</h2>
   <ul><li>Gotcha!</li>
+      <li class="red">Wait! Detail</li>
+      <li><code>Promise</code> Detail</li>
+      <li><code>ThreadPool</code> Detail</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Wait! Detail</h2>
+  <ul><li class="red"><code>Client.wait</code></li>
+      <li><code>Promise#wait</code></li>
+      <li><code>Promise#fulfilling</code></li>
+      <li><code>Promise#rejecting</code></li>
+      <li><code>Future#method_missing</code></li>
+      <li><code>Promise#yield</code></li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <pre class="fullscreen"><code class="ruby">
+# Wait for all the requests
+# to be done for this client
+def wait ps=promises, m=mutex
+  return self if ps.empty?
+  current_promises = nil
+  m.synchronize do
+    current_promises = ps.dup
+    ps.clear
+  end
+  current_promises.each do |p|
+    next unless p.weakref_alive?
+    begin
+      p.<span class="highlight">wait</span>
+    rescue WeakRef::RefError
+    end # it's gc'ed after we think it's alive
+  end
+  wait(ps, m)
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Wait! Detail</h2>
+  <ul><li><code>Client.wait</code></li>
+      <li class="red"><code>Promise#wait</code></li>
+      <li><code>Promise#fulfilling</code></li>
+      <li><code>Promise#rejecting</code></li>
+      <li><code>Future#method_missing</code>
+      <li><code>Promise#yield</code></li></li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model - <code>Promise#wait</code></h1>
+  <pre><code class="ruby">
+# called in client thread (client.wait)
+def wait
+  # it might be awaken by some other futures!
+  mutex.synchronize do
+    condv.wait(mutex) until done?
+  end unless done?
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Wait! Detail</h2>
+  <ul><li><code>Client.wait</code></li>
+      <li><code>Promise#wait</code></li>
+      <li class="red"><code>Promise#fulfilling</code></li>
+      <li class="red"><code>Promise#rejecting</code></li>
+      <li><code>Future#method_missing</code>
+      <li><code>Promise#yield</code></li></li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model - <code>Promise#fulfilling</code></h1>
+  <pre><code class="ruby">
+def fulfilling body, status, headers, socket=nil
+  self.body, self.status,
+  self.headers, self.socket =
+    body, status, headers, socket
+  # under ASYNC callback, should call immediately
+  callback if immediate
+ensure
+  # client or response might be waiting
+  condv.broadcast
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model - <code>Promise#rejecting</code></h1>
+  <pre><code class="ruby">
+def rejecting error
+  self.error = if error.kind_of?(Exception)
+                 error
+               else
+                 Error.new(error || 'unknown')
+               end
+  fulfilling('', 0, {})
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model</h1>
+  <h2>Wait! Detail</h2>
+  <ul><li><code>Client.wait</code></li>
+      <li><code>Promise#wait</code></li>
+      <li><code>Promise#fulfilling</code></li>
+      <li><code>Promise#rejecting</code></li>
+      <li class="red"><code>Future#method_missing</code>
+      <li class="red"><code>Promise#yield</code></li></li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h1>Concurrency Model - <code>Future#method_missing</code></h1>
+  <pre style="margin-bottom:0"><code class="ruby">
+def method_missing msg, *args, &amp;block
+  @promise.yield[@target].
+    __send__(msg, *args, &amp;block)
+end</code></pre>
+  <span class="next"><h1>Concurrency Model - <code>Promise#yield</code></h1>
+  <pre><code class="ruby">
+# called in client thread
+# (from the future (e.g. body))
+def yield
+  wait
+  callback
+end</code></pre></span>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Concurrency Model</h2>
+  <ul><li>Gotcha!</li>
+      <li>Wait! Detail</li>
       <li class="red"><code>Promise</code> Detail</li>
-      <li><code>ThreadPool</code> Detail</li>
-      <li>Wait! Detail</li></ul>
+      <li><code>ThreadPool</code> Detail</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -1147,9 +1278,9 @@ end</code></pre>
 <section class="slide"><div>
   <h2>Concurrency Model</h2>
   <ul><li>Gotcha!</li>
+      <li>Wait! Detail</li>
       <li><code>Promise</code> Detail</li>
-      <li class="red"><code>ThreadPool</code> Detail</li>
-      <li>Wait! Detail</li></ul>
+      <li class="red"><code>ThreadPool</code> Detail</li></ul>
 </div></section>
 
 <section class="slide"><div>
@@ -1223,137 +1354,6 @@ class Task &lt; Struct.new(:job, :mutex, :thread,
   # we should probably synchronize this, too!
   def cancel; self.cancelled = true; end
 end</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h2>Concurrency Model</h2>
-  <ul><li>Gotcha!</li>
-      <li><code>Promise</code> Detail</li>
-      <li><code>ThreadPool</code> Detail</li>
-      <li class="red">Wait! Detail</li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model</h1>
-  <h2>Wait! Detail</h2>
-  <ul><li class="red"><code>Client.wait</code></li>
-      <li><code>Promise#wait</code></li>
-      <li><code>Promise#fulfilling</code></li>
-      <li><code>Promise#rejecting</code></li>
-      <li><code>Future#method_missing</code></li>
-      <li><code>Promise#yield</code></li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <pre class="fullscreen"><code class="ruby">
-# Wait for all the requests
-# to be done for this client
-def wait ps=promises, m=mutex
-  return self if ps.empty?
-  current_promises = nil
-  m.synchronize do
-    current_promises = ps.dup
-    ps.clear
-  end
-  current_promises.each do |p|
-    next unless p.weakref_alive?
-    begin
-      p.<span class="highlight">wait</span>
-    rescue WeakRef::RefError
-    end # it's gc'ed after we think it's alive
-  end
-  wait(ps, m)
-end</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model</h1>
-  <h2>Wait! Detail</h2>
-  <ul><li><code>Client.wait</code></li>
-      <li class="red"><code>Promise#wait</code></li>
-      <li><code>Promise#fulfilling</code></li>
-      <li><code>Promise#rejecting</code></li>
-      <li><code>Future#method_missing</code>
-      <li><code>Promise#yield</code></li></li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model - <code>Promise#wait</code></h1>
-  <pre><code class="ruby">
-# called in client thread (client.wait)
-def wait
-  # it might be awaken by some other futures!
-  mutex.synchronize do
-    condv.wait(mutex) until done?
-  end unless done?
-end</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model</h1>
-  <h2>Wait! Detail</h2>
-  <ul><li><code>Client.wait</code></li>
-      <li><code>Promise#wait</code></li>
-      <li class="red"><code>Promise#fulfilling</code></li>
-      <li class="red"><code>Promise#rejecting</code></li>
-      <li><code>Future#method_missing</code>
-      <li><code>Promise#yield</code></li></li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model - <code>Promise#fulfilling</code></h1>
-  <pre><code class="ruby">
-def fulfilling body, status, headers, socket=nil
-  self.body, self.status,
-  self.headers, self.socket =
-    body, status, headers, socket
-  # under ASYNC callback, should call immediately
-  callback if immediate
-ensure
-  # client or response might be waiting
-  condv.broadcast
-end</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model - <code>Promise#rejecting</code></h1>
-  <pre><code class="ruby">
-def rejecting error
-  self.error = if error.kind_of?(Exception)
-                 error
-               else
-                 Error.new(error || 'unknown')
-               end
-  fulfilling('', 0, {})
-end</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model</h1>
-  <h2>Wait! Detail</h2>
-  <ul><li><code>Client.wait</code></li>
-      <li><code>Promise#wait</code></li>
-      <li><code>Promise#fulfilling</code></li>
-      <li><code>Promise#rejecting</code></li>
-      <li class="red"><code>Future#method_missing</code>
-      <li class="red"><code>Promise#yield</code></li></li></ul>
-</div></section>
-
-<section class="slide"><div>
-  <h1>Concurrency Model - <code>Future#method_missing</code></h1>
-  <pre style="margin-bottom:0"><code class="ruby">
-def method_missing msg, *args, &amp;block
-  @promise.yield[@target].
-    __send__(msg, *args, &amp;block)
-end</code></pre>
-  <span class="next"><h1>Concurrency Model - <code>Promise#yield</code></h1>
-  <pre><code class="ruby">
-# called in client thread
-# (from the future (e.g. body))
-def yield
-  wait
-  callback
-end</code></pre></span>
 </div></section>
 
 <section class="slide"><div>

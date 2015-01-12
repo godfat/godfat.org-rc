@@ -78,14 +78,6 @@ This could be tough, be prepared!
     - Beware of Deadlock!
     - Beware of Timeout!
     - Inaccurate Timeout
-  * Promise Detail
-    - `Promise#defer`
-    - `Promise#protected_yield`
-    - `Promise#cancel_task`
-  * ThreadPool Detail
-    - `ThreadPool#defer`
-    - `ThreadPool#spawn_worker`
-    - `ThreadPool::Task`
   * Wait! Detail
     - `Client.wait`
     - `Promise#wait`
@@ -93,3 +85,11 @@ This could be tough, be prepared!
     - `Promise#rejecting`
     - `Future#method_missing`
     - `Promise#yield`
+  * `Promise` Detail
+    - `Promise#defer`
+    - `Promise#protected_yield`
+    - `Promise#cancel_task`
+  * `ThreadPool` Detail
+    - `ThreadPool#defer`
+    - `ThreadPool#spawn_worker`
+    - `ThreadPool::Task`

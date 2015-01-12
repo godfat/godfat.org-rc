@@ -532,8 +532,8 @@ end</code></pre>
   <h1>Streaming, the <code>EventSource</code></h1>
   <h2><a href="http://en.wikipedia.org/wiki/Server-sent_events">SSE, Server-Sent Events</a></h2>
   <pre><code class="javascript">
-var source = new EventSource('/api/sse');
-source.onmessage = function (event) {
+var es = new EventSource('/api/sse');
+es.onmessage = function (event) {
   console.log(event.data);
 };</code></pre>
 </div></section>

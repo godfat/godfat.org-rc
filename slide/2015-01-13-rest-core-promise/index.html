@@ -423,7 +423,7 @@ puts r</code></pre>
   <h2>Without Waiting... To This:</h2>
   <pre><code class="ruby">
 r = %w[ruby opal].map do |n|
-  c.get("#{n}/friends", {},
+  c.get("#{n}/friends", {}, RC::ASYNC => true,
         RC::RESPONSE_KEY => RC::PROMISE).
         then do |res|
     f = res[RC::RESPONSE_BODY]
@@ -440,7 +440,7 @@ puts r</code></pre>
   <h2>Why: It's Not Blocking Here</h2>
   <pre><code class="ruby">
 r = %w[ruby opal].map do |n|
-  c.get("#{n}/friends", {},
+  c.get("#{n}/friends", {}, RC::ASYNC => true,
         RC::RESPONSE_KEY => RC::PROMISE).
         then do |res|
     f = res[RC::RESPONSE_BODY]
@@ -458,8 +458,8 @@ puts r</code></pre>
 
 def all p, query={}, o={}
   q = {:per_page => MAX_PER_PAGE}.merge(query)
-  r = <span class="highlight">get</span>(p, q, o.merge(RESPONSE_KEY => PROMISE)).
-      then{ |res|
+  r = <span class="highlight">get</span>(p, q, o.merge(RC::ASYNC => true,
+          RESPONSE_KEY => PROMISE)).then{ |res|
     b = res[RESPONSE_BODY] +
         page_range(res).<span class="highlight">map</span>{ |page|
           <span class="highlight">get</span>(p, q.merge(:page => page),

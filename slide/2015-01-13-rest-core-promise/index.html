@@ -916,7 +916,7 @@ RC::Universal.pool_size = 1
 client = RC::Universal.new(:timeout => 10)
 client.get('ruby/friends') do |response|
   path = "#{response.first['name']}/friends"
-  puts client.get(path)<span class="highlight">.first</span>['name'] # DEADLOCK!
+  puts client.get(path)<span class="highlight">.first</span>['name'] # TIMEOUT!
 end</code></pre>
   <h2>Raise timeout in this case</h2>
 </div></section>

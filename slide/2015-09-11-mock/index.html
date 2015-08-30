@@ -47,6 +47,42 @@
       top: -15px;
       height: 555px;
     }
+    .slide div.universe,
+    .slide div.proof,
+    .slide div.proof-invisible,
+    .slide div.program, .slide div.test{
+      padding: 0;
+      top: 2.5%;
+      margin: auto;
+      position: relative;
+      border-radius: 50%;
+      text-align: center;
+    }
+    .slide div.universe{
+      width: 600px;
+      height: 600px;
+      background-color: #4b86c2;
+    }
+    .slide div.proof-invisible{
+      width: 500px;
+      height: 500px;
+      background-color: #4b86c2;
+    }
+    .slide div.proof{
+      width: 500px;
+      height: 500px;
+      background-color: teal;
+    }
+    .slide div.program{
+      width: 400px;
+      height: 400px;
+      background-color: #cf6a4c;
+    }
+    .slide div.test{
+      width: 300px;
+      height: 300px;
+      background-color: orange;
+    }
   </style>
 </head>
 <body class="list">
@@ -122,15 +158,123 @@
 <section class="slide"><div>
   <h2>Table of Contents</h2>
   <ul><li class="red">Introduction</li>
-      <li>Muack</li>
       <li>When?</li>
-      <li>Drawbacks</li>
-      <li>Extra</li></ul>
+      <li>Muack</li>
+      <li>Trade-Offs</li>
+      <li>Possibilities</li></ul>
+</div></section>
+
+<section class="slide">
+  <div class="universe">Universe
+  <div class="proof-invisible">&nbsp;
+  <div class="program">Program</div></div></div>
+</section>
+
+<section class="slide">
+  <div class="universe">Universe
+  <div class="proof">Proofs
+  <div class="program">Program</div></div></div>
+</section>
+
+<section class="slide">
+  <div class="universe">Universe
+  <div class="proof">(Type System)
+  <div class="program">Program</div></div></div>
+</section>
+
+<section class="slide">
+  <div class="universe">Universe
+  <div class="proof">(Type System)
+  <div class="program">Program
+  <div class="test">Tests</div></div></div></div>
+</section>
+
+<section class="slide shout"><div>
+  <h2>Testing<br>is part of <em>development process</em></h2>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2><em>Not</em> part of the program</h2>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2>Pick the one <em>fits</em> into your team</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Software Testing</h2>
+  <ul><li><a href="https://en.wikipedia.org/wiki/Unit_testing">Unit Testing</a></li>
+      <li class="next"><a href="https://en.wikipedia.org/wiki/Integration_testing">Integration Testing</a></li>
+      <li class="next"><a href="https://en.wikipedia.org/wiki/System_testing">System Testing</a></li>
+      <li class="next">...</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="https://en.wikipedia.org/wiki/Mock_object">Mock object</a></h2>
+  <blockquote>In object-oriented programming, mock objects are simulated objects that <em>mimic the behavior of real objects</em> in controlled ways.</blockquote>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Table of Contents</h2>
+  <ul><li>Introduction</li>
+      <li class="red">When?</li>
+      <li>Muack</li>
+      <li>Trade-Offs</li>
+      <li>Possibilities</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>When?</h2>
+  <ul><li><em>Non-deterministic</em> (e.g. current time or race condition)</li>
+      <li class="next"><em>Difficult to reproduce</em> (e.g. network error or race condition)</li>
+      <li class="next"><em>Too slow</em> (e.g. external network<br>or slow components which have already been tested)</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Difficult to reproduce</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Too slow</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Table of Contents</h2>
+  <ul><li>Introduction</li>
+      <li>When?</li>
+      <li class="red">Muack</li>
+      <li>Trade-Offs</li>
+      <li>Possibilities</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Table of Contents</h2>
+  <ul><li>Introduction</li>
+      <li>When?</li>
+      <li>Muack</li>
+      <li class="red">Trade-Offs</li>
+      <li>Possibilities</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Table of Contents</h2>
+  <ul><li>Introduction</li>
+      <li>When?</li>
+      <li>Muack</li>
+      <li>Trade-Offs</li>
+      <li class="red">Possibilities</li></ul>
 </div></section>
 
 <section class="slide"><div>
   <h2>Bibliography</h2>
-  <ul><li>a</li></ul>
+  <ul>
+    <li><a href="http://xunitpatterns.com/Test%20Double.html">Test Double</a></li>
+    <li><a href="http://martinfowler.com/articles/mocksArentStubs.html">Mocks Aren't Stubs</a></li>
+  </ul>
 </div></section>
 
 <section class="slide shout"><div>

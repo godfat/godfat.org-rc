@@ -31,6 +31,7 @@ In this talk, I'll briefly introduce what is a test double, and why and when we 
     - Unit tests (testing implementation?) vs integration tests (testing public API)
     - Modifying Behaviour (lazy tests)
     - Dependency Injection
+    - module isolation
     - Auto-mocking
   - Cons
     - Thread-unsafe by nature

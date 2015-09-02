@@ -8,45 +8,6 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Oxygen+Mono" rel="stylesheet" type="text/css">
   <link href="../asset/screen-8.4.css" rel="stylesheet" type="text/css">
   <style>
-    .avatar{
-      width: 56px;
-      height: 57px;
-      padding-right: 10px;
-      vertical-align: middle;
-      display: inline-block;
-    }
-    .date{
-      font-family: monospace;
-    }
-    a:link, a:visited{
-      color: teal;
-    }
-    code{
-      background-color: rgba(204, 204, 204, 0.5);
-      padding: 0 0.1em 0 0.2em;
-      border-radius: 0.5em;
-    }
-    .lib{
-      color: teal;
-    }
-    .red{
-      color: #cf6a4c;
-    }
-    .blue{
-      color: #4b86c2;
-    }
-    .highlight{
-      background-color: #cf6a4c;
-      border-radius: 0.3em;
-    }
-    .fullscreen{
-      position: relative;
-      top: -87px;
-    }
-    .slide > div{
-      top: -15px;
-      height: 555px;
-    }
     .slide div.universe,
     .slide div.proof,
     .slide div.proof-invisible,
@@ -225,21 +186,63 @@
 
 <section class="slide"><div>
   <h2>When?</h2>
-  <ul><li><em>Non-deterministic</em> (e.g. current time or race condition)</li>
+  <ul><li><em>Non-deterministic</em> (e.g. current time or concurrency)</li>
       <li class="next"><em>Difficult to reproduce</em> (e.g. network error or race condition)</li>
       <li class="next"><em>Too slow</em> (e.g. external network<br>or slow components which have already been tested)</li></ul>
 </div></section>
 
 <section class="slide"><div>
   <h2>Non-deterministic</h2>
+  <h3>Current time</h3>
+  <pre><code>
+require 'time'
+
+class Ticket &lt; Struct.new(:time)
+  def expired?
+    Time.parse(time) &lt; Time.<span class="highlight">now</span>
+  end
+end
+
+<span class="next">Ticket.new('2015-09-11').expired?</span></code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Concurrency</h3>
+  <pre><code></code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>Difficult to reproduce</h2>
+  <h3>Network error</h3>
+  <pre><code>
+require 'socket'
+
+sock = TCPSocket.new('t.co', 80)
+sock.write("GET / HTTP/1.0\r\nHost: t.co\r\n\r\n")
+begin
+  IO.select([sock])
+  sock.<span class="highlight">read_nonblock</span>(256)
+rescue IO::WaitReadable
+  retry <span class="next"># How to test this clause?</span>
+end
+sock.close</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>Too slow</h2>
+  <h3>Random bytes</h3>
+  <pre><code class="ruby">
+data = File.<span class="highlight">read</span>('/dev/random', 2**20)</code></pre>
+  <span class="next" style="position: relative; top: -30px">
+    <h3>Upload data</h3>
+    <pre><code class="ruby">
+require 'socket'
+sock = TCPSocket.new('t.co', 80)
+sock.write("POST / HTTP/1.0\r\nHost: t.co\r\n\r\n")
+sock.<span class="highlight">write</span>(data)
+sock.close</code></pre>
+  </span>
 </div></section>
 
 <section class="slide"><div>

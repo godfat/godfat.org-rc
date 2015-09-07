@@ -44,6 +44,9 @@
       height: 300px;
       background-color: orange;
     }
+    pre .highlight .hljs-title{
+      color: white;
+    }
   </style>
 </head>
 <body class="list">
@@ -51,7 +54,7 @@
 
 <section class="slide shout"><div>
   <h2 style="top:60%; line-height:1em">
-    Have you seen the Mock <a style="border-bottom:none" href="https://github.com/godfat/rest-core">Muack</a> yet?</h2>
+    Have you seen the Mock <a style="border-bottom:none" href="https://github.com/godfat/muack">Muack</a> yet?</h2>
   <div style="text-align: center"><a href="http://godfat.org/slide/2015-01-13-rest-core-promise/">http://godfat.org/slide/2015-09-11-mock/</a></div>
 </div></section>
 
@@ -171,6 +174,16 @@
 </div></section>
 
 <section class="slide"><div>
+  <h2><a href="https://en.wikipedia.org/wiki/Test_double">Test double</a></h2>
+  <blockquote>A test double is a <em>generic (meta) term</em> used for these objects or procedures.</blockquote>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="https://en.wikipedia.org/wiki/Test_double">Test double</a></h2>
+  <blockquote>A test double is a <span style="text-decoration: line-through">generic (meta) term</span> <em>buzzword</em> used for these objects or procedures.</blockquote>
+</div></section>
+
+<section class="slide"><div>
   <h2><a href="https://en.wikipedia.org/wiki/Mock_object">Mock object</a></h2>
   <blockquote>In object-oriented programming, mock objects are simulated objects that <em>mimic the behavior of real objects</em> in controlled ways.</blockquote>
 </div></section>
@@ -203,13 +216,7 @@ class Ticket &lt; Struct.new(:time)
   end
 end
 
-<span class="next">Ticket.new('2015-09-11').expired?</span></code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h2>Non-deterministic</h2>
-  <h3>Concurrency</h3>
-  <pre><code></code></pre>
+    <span class="next">Ticket.new('2015-09-11').expired?</span></code></pre>
 </div></section>
 
 <section class="slide"><div>
@@ -255,6 +262,354 @@ sock.close</code></pre>
 </div></section>
 
 <section class="slide"><div>
+  <h2>Muack</h2>
+  <blockquote>
+    <p style="position: relative; top: 0.5em">Muack -- A fast, small, yet powerful mocking library.</p>
+    <p>Inspired by <a href="https://github.com/rr/rr">RR</a>, and it's 32x times faster (750s vs 23s)
+    <br>
+    than RR for running <a href="https://github.com/godfat/rib">Rib</a> tests.</p></blockquote>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Why?</h2>
+  <blockquote style="width: 105%">
+    <p style="position: relative; top: 0.5em">Because RR has/had some bugs and it is too complex for me to fix it.</p>
+  </blockquote>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Kernel: Hello!</h2>
+  <pre><code>
+require 'pork/auto'
+require 'muack'
+
+describe Kernel do
+  include Muack::API
+  before{ Muack.reset  }
+  after { Muack.verify }
+
+  would 'puts' do
+    mock(self).puts(is_a(String)){ ok }
+    puts "Hello!"
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time</h3>
+  <pre><code>
+require 'time'
+
+class Ticket &lt; Struct.new(:time)
+  def expired?
+    Time.parse(time) &lt; Time.<span class="highlight">now</span>
+  end
+end
+
+    Ticket.new('2015-09-11').expired?
+
+
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time</h3>
+  <pre><code class="ruby">
+
+
+
+
+
+
+
+
+    Ticket.new('2015-09-11').expired?
+
+
+</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time</h3>
+  <pre><code>
+describe Ticket do
+
+
+
+
+
+  would 'not expired?' do
+    mock(Time).now{ Time.at(0) }
+    Ticket.new('2015-09-11').expired?
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time</h3>
+  <pre><code>
+describe Ticket do
+
+
+
+
+
+  would 'not expired?' do
+    mock(Time).now{ Time.at(0) }
+    expect(Ticket.new('2015-09-11')).not.expired?
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time</h3>
+  <pre><code>
+describe Ticket do
+  would 'expired?' do
+    mock(Time).now{ Time.parse('2015-09-12') }
+    expect(Ticket.new('2015-09-11')).expired?
+  end
+
+  would 'not expired?' do
+    mock(Time).now{ Time.at(0) }
+    expect(Ticket.new('2015-09-11')).not.expired?
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time (with <em>dependency injection</em>)</h3>
+  <pre class="next"><code class="ruby">
+class Ticket &lt; Struct.new(:time, <span class="highlight">:time_class</span>)
+  <span class="next">def initialize new_time, new_time_class=Time
+    super(new_time, new_time_class)
+  end</span>
+
+  <span class="next">def expired?
+    Time.parse(time) &lt; <span class="highlight">time_class</span>.now
+  end</span>
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time (with <em>dependency injection</em> and simple stubs)</h3>
+  <pre style="width: 105%"><code class="ruby">
+describe Ticket do
+  would 'expired?' do
+    t = Struct.new(:now).new(Time.parse('2015-09-12'))
+    expect(Ticket.new('2015-09-11', t)).expired?
+  end
+
+  would 'not expired?' do
+    t = Struct.new(:now).new(Time.at(0))
+    expect(Ticket.new('2015-09-11', t)).not.expired?
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>What are the terms?</h2>
+  <blockquote>Classification between <em>mocks</em>, <em>fakes</em>, and <em>stubs</em> is highly inconsistent across literature.</blockquote>
+  <span class="next"><p>[...]</p>
+  <blockquote>Which of the mock, fake, or stub is the simplest is inconsistent, but the simplest always returns <em>pre-arranged responses</em>.</blockquote></span>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="https://en.wikipedia.org/wiki/Test_double">Test double</a></h2>
+  <blockquote>A test double is a <span style="text-decoration: line-through">generic (meta) term</span> <em>buzzword</em> used for these objects or procedures.</blockquote>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="https://en.wikipedia.org/wiki/Mock_object">Mock object</a></h2>
+  <blockquote>In object-oriented programming, mock objects are simulated objects that <em>mimic the behavior of real objects</em> in controlled ways.</blockquote>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="http://martinfowler.com/articles/mocksArentStubs.html">Mocks Aren't Stubs</a></h2>
+  <h3>The Difference Between Mocks and Stubs</h3>
+  <ul class="next">
+    <li><span class="red">Dummy</span> are passed around but never actually used.</li>
+    <li class="next"><span class="red">Fake</span> actually have working implementations,<br>but usually take some shortcut.</li>
+    <li class="next"><span class="red">Stubs</span> provide canned answers to calls made during the test.</li>
+    <li class="next"><span class="red">Mocks</span> are pre-programmed with <em>expectations</em> which form a <em>specification</em> of the calls they are expected to <em>receive</em>.</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="https://github.com/godfat/muack">Muack</a></h2>
+  <h3>There are also 4 different kinds of mocks in Muack, which are:</h3>
+  <ul>
+    <li>Mocks</li>
+    <li>Stubs</li>
+    <li>Spies</li>
+    <li>Coats</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time (with <em>dependency injection</em> and simple stubs)</h3>
+  <pre style="width: 105%"><code class="ruby">
+describe Ticket do
+  would 'expired?' do
+    t = Struct.new(:now).new(Time.parse('2015-09-12'))
+    expect(Ticket.new('2015-09-11', t)).expired?
+  end
+
+  would 'not expired?' do
+    t = Struct.new(:now).new(Time.at(0))
+    expect(Ticket.new('2015-09-11', t)).not.expired?
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time (with <em>dependency injection</em> and <em>muack</em> stubs)</h3>
+  <pre style="width: 105%"><code class="ruby">
+describe Ticket do
+  would 'expired?' do
+    t = stub.now{ Time.parse('2015-09-12') }.object
+    expect(Ticket.new('2015-09-11', t)).expired?
+  end
+
+  would 'not expired?' do
+    t = stub.now{ Time.at(0) }.object
+    expect(Ticket.new('2015-09-11', t)).not.expired?
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time (with <em>dependency injection</em> and <em>muack</em> mocks)</h3>
+  <pre style="width: 105%"><code class="ruby">
+describe Ticket do
+  would 'expired?' do
+    t = mock.now{ Time.parse('2015-09-12') }.object
+    expect(Ticket.new('2015-09-11', t)).expired?
+  end
+
+  would 'not expired?' do
+    t = mock.now{ Time.at(0) }.object
+    expect(Ticket.new('2015-09-11', t)).not.expired?
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time (with <em>dependency injection</em> and <em>muack</em> spies)</h3>
+  <pre style="width: 105%"><code class="ruby">
+describe Ticket do
+  would 'expired?' do
+    t = stub.now{ Time.parse('2015-09-12') }.object
+    expect(Ticket.new('2015-09-11', t)).expired?
+    spy(t).now
+
+
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time (with <em>muack</em> spies)</h3>
+  <pre><code>
+describe Ticket do
+  would 'expired?' do
+    stub(Time).now{ Time.parse('2015-09-12') }
+    expect(Ticket.new('2015-09-11')).expired?
+    spy(Time).now
+    <span class="next">Muack.verify</span>
+    <span class="next">Time.now # => real time here</span>
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Non-deterministic</h2>
+  <h3>Current time (with <em>muack</em> coats)</h3>
+  <pre><code>
+describe Ticket do
+  would 'expired?' do
+    coat(Time).now{ Time.parse('2015-09-12') }
+    expect(Ticket.new('2015-09-11')).expired?
+
+
+    Time.now # => real time here
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Muack <a href="https://github.com/godfat/muack#proxy-mode">Proxy Mode</a></h2>
+  <blockquote>There are chances that we don't really want to change the underlying implementation for a given method, <em>but we still want to make sure the named method is called</em>, and that's what we're testing for.</blockquote>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Muack <a href="https://github.com/godfat/muack#partial-mode">Partial Mode</a></h2>
+  <blockquote>Partial mode is not really a mode, but a combination of using proxy mode and the <a href="https://github.com/godfat/muack#arguments-verifiers-satisfy">pattern matching mechanism</a> specialized in stubs.</blockquote>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Muack <a href="https://github.com/godfat/muack#any_instance_of-mode"><code>any_instance_of</code></a></h2>
+  <p>Well, sort of a hack to <em>avoid dependency injection</em> yet making it testable.</p>
+  <span class="next">
+    <h3><a href="https://en.wikipedia.org/wiki/Dependency_injection#Disadvantages">Dependency Injection Disadvantages</a></h3>
+    <ul><li>It forces complexity to move out of classes and into the linkages between classes which might <em>not always be desirable or easily managed</em>.</li></ul>
+    </span>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Muack <a href="https://github.com/godfat/muack#mocks-modifiers">Modifiers</a></h2>
+  <ul>
+    <li>times</li>
+    <li class="next">with_any_args</li>
+    <li class="next">returns (instance_exec mode)</li>
+    <li class="next">peek_args (instance_exec mode)</li>
+    <li class="next">peek_return (instance_exec mode)</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Muack <a href="https://github.com/godfat/muack#arguments-verifiers-satisfying">Arguments Verifiers</a></h2>
+  <ul>
+    <li>anything</li>
+    <li class="next">is_a</li>
+    <li class="next">matching</li>
+    <li class="next">including</li>
+    <li class="next">within</li>
+    <li class="next">responding_to</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Muack <a href="https://github.com/godfat/muack#arguments-verifiers-satisfying">Arguments Verifiers</a></h2>
+  <ul>
+    <li>where</li>
+    <li>having</li>
+    <li>allowing</li>
+    <li class="next">satisfying</li>
+    <li class="next">Disjunction (|)</li>
+    <li class="next">Conjunction (&amp;)</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Muack <a href="https://github.com/godfat/muack#caveat">Caveat</a></h2>
+  <ul>
+    <li>Mixing mocks and stubs</li>
+    <li><code>any_instance_of</code> shares all calls for a given class</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
   <h2>Table of Contents</h2>
   <ul><li>Introduction</li>
       <li>When?</li>
@@ -264,12 +619,32 @@ sock.close</code></pre>
 </div></section>
 
 <section class="slide"><div>
+  <h2>Trade-Offs</h2>
+  <ul>
+    <li>Module Isolation</li>
+    <li>Dependency Injection</li>
+    <li>Mocks Dependency (double implementation (implementation dependency))</li>
+    <li>Thread-unsafe by nature</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
   <h2>Table of Contents</h2>
   <ul><li>Introduction</li>
       <li>When?</li>
       <li>Muack</li>
       <li>Trade-Offs</li>
       <li class="red">Possibilities</li></ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Possibilities</h2>
+  <ul>
+    <li>Auto-mocking</li>
+    <li>Muack as a mocky patching library</li>
+    <li>Muack as a development runtime static typing system</li>
+    <li>Why didn't mocks nor stubs check if the injected method exists before?</li>
+  </ul>
 </div></section>
 
 <section class="slide"><div>

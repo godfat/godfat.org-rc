@@ -621,11 +621,77 @@ end</code></pre>
 <section class="slide"><div>
   <h2>Trade-Offs</h2>
   <ul>
-    <li>Module Isolation</li>
+    <li class="red">Test Isolation</li>
     <li>Dependency Injection</li>
-    <li>Mocks Dependency (double implementation (implementation dependency))</li>
-    <li>Thread-unsafe by nature</li>
   </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Test Isolation -- without mocks</h2>
+  <h3>Advantages:</h3>
+  <ul>
+    <li>More confidence -- we're testing against real stuffs!</li></ul>
+  <span class="next">
+    <hr>
+    <h3>Disadvantages:</h3>
+    <ul style="width: 105%">
+      <li>Test not isolated -- more complex runtime &amp; harder to track down bugs</li>
+      <li class="next">Could be slow</li></ul>
+  </span>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Test Isolation -- with mocks</h2>
+  <h3>Advantages:</h3>
+  <ul>
+    <li>Test isolation -- one bug one test breaks so easier to track</li>
+    <li>Could be much easier to setup</li></ul>
+  <span class="next">
+    <hr>
+    <h3>Disadvantages:</h3>
+    <ul style="width: 105%">
+      <li>Need to implement with mocks -- duplicated implementation</li>
+      <li class="next">↑ Coupled with mocks -- spec changes, update two implementation</li>
+      <li class="next">↑ Mocks could be coupled with private API -- very brittle</li></ul>
+  </span>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Trade-Offs</h2>
+  <ul>
+    <li>Test Isolation</li>
+    <li class="red">Dependency Injection</li>
+  </ul>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Without Dependency Injection</h2>
+  <h3>Advantages:</h3>
+  <ul>
+    <li>Easier to write for the simplest case</li>
+    <li class="next">↑ Less complexity</li></ul>
+  <span class="next">
+    <hr>
+    <h3>Disadvantages:</h3>
+    <ul>
+      <li>Dependencies are more coupled and unclear</li>
+      <li class="next">Harder to mock (might need to mock globally, which is inherently thread unsafe, less isolation, more coupled)</li></ul>
+  </span>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Without Dependency Injection</h2>
+  <h3>Advantages:</h3>
+  <ul>
+    <li>Easier to write for the simplest case</li>
+    <li class="next">↑ Less complexity</li></ul>
+  <span class="next">
+    <hr>
+    <h3>Disadvantages:</h3>
+    <ul>
+      <li>Dependencies are more coupled and unclear</li>
+      <li class="next">Harder to mock (might need to mock globally, which is inherently thread unsafe, less isolation, more coupled)</li></ul>
+  </span>
 </div></section>
 
 <section class="slide"><div>
@@ -638,20 +704,82 @@ end</code></pre>
 </div></section>
 
 <section class="slide"><div>
-  <h2>Possibilities</h2>
-  <ul>
-    <li>Auto-mocking</li>
-    <li>Muack as a mocky patching library</li>
-    <li>Muack as a development runtime static typing system</li>
-    <li>Why didn't mocks nor stubs check if the injected method exists before?</li>
-  </ul>
+  <h2 class="fullscreen">Auto-mocking with <a href="https://github.com/bblimke/webmock">webmock</a></h2>
+  <pre class="fullscreen"><code>
+WebMock.disable_net_connect!
+
+copy :automock do
+  before do
+    stub(Notify).new_notification.
+      with_any_args.peek_args do |*args|
+        <span class="highlight">stub_firebase</span>("notify/#{args.first.fid}")
+        args
+      end
+  end
+end
+
+describe Notify do
+  paste :automock
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2 class="fullscreen">Truncate only inserted tables</h2>
+  <pre class="fullscreen"><code>
+Model = Class.new(Sequel::Model)
+copy :model do
+  def inserted; @inserted ||= {}; end
+  before do
+    test = self
+    stub(any_instance_of(Model))._insert.
+      peek_return(:instance_exec => true) do |r|
+        test.inserted[self.class.table_name] = true
+        r
+      end
+  end
+  after do
+    Model.truncate_all_tables!(inserted.keys)
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2 class="fullscreen"><a href="https://github.com/godfat/muack#muack-as-a-development-runtime-static-typing-system">As a development runtime static typing system</a></h2>
+  <pre class="fullscreen"><code>
+Food = Class.new
+User = Class.new(Struct.new(:food))
+
+Muack::API.module_eval do
+  any_instance_of(User) do |user|
+    stub(user).food = is_a(Food) # proxy mode
+  end
+end
+
+u, f = User.new, Food.new
+u.food = f # ok
+u.food = 1 # raise Muack::Unexpected</code></pre>
+</div></section>
+
+<section class="slide"><div>
+  <h2><a href="https://github.com/godfat/muack#muack-as-a-mocky-patching-library">As a mocky patching library</a></h2>
+  <pre><code>
+Muack::API.stub(RailsAdmin::Config::Actions).find.
+  with_any_args.peek_args do |*args|
+    custom_key, bindings = args
+    if bindings &amp;&amp; bindings[:object] &amp;&amp;
+       bindings[:object].id.nil?
+      # There's no show page for unsaved records
+      [nil, {}]
+    else
+      args # Bypass arguments
+    end
+  end</code></pre>
 </div></section>
 
 <section class="slide"><div>
   <h2>Bibliography</h2>
   <ul>
     <li><a href="http://xunitpatterns.com/Test%20Double.html">Test Double</a></li>
-    <li><a href="http://martinfowler.com/articles/mocksArentStubs.html">Mocks Aren't Stubs</a></li>
   </ul>
 </div></section>
 

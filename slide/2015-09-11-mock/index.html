@@ -299,29 +299,11 @@ end</code></pre>
   <h2>Non-deterministic</h2>
   <h3>Current time</h3>
   <pre><code>
-require 'time'
-
 class Ticket &lt; Struct.new(:time)
   def expired?
     Time.parse(time) &lt; Time.<span class="highlight">now</span>
   end
 end
-
-    Ticket.new('2015-09-11').expired?
-
-
-</code></pre>
-</div></section>
-
-<section class="slide"><div>
-  <h2>Non-deterministic</h2>
-  <h3>Current time</h3>
-  <pre><code class="ruby">
-
-
-
-
-
 
 
 
@@ -335,12 +317,12 @@ end
   <h2>Non-deterministic</h2>
   <h3>Current time</h3>
   <pre><code>
+class Ticket &lt; Struct.new(:time)
+  def expired?
+    Time.parse(time) &lt; Time.<span class="highlight">now</span>
+  end
+end
 describe Ticket do
-
-
-
-
-
   would 'not expired?' do
     mock(Time).now{ Time.at(0) }
     Ticket.new('2015-09-11').expired?
@@ -352,12 +334,12 @@ end</code></pre>
   <h2>Non-deterministic</h2>
   <h3>Current time</h3>
   <pre><code>
+class Ticket &lt; Struct.new(:time)
+  def expired?
+    Time.parse(time) &lt; Time.<span class="highlight">now</span>
+  end
+end
 describe Ticket do
-
-
-
-
-
   would 'not expired?' do
     mock(Time).now{ Time.at(0) }
     expect(Ticket.new('2015-09-11')).not.expired?
@@ -645,7 +627,7 @@ end</code></pre>
   <h3>Advantages:</h3>
   <ul>
     <li>Test isolation -- one bug one test breaks so easier to track</li>
-    <li>Could be much easier to setup</li></ul>
+    <li class="next">Could be much easier to setup</li></ul>
   <span class="next">
     <hr>
     <h3>Disadvantages:</h3>
@@ -680,17 +662,16 @@ end</code></pre>
 </div></section>
 
 <section class="slide"><div>
-  <h2>Without Dependency Injection</h2>
+  <h2>With Dependency Injection</h2>
   <h3>Advantages:</h3>
   <ul>
-    <li>Easier to write for the simplest case</li>
-    <li class="next">↑ Less complexity</li></ul>
+    <li>Better module isolation</li>
+    <li class="next">↑ Much easier to mock</li></ul>
   <span class="next">
     <hr>
     <h3>Disadvantages:</h3>
     <ul>
-      <li>Dependencies are more coupled and unclear</li>
-      <li class="next">Harder to mock (might need to mock globally, which is inherently thread unsafe, less isolation, more coupled)</li></ul>
+      <li>It forces complexity to move out of classes and into the linkages between classes which might <em>not always be desirable or easily managed</em></li></ul>
   </span>
 </div></section>
 

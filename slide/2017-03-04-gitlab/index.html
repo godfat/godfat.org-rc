@@ -1,0 +1,399 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>GitLab on GKE</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=792, user-scalable=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Oxygen+Mono" rel="stylesheet" type="text/css">
+  <link href="../asset/screen-8.4.css" rel="stylesheet" type="text/css">
+  <style>
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body class="list">
+  <header class="caption"></header>
+
+<section class="slide shout"><div>
+  <h2 style="top:40%">
+    <a style="border-bottom:none" href="https://about.gitlab.com/">GitLab</a>
+    <br>on GKE
+  </h2><br><br><br><br><br><br><br>
+  <div style="text-align:center"><a href="http://godfat.org/slide/2016-12-24-gitlab/">http://godfat.org/slide/2017-03-04-gitlab/</a></div>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Who?</h2>
+  <img class="avatar" src="../asset/spiritual_soul.jpg">
+  Lin Jen-Shin (godfat)
+  <p>
+    <ul><li><span class="date">2001~2004:</span> C</li>
+        <li><span class="date">2004~2009:</span> ActionScript</li>
+        <li><span class="date">2005~2008:</span> C++</li>
+        <li><span class="date">2006~<span class="lib">2017</span>:</span> <span class="red">Ruby</span></li>
+        <li><span class="date">2007~<span class="lib">2017</span>:</span> (learning) <span class="blue">Haskell</span></li></ul>
+  </p>
+</div></section>
+
+<section class="slide shout"><div>
+<h2><a href="https://about.gitlab.com/team/#godfat"><img style="width:40%; height:40%" src="../2016-12-24-gitlab/img/godfat.png"></a></h2>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2 style="top:40%">
+    Introduction<br>to<br>
+    <a style="border-bottom:none" href="https://about.gitlab.com/">GitLab</a>
+  </h2><br><br><br><br><br><br><br><br>
+  <div style="text-align:center"><a href="http://godfat.org/slide/2016-12-24-gitlab/">http://godfat.org/slide/2016-12-24-gitlab/</a></div>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://about.gitlab.com/">GitLab</a>?</h2>
+<p style="text-align:center"><a href="https://about.gitlab.com/products/"><img src="img/products.png"></a></p>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://cloud.google.com/container-engine/">GKE</a>?</h2>
+<ul>
+  <li>Google Kubernetes Engine</li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://cloud.google.com/container-engine/">GKE</a>?</h2>
+<ul>
+  <li>Google <span style="text-decoration:line-through">Kubernetes</span> Container Engine</li>
+  <li class="next">GCE = Google Compute Engine</li>
+  <li class="next"><a href="http://catb.org/jargon/html/T/TLA.html">There are only 17,000 three-letter acronyms."</a> -- Paul Boutin</li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="http://kubernetes.io/">Kubernetes</a>?</h2>
+<ul>
+  <li>Open source container cluster manager</li>
+  <li class="next">Originally designed by Google</li>
+  <li class="next">Usually container = <a href="https://www.docker.com/">Docker</a></li>
+</ul>
+</div></section>
+
+<section class="slide"><div style="top:-60px">
+<h2>It's The Future</h2>
+<p style="text-align:center"><a href="https://circleci.com/blog/its-the-future/"><img src="https://d3r49iyjzglexf.cloudfront.net/blog/content/rabbit_hole-001c07c5072ff2970876cbc92caedfc5803e0ea4b9c65cff2f35f83ceedc0b8f.jpg"></a></p>
+</div></section>
+
+<section class="slide"><div style="font-style:italic">
+<h2></h2>
+<p>-Yeah, I was saying about Kubernetes.</p>
+<p>-That let’s you orchestrate all your services.</p>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Idea to production <a href="https://about.gitlab.com/handbook/sales/demo/">demo</a></h2>
+</div></section>
+
+<section class="slide"><div style="top:-60px">
+<h2>Overview</h2>
+<p style="text-align:center"><img style="width:70%; height:70%" src="https://about.gitlab.com/images/handbook/sales/lifecycle.png"></p>
+</div></section>
+
+<section class="slide"><div>
+<h2>Prepare GKE</h2>
+<ul>
+  <li><a href="https://console.cloud.google.com/networking/addresses/list">Reserve static IP</a></li>
+  <li class="next">Add A records (e.g. <span class="red">*.gitlab.godfat.org</span>) on your DNS</li>
+  <li class="next"><a href="https://console.cloud.google.com/kubernetes/add?project=gitlab-demos">Create cluster</a></li>
+  <li class="next">Connect to the cluster via <code>kubectl proxy</code></li>
+  <li class="next"><a href="http://localhost:8001/ui">http://localhost:8001/ui</a></li>
+</ul>
+</div></section>
+
+<section class="slide"><div style="top:-60px">
+<h2>Setup GitLab on GKE</h2>
+<pre><code>
+git clone https://gitlab.com/gitlab-org/kubernetes-gitlab-demo.git</code></pre>
+<pre><code>
+env GITLAB_GKE_IP=104.199.210.42 \
+    GITLAB_GKE_DOMAIN=gitlab.godfat.org \
+    GITLAB_LEGO_EMAIL=jen-shin@gitlab.com \
+    bash generate.bash</code></pre>
+<pre><code>
+kubectl create -f gitlab-gitlab-godfat-org.yml</code></pre>
+</div></section>
+
+<section class="slide"><div style="top:150px">
+<h2><a href="https://gitlab.gitlab.godfat.org/">https://gitlab.gitlab.godfat.org/</a></h2>
+</div></section>
+
+<section class="slide"><div>
+<h2>What's installed</h2>
+<ul>
+  <li>GitLab Community Edition</li>
+  <li class="next">GitLab Runner</li>
+  <li class="next">Container Registry</li>
+  <li class="next">Mattermost</li>
+  <li class="next">Prometheus</li>
+  <li class="next">Let's Encrypt</li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Let's play</h2>
+<ul>
+  <li><a href="https://gitlab.gitlab.godfat.org/">https://gitlab.gitlab.godfat.org/</a></li>
+  <li>Setup admin</li>
+  <li>Setup group</li>
+  <li>Setup project (import from ↓)</li>
+  <ul><li><a href="https://gitlab.com/gitlab-examples/minimal-ruby-app.git">https://gitlab.com/gitlab-examples/minimal-ruby-app.git</a></li></ul>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://gitlab.com/gitlab-examples/minimal-ruby-app/blob/master/server.rb">server.rb</a></h2>
+<pre><code class="ruby">
+require 'webrick'
+
+server = WEBrick::HTTPServer.new :Port => 5000
+
+server.mount_proc '/' do |request, response|
+  response.body = 'Hello, world!'
+end
+
+server.start</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2><a href="https://gitlab.com/gitlab-examples/minimal-ruby-app/blob/master/Dockerfile">Dockerfile</a></h2>
+<pre><code>
+FROM ruby:2.4.0-alpine
+ADD ./ /app/
+WORKDIR /app
+ENV PORT 5000
+EXPOSE 5000
+
+CMD ["sh", "-c",
+     "while :; do ruby ./server.rb; done"]</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>Setup Kubernetes for CI/CD</h2>
+<ul>
+  <li>TODO: <a href="https://gitlab.com/gitlab-org/gitlab-ce/issues/28888">Configure this automatically</a></li>
+  <li>Go to <span class="red">Project Settings</span> &gt; <span class="red">Integrations</span></li>
+  <li>Scroll to <span class="red">Project Services</span></li>
+  <li>Select <span class="red">Kubernetes</span></li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Copy Kubernetes API endpoint</h2>
+<ul>
+  <li>Go to GCP, <a href="https://console.cloud.google.com/kubernetes/list">Container Engine tab</a></li>
+  <li>Click on <span class="red">cluster</span></li>
+  <li>Copy Endpoint to <span class="red">API URL</span> in GitLab, making it an HTTPS URL<br>(Try <a href="https://gitlab.godfat.org">https://gitlab.godfat.org</a>)</li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Copy Kubernetes credentials</h2>
+<ul>
+  <li>Go to <a href="http://localhost:8001/ui">Kubernetes Dashboard</a> that is proxied on your localhost</li>
+  <li>Navigate to <span class="red">Secrets</span> &gt; <span class="red">Config</span> on the left</li>
+  <li>Click on <span class="red">default-token-xxx</span> for the <span class="red">default</span> namespace</li>
+  <li>Copy token (last item) to <span class="red">Service token</span> in GitLab</li>
+  <li>Copy ca.crt (first item, including <span class="red">BEGIN</span> and <span class="red">END</span> lines) to<br><span class="red">Custom CA bundle</span> in GitLab</li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Setup Mattermost command</h2>
+<ul>
+  <li>TODO: Configure this automatically <a href="https://gitlab.com/gitlab-org/gitlab-ce/issues/23964">#23964</a>, <a href="https://gitlab.com/gitlab-org/gitlab-ce/issues/25269">#25269</a></li>
+  <li>Go to <span class="red">Project Settings</span> &gt; <span class="red">Integrations</span></li>
+  <li>Scroll to <span class="red">Project Services</span></li>
+  <li>Select <span class="red">Mattermost Command</span></li>
+  <li>Click <span class="red">Add to Mattermost</span></li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Setup Mattermost team</h2>
+<ul>
+  <li>Click <span class="red">join a team</span> link</li>
+  <li>Click <span class="red">create a new team</span></li>
+  <li>Go back to GitLab</li>
+  <li>Refresh (or Click Go Back)</li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Setup GitLab Auto-Deploy</h2>
+<ul>
+  <li>TODO: Configure this automatically <a href="https://gitlab.com/gitlab-org/gitlab-ce/issues/26453">#26453</a>, <a href="https://gitlab.com/gitlab-org/gitlab-ce/issues/28496">#28496</a>, <a href="https://gitlab.com/gitlab-org/gitlab-ce/issues/28497">#28497</a></li>
+  <li>Go to <span class="red">Project</span>, click <span class="red">Set up auto deploy</span></li>
+  <li>Choose <span class="red">Kubernetes template</span></li>
+  <li>Change <code>KUBE_DOMAIN</code> from
+  <br><code>domain.example.com</code> to <code>gitlab.godfat.org</code></li>
+  <li>Change <span class="red">Target Branch</span> to <span class="red">master</span></li>
+</ul>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>FINALLY</h2>
+</div></section>
+
+<section class="slide"><div style="top:-60px">
+<h2>Idea to production</h2>
+<p style="text-align:center"><img style="width:70%; height:70%" src="https://about.gitlab.com/images/handbook/sales/lifecycle.png"></p>
+</div></section>
+
+<section class="slide"><div>
+<h2>Idea (Chat)</h2>
+<ul>
+  <li>Go to Mattermost <a href="https://mattermost.gitlab.godfat.org">https://mattermost.gitlab.godfat.org</a></li>
+  <li>Type: <code>Let's improve the homepage!</code></li>
+  <li>Type: <code>/minimal-ruby-app help</code></li>
+</ul>
+<pre><code>
+/minimal-ruby-app issue new Make homepage more descriptive
+
+Currently it is just Hello World.</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>Issue (Tracker)</h2>
+<ul>
+  <li>Click on the link that starts with <span class="red">#1</span></li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Plan (Board)</h2>
+<ul>
+  <li>Go to <span class="red">Issues</span> &gt; <span class="red">Board</span></li>
+  <li>Add default lists</li>
+  <li>Drag issue from <span class="red">Backlog</span> to <span class="red">Doing</span></li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Code (Terminal)</h2>
+<ul>
+  <li>TODO: <a href="https://gitlab.com/gitlab-org/gitlab-ce/issues/23966">#23966</a>, <a href="https://gitlab.com/gitlab-org/gitlab-ce/issues/23968">#23968</a>, <a href="https://gitlab.com/gitlab-org/gitlab-ce/issues/27336">#27336</a></li>
+  <li>Go to <span class="red">Pipelines</span></li>
+  <li>Go to <span class="red">Environments</span></li>
+  <li>Click <span class="red">Staging</span></li>
+  <li>Click <span class="red">Terminal</span> button (on the upper right, 1st on right)</li>
+</ul>
+</div></section>
+
+<section class="slide"><div style="top:-60px">
+<h2>Program online</h2>
+<ul>
+  <li><code>ls</code></li>
+  <li><code>vi server.rb</code></li>
+  <li>i (to insert)</li>
+  <li>Update text to <code>Updated Hello World</code></li>
+  <li>esc (to go back to normal mode)</li>
+  <li>ZZ (to save and close)</li>
+  <li><code>killall ruby</code></li>
+  <li>Click external URL link on top right (2nd from right)</li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Commit (Repo)</h2>
+<ul>
+  <li>Go to <span class="red">Repository</span></li>
+  <li>Go to <span class="red">server.rb</span></li>
+  <li>Click <span class="red">Edit</span> button</li>
+  <li>Add <code>Updated </code> in front of <code>Hello, world!</code></li>
+  <li>Set <span class="red">target branch</span> to <code>1-homepage</code></li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Test (CI)</h2>
+<ul>
+  <li>TODO: <a href="https://gitlab.com/gitlab-org/gitlab-ce/issues/26941">#26941</a></li>
+  <li>Click on <span class="red">Pipelines</span></li>
+  <li>Click on first (top) pipeline's status</li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Runner progress (for fun)</h2>
+<ul>
+  <li>Go to <a href="http://localhost:8001/ui">Kubernetes Dashboard</a></li>
+  <li>Change <span class="red">Namespace</span> to <span class="red">default</span></li>
+  <li>Click on <span class="red">Pods</span></li>
+  <li>Change the <span class="red">Namespace</span> drop-down to <span class="red">minimal-ruby-app</span></li>
+  <li>Click on <span class="red">Pods</span></li>
+</ul>
+</div></section>
+
+<section class="slide"><div style="top:-60px">
+<h2>Review (MR)</h2>
+<ul>
+  <li>Go back to the <span class="red">Merge Request</span> and go to the tab <span class="red">Changes</span></li>
+  <li>Click on a change line to show ability to comment</li>
+  <li>Comment <code>Looks good to me</code></li>
+  <li>Go to <span class="red">Discussion</span> tab to see comment</li>
+  <li>Click on external link to review app<br>(if it is not updated, go to the review app deployment history, find the second-last item and re-deploy)</li>
+  <li>Merge to <span class="red">master</span></li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Staging (CD)</h2>
+<ul>
+  <li>Go to <span class="red">Pipelines</span></li>
+  <li>Click on <span class="red">Merge Requests</span>, <span class="red">Merged</span>, and click on <span class="red">!1</span></li>
+  <li>Click on <span class="red">Staging URL</span> to show that changes got deployed</li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Production (ChatOps)</h2>
+<ul>
+  <li>Go to Mattermost <a href="https://mattermost.gitlab.godfat.org">https://mattermost.gitlab.godfat.org</a></li>
+  <li>Type <code>/minimal-ruby-app deploy staging to production</code></li>
+  <li>Click on the link</li>
+  <li>Wait until it is done</li>
+  <li>Go to <span class="red">Environments</span></li>
+  <li>Click production link (1st on right, beside production)</li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Feedback (Cycle Analytics)</h2>
+<ul>
+  <li>Click <span class="red">Cycle Analytics</span></li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Feedback (Monitoring)</h2>
+<ul>
+  <li>Prometheus Monitoring <a href="https://prometheus.gitlab.godfat.org">https://prometheus.gitlab.godfat.org</a></li>
+  <li>Copy <code>1 - rate(node_cpu{mode="idle"}[5m])</code>
+    <br>into the <span class="red">Expression</span> bar. Hit enter</li>
+  <li>Click <span class="red">Graph</span></li>
+  <li>Copy <code>(1 - ((node_memory_MemFree + node_memory_Cached) / node_memory_MemTotal)) * 100</code>
+    <br>into the <span class="red">Expression</span> bar. Hit enter</li>
+</ul>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Q?</h2>
+</div></section>
+
+  <div class="progress"><div></div></div>
+  <script src="../asset/shower.min.js"></script>
+  <script src='../asset/highlight-8.4.pack.js' type='text/javascript'></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

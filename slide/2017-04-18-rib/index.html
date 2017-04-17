@@ -1,0 +1,613 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>Rib</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=792, user-scalable=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Oxygen+Mono" rel="stylesheet" type="text/css">
+  <link href="../asset/screen-8.4.css" rel="stylesheet" type="text/css">
+
+  <style>
+    code .date { color: #888; }
+    code .host { color: #050; }
+    code .green { color: #090; }
+    code .cyan { color: #0CF; }
+    code .cyan-bright { color: #0FF; }
+    code .red { color: #C00; }
+    code .yellow { color: #CC0; }
+  </style>
+</head>
+<body class="list">
+  <header class="caption"></header>
+
+<section class="slide shout"><div>
+  <h2><a href="https://github.com/godfat/rib">Rib</a> -- Yet another interactive <span class="red">Ruby</span> shell</h2>
+</div></section>
+
+<section class="slide"><div>
+  <h2>Who?</h2>
+  <img class="avatar" src="../asset/spiritual_soul.jpg">
+  Lin Jen-Shin (godfat)
+  <p>
+    <ul><li><span class="date">2001~2004:</span> C</li>
+        <li><span class="date">2004~2009:</span> ActionScript</li>
+        <li><span class="date">2005~2008:</span> C++</li>
+        <li><span class="date">2006~<span class="lib">2017</span>:</span> <span class="red">Ruby</span></li>
+        <li><span class="date">2007~<span class="lib">2017</span>:</span> (learning) <span class="blue">Haskell</span></li></ul>
+  </p>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2><span class="red">6</span> years ago...</h2>
+</div></section>
+
+<section class="slide"><div>
+<h2>Initial commit</h2>
+<pre><code class="no-highlight">
+commit 9847d52e115efada14c52e70b0308f1c9603ad3e
+Author: Lin Jen-Shin &lt;godfat@godfat.org&gt;
+Date:   Wed Feb 23 <span class="blue">05:15</span>:23 <span class="red">2011</span> +0800
+
+    first commit. code template</code></pre>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2>Why?</h2>
+</div></section>
+
+<section class="slide shout"><div>
+  <h2>Why <span class="blue">Create?</span><br>Why Not <span class="red">Use?</span></h2>
+  <br><br><br><br><br><br><br><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="http://godfat.org/slide/2014-01-07-create/">http://godfat.org/slide/2014-01-07-create/</a></span>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Pain Threshold</h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>But still,<br>why?</h2>
+</div></section>
+
+<section class="slide"><div>
+<ul><li>The <span class="lib">joy</span> of <span class="blue">creating</span>.</li>
+<li class="next">The <span class="lib">joy</span> of solving problem <span class="blue">perfectly</span>.</li>
+<li class="next">The <span class="lib">joy</span> of not debugging <span class="blue">other people's code</span>.</li>
+<li class="next">The <span class="lib">joy</span> of being <span class="blue">fearless</span> and <span class="blue">doubtless</span>.</li>
+  <ul><li class="next red">⬆ Well, that must be my bug</li>
+      <li class="next red">⬆ I don't have to keep bugging support</li>
+      <li class="next red">⬆ Which is sometimes hopeless</li></ul></ul>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Programming shall <span class="lib">be happy</span></h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Solve the problem, and <span class="lib">be happy</span></h2>
+</div></section>
+
+<section class="slide"><div>
+<h2>ripl redo -- <a href="https://github.com/godfat/rib">rib</a></h2>
+<ul><li>Just like <b>ripl</b> but easier to extend for some plugins</li>
+<li>Namely <code>Rib.anchor</code> for nested shells</li>
+<li>We need a better readline on JRuby!</li>
+<li><b>rib</b> tests for JRuby has a lot of readline issues</li></ul>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>What about now?</h2>
+</div></section>
+
+<section class="slide"><div>
+<h2>🍖Rib</h2>
+<p>A lightweight and extensible irb replacement</p>
+<p><a href="http://rib.godfat.org/">http://rib.godfat.org/</a>
+-- by <a href="https://twitter.com/lulalala_it">@lulalala_it</a></p>
+</div></section>
+
+<section class="slide"><div style="top: -80px; height: 92%">
+<p><script type="text/javascript" src="https://asciinema.org/a/096gncgnj0nchvi1lmz5cydn0.js" id="asciicast-096gncgnj0nchvi1lmz5cydn0" async></script></p>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>⭐ 29 -&gt; 125</h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>No new<br>issues?<br><span style="line-height:1.3em">🤔</span></h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Solve the problem, and <span class="lib">be happy</span></h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>How I use<br>it daily</h2>
+</div></section>
+
+<section class="slide"><div>
+<pre><code class="no-highlight">
+<span class="date">17:21</span> <span class="host">godfat@godfat-01</span> <span class="green">~/gitlab-ce</span> <span class="cyan">master</span>&gt; <span class="cyan-bright">rib</span> <span class="cyan">auto</span>
+rib-auto: Found Rails, loading it...</code></pre>
+<h2 class="next" style="text-align:center">Beep! 🔔 ①</h2>
+<pre class="next"><code class="no-highlight">
+Loading development environment (Rails 4.2.8)
+&gt;&gt; <span class="cyan-bright">|</span></code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2><code><a href="https://github.com/godfat/rib/blob/rib-1.5.1/lib/rib/more/beep.rb">require 'rib/more/beep'</a></code></h2>
+<pre><code>
+require 'rib'
+
+module Rib::Beep
+  extend Rib::Plugin
+  Shell.use(self)
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2><code><a href="https://github.com/godfat/rib/blob/rib-1.5.1/lib/rib/more/beep.rb">require 'rib/more/beep'</a></code></h2>
+<pre><code>
+def before_loop
+  super
+  return self if Beep.disabled?
+  beep if
+    (Time.now - config[:started_at]) >
+    beep_threshold
+  Beep.disable # Or Rib.disable_beep
+  self
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2><code><a href="https://github.com/godfat/rib/blob/rib-1.5.1/lib/rib/more/beep.rb">require 'rib/more/beep'</a></code></h2>
+<pre><code>
+private
+
+def beep
+  print "\a"
+end
+
+def beep_threshold
+  config[:beep_threshold] ||= 5
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>Also works in rspec anchoring</h2>
+<pre><code>
+ruby -r rib/config -S rspec spec/slow_spec.rb:12</code></pre>
+<h2>While in the code</h2>
+<pre><code>
+it "is anchoring" do
+  Rib.anchor binding
+end</code></pre>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>🔔 ①</h2>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Patience<br>saver!</h2>
+</div></section>
+
+<section class="slide"><div>
+<pre><code class="no-highlight">
+<span class="date">17:21</span> <span class="host">godfat@godfat-01</span> <span class="green">~/gitlab-ce</span> <span class="cyan">master</span>&gt; <span class="cyan-bright">rib</span> <span class="cyan">auto</span>
+rib-auto: Found Rails, loading it...
+Loading development environment (Rails 4.2.8)
+&gt;&gt; <span class="cyan-bright">|</span></code></pre>
+</div></section>
+
+<section class="slide"><div>
+<pre><code class="no-highlight">
+<span class="date">17:21</span> <span class="host">godfat@godfat-01</span> <span class="green">~/gitlab-ce</span> <span class="cyan">master</span>&gt; <span class="cyan-bright">rib</span> <span class="cyan">auto</span>
+rib-auto: Found Rails, loading it...
+Loading development environment (Rails 4.2.8)
+&gt;&gt; Trace<span class="cyan-bright">|<span class="next">↑</span></span></code></pre>
+</div></section>
+
+<section class="slide"><div>
+<pre><code class="no-highlight">
+<span class="date">17:21</span> <span class="host">godfat@godfat-01</span> <span class="green">~/gitlab-ce</span> <span class="cyan">master</span>&gt; <span class="cyan-bright">rib</span> <span class="cyan">auto</span>
+rib-auto: Found Rails, loading it...
+Loading development environment (Rails 4.2.8)
+&gt;&gt;
+s = Gitlab::Ci::Trace<span class="cyan-bright">|</span>::Stream.new do
+  open('...')
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2><code>cat ~/.inputrc</code></h2>
+<pre><code>
+"\e[A": history-substring-search-backward
+"\e[B": history-substring-search-forward</code></pre>
+</div></section>
+
+<section class="slide"><div style="top: -80px">
+<h2>Plugins needed</h2>
+<ul>
+  <li><code>require 'rib/more/multiline_history_file'</code></li>
+  <li><code>require 'rib/more/multiline_history'</code></li>
+  <li><code>require 'rib/extra/autoindent'</code>
+    <ul><li><code>gem install <a href="https://github.com/godfat/readline_buffer">readline_buffer</a></code>
+    <br>Latest 0.9.2 release commit, ~5.3 years ago:
+    <pre><code class="no-highlight">
+commit ba815a86691c969574f63f905f4269deb7cb7b77
+Author: Lin Jen-Shin &lt;godfat@godfat.org&gt;
+Date:   Wed Dec 14 <span class="blue">21:04</span>:53 <span class="red">2011</span> +0800
+
+    CHANGES.md: prepare release</code></pre></li></ul>
+  </li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<pre><code class="no-highlight">
+<span class="date">17:21</span> <span class="host">godfat@godfat-01</span> <span class="green">~/gitlab-ce</span> <span class="cyan">master</span>&gt; <span class="cyan-bright">rib</span> <span class="cyan">auto</span>
+rib-auto: Found Rails, loading it...
+Loading development environment (Rails 4.2.8)
+&gt;&gt;
+s = Gitlab::Ci::Trace<span class="cyan-bright">|</span>::Stream.new do
+  open('...')
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<pre><code class="no-highlight">
+<span class="date">17:21</span> <span class="host">godfat@godfat-01</span> <span class="green">~/gitlab-ce</span> <span class="cyan">master</span>&gt; <span class="cyan-bright">rib</span> <span class="cyan">auto</span>
+rib-auto: Found Rails, loading it...
+Loading development environment (Rails 4.2.8)
+&gt;&gt;
+s = Gitlab::Ci::Trace ::Stream.new do
+  open('...')
+end
+=&gt; <span class="yellow">#&lt;Gitlab::Ci::Trace::Stream:0xdeadbeef&gt;</span>
+&gt;&gt; <span class="cyan-bright">|</span></code></pre>
+</div></section>
+
+<section class="slide"><div style="top: -80px">
+<h2><code><a href="https://github.com/godfat/rib/blob/rib-1.5.1/lib/rib/more/color.rb">require 'rib/more/color'</a></code></h2>
+<pre><code>
+module Rib::Color
+  def format_result result
+    return super if Color.disabled?
+    config[:result_prompt] + format_color(result)
+  end
+
+  def get_error err
+    return super if Color.disabled?
+    message, backtrace = super
+    [format_color(err, message),
+     format_backtrace(backtrace)]
+  end
+end</code></pre>
+</div></section>
+
+<section class="slide"><div style="top: -80px">
+<h2><code><a href="https://github.com/godfat/rib/blob/rib-1.5.1/lib/rib/more/color.rb">require 'rib/more/color'</a></code></h2>
+<pre><code>
+def colors
+  config[:color] ||= {
+    Numeric    => :red    ,
+    String     => :green  ,
+    Symbol     => :cyan   ,
+    Array      => :blue   ,
+    Hash       => :blue   ,
+    NilClass   => :magenta,
+    TrueClass  => :magenta,
+    FalseClass => :magenta,
+    Exception  => :magenta,
+    Object     => :yellow }
+end</code></pre>
+</div></section>
+
+<section class="slide"><div style="top: -80px">
+<h2><code><a href="https://github.com/godfat/rib/blob/rib-1.5.1/lib/rib/more/color.rb">require 'rib/more/color'</a></code></h2>
+<pre><code>
+def format_color result, display=result.inspect
+  case result
+    # ... recursive
+  end
+end
+
+def format_backtrace backtrace
+  colorize_backtrace(super(backtrace))
+end</code></pre>
+</div></section>
+
+<section class="slide"><div style="top: -80px">
+<h2><code><a href="https://github.com/godfat/rib/blob/rib-1.5.1/lib/rib/more/color.rb">require 'rib/more/color'</a></code></h2>
+<pre><code>
+begin
+  require 'win32console' if
+    defined?(Gem) &amp;&amp;
+    Gem.win_platform?
+rescue LoadError => e
+  Rib.warn(
+    "Error: #{e}"                                                  ,
+    "Please install win32console to use color plugin on Windows:\n",
+    "    gem install win32console\n"                               ,
+    "Or add win32console to Gemfile if that's the case"            )
+  Rib::Color.disable
+end</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<pre><code class="no-highlight">
+<span class="date">17:21</span> <span class="host">godfat@godfat-01</span> <span class="green">~/gitlab-ce</span> <span class="cyan">master</span>&gt; <span class="cyan-bright">rib</span> <span class="cyan">auto</span>
+rib-auto: Found Rails, loading it...
+Loading development environment (Rails 4.2.8)
+&gt;&gt;
+s = Gitlab::Ci::Trace ::Stream.new do
+  open('...')
+end
+=&gt; <span class="yellow">#&lt;Gitlab::Ci::Trace::Stream:0xdeadbeef&gt;</span>
+&gt;&gt; Rib.edit<span class="cyan-bright">|</span></code></pre>
+</div></section>
+
+<section class="slide"><div style="top: -80px">
+<h2><code><a href="https://github.com/godfat/rib/blob/rib-1.5.1/lib/rib/more/edit.rb">require 'rib/more/edit'</a></code></h2>
+<pre><code>
+require 'rib'
+require 'tempfile'
+
+module Rib::Edit
+  def editor
+    ENV['EDITOR'] || 'vim'
+  end
+end</code></pre>
+<p>Useful along with <code>Rib.anchor binding</code><br>
+Suggested by <a href="https://twitter.com/devpoga">@devpoga</a></p>
+</div></section>
+
+<section class="slide"><div style="top:-80px; height:100%">
+<pre><code class="no-highlight">
+<span class="date">17:21</span> <span class="host">godfat@godfat-01</span> <span class="green">~/gitlab-ce</span> <span class="cyan">master</span>&gt; <span class="cyan-bright">rib</span> <span class="cyan">auto</span>
+rib-auto: Found Rails, loading it...
+Loading development environment (Rails 4.2.8)
+&gt;&gt; Rails.application<span class="cyan-bright">|</span>
+<span class="next">=&gt; ...............................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................</span></code></pre>
+</div></section>
+
+<section class="slide"><div style="top:-80px; height:100%">
+<pre><code class="no-highlight">
+<span class="date">17:21</span> <span class="host">godfat@godfat-01</span> <span class="green">~/gitlab-ce</span> <span class="cyan">master</span>&gt; <span class="cyan-bright">rib</span> <span class="cyan">auto</span>
+rib-auto: Found Rails, loading it...
+Loading development environment (Rails 4.2.8)
+&gt;&gt; Rails.application.inspect.size
+=&gt; <span class="red">562023</span></code></pre>
+<p class="next" style="text-align:center; position:relative; top:-30px">
+<img src="fine.jpg" style="border-radius:5px"></p>
+</div></section>
+
+<section class="slide"><div style="top: -80px">
+<h3><code><a href="https://github.com/godfat/rib/blob/rib-1.5.1/lib/rib/extra/paging.rb">require 'rib/extra/paging'</a></code></h3>
+<pre><code>
+# Print if it fits in one screen,
+# paging it through a pager otherwise.
+def puts str=''
+  return super if Paging.disabled?
+  if one_screen?(str)
+    super
+  else
+    page_result(str)
+  end
+end
+
+def pager
+  ENV['PAGER'] || 'less -R'
+end</code></pre>
+</div></section>
+
+<section class="slide"><div style="top: -80px">
+<h3><code><a href="https://github.com/godfat/rib/blob/rib-1.5.1/lib/rib/extra/paging.rb">require 'rib/extra/paging'</a></code></h3>
+<pre><code>
+pager = ENV['PAGER'] || 'less'
+
+if `which #{pager}`.empty?
+  Rib.warn("#{pager} is not available, disabling Rib::Paging")
+  Rib::Paging.disable
+elsif `which tput`.empty?
+  Rib.warn("tput is not available, disabling Rib::Paging")
+  Rib::Paging.disable
+elsif ENV['TERM'] == 'dumb' || ENV['TERM'].nil?
+  Rib.warn("Your terminal is dumb, disabling Rib::Paging")
+  Rib::Paging.disable
+end</code></pre>
+</div></section>
+
+<section class="slide"><div style="top:-80px; height:100%">
+<pre><code class="no-highlight">
+<span class="date">17:21</span> <span class="host">godfat@godfat-01</span> <span class="green">~/gitlab-ce</span> <span class="cyan">master</span>&gt;
+<span class="cyan-bright">ruby</span> <span class="cyan">-rrib/config -rbundler/setup -S \
+rspec spec/models/ci/pipeline_spec.rb:118</span></code></pre>
+<h2 class="next" style="text-align:center">🔔 ①</h2>
+<pre class="next"><code class="no-highlight">
+<span class="yellow">#&lt;Ci::Pipe</span>(0)&gt;&gt; Rib.caller<span class="cyan-bright">|</span>
+<span class="next">..................................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................
+..................................................</span></code></pre>
+</div></section>
+
+<section class="slide"><div style="top:-80px; height:100%">
+<pre><code class="no-highlight">
+<span class="date">17:21</span> <span class="host">godfat@godfat-01</span> <span class="green">~/gitlab-ce</span> <span class="cyan">master</span>&gt;
+<span class="cyan-bright">ruby</span> <span class="cyan">-rrib/config -rbundler/setup -S \
+rspec spec/models/ci/pipeline_spec.rb:118</span></code></pre>
+<h2 style="text-align:center">🔔 ①</h2>
+<pre><code class="no-highlight">
+<span class="yellow">#&lt;Ci::Pipe</span>(0)&gt;&gt; Rib.caller 'activesupport', /rspec/
+  spec/models/ci/<span class="yellow">pipeline_spec.rb</span>:<span class="red">119</span>:in <span class="green">`block (5 levels) in &lt;top (required)&gt;'</span>
+  spec/models/ci/<span class="yellow">pipeline_spec.rb</span>:<span class="red">102</span>:in <span class="green">`block (3 levels) in &lt;top (required)&gt;'</span>
+  app/models/ci/<span class="yellow">pipeline.rb</span>:<span class="red">220</span>:in <span class="green">`retryable?'</span>
+<span class="yellow">#&lt;Ci::Pipe</span>(0)&gt;&gt; <span class="cyan-bright">|</span></span></code></pre>
+</div></section>
+
+<section class="slide"><div style="top: -80px">
+<h2>Plugins needed</h2>
+<ul>
+  <li><code>require 'rib/core/strip_backtrace'</code></li>
+  <li><code>require 'rib/more/anchor'</code></li>
+  <li><code>require 'rib/more/bottomup_backtrace'</code></li>
+  <li><code>require 'rib/more/caller'</code></li>
+  <li><code>require 'rib/more/color'</code></li>
+</ul>
+</div></section>
+
+<section class="slide"><div style="top: -80px">
+<h2>Other plugins</h2>
+<ul>
+  <li><code>require 'rib/core/completion'</code></li>
+  <li><code>require 'rib/core/history'</code></li>
+  <li><code>require 'rib/core/readline'</code></li>
+  <li><code>require 'rib/core/squeeze_history'</code></li>
+  <li><code>require 'rib/core/last_value'</code></li>
+  <li><code>require 'rib/extra/hirb'</code></li>
+  <li><code>require 'rib/extra/debugger'</code></li>
+  <li><code>require 'rib/extra/spring'</code></li>
+</ul>
+</div></section>
+
+<section class="slide"><div>
+<h2>Anchor in a loop</h2>
+<pre><code class="ruby">
+require 'rib/debug'
+
+Rib.enable_anchor do
+  # Only `Rib.anchor` called in this block
+  # would launch a shell
+end
+
+# No effect (no-op) outside the block
+Rib.anchor binding</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2>My config <a href="https://github.com/godfat/dev-tool/blob/master/.config/rib/config.rb">~/.config/rib/config.rb</a></h2>
+<pre><code class="ruby">
+require 'rib/all'
+require 'rib/extra/autoindent'
+require 'rib/extra/paging'</code></pre>
+</div></section>
+
+<section class="slide"><div style="top: -80px; height: 100%">
+<pre><code class="no-highlight">
+Usage: rib [ruby OPTIONS] [rib OPTIONS] [rib COMMANDS]
+ruby options:
+  -e, --eval LINE        Evaluate a LINE of code
+  -d, --debug            Set debugging flags (set $DEBUG to true)
+  -w, --warn             Turn warnings on (set $-w and $VERBOSE to true)
+  -I, --include PATH     Specify $LOAD_PATH (may be used more than once)
+  -r, --require LIBRARY  Require the library, before executing your script
+rib options:
+  -c, --config FILE      Load config from FILE
+  -p, --prefix PATH      Prefix to locate the app. Default to .
+  -n, --no-config        Suppress loading any config
+  -h, --help             Print this message
+  -v, --version          Print the version
+rib commands:
+  all                    Load all recommended plugins
+  auto                   Run as Rails or Rack console (auto-detect)
+  min                    Run the minimum essence
+  rack                   Run as Rack console
+  rails                  Run as Rails console</code></pre>
+</div></section>
+
+<section class="slide"><div style="top: -80px; height: 100%">
+<h2>How I <a href="https://github.com/godfat/sandbox/blob/8fe193b12de5d3ee021e85ea9b9fa8d5399ecbad/misc/install.sh">run rib on a GitLab node</a></h2>
+<pre style="top: -20px; position: relative"><code>
+# Ubuntu packages
+sudo apt install -y build-essential cmake libicu-dev pkg-config libpq-dev ruby-dev libreadline-dev nodejs libkrb5-dev
+
+# ENV
+export PATH=~/.gem/ruby/2.3.0/bin:$PATH
+export BUNDLE_APP_CONFIG=~/.bundle
+root=/opt/gitlab/embedded/service/gitlab-rails
+
+# bundler and other gems
+gem install bundler rib bond readline_buffer --user --no-ri --no-rdoc
+
+# bundle install
+bundle install --gemfile $root/Gemfile --path ~/.gem --without mysql
+
+# Run the console
+sudo -E rib all -rrib/extra/autoindent -rrib/extra/paging -p $root auto production</code></pre>
+</div></section>
+
+<section class="slide"><div style="top: -80px; height: 100%">
+<h2>rib app <a href="https://github.com/godfat/rest-more/blob/rest-more-3.4.0/bin/rib-rest-core">rib-rest-core</a></h2>
+<pre style="top: -20px; position: relative"><code class="ruby">
+require 'rib/runner'
+# create the shell before app to prvent your bundler (if any) kicks in
+Rib.shell
+# we need to require anything before loading the app,
+# and both `rib auto` (true) and `rib-auto` (nil) should work
+require 'rib/core' if Rib.config.delete(:mimic_irb) != false
+require 'rib/app/rest-core'
+# load the app
+Rib::RestCore.load
+Rib::Runner.run(ARGV)
+
+__END__
+Run as interactive rest-core client</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2><code>rib -h</code></h2>
+<pre><code class="no-highlight">
+Usage: rib [ruby OPTIONS] [rib OPTIONS] [rib COMMANDS]
+ruby options:
+  ...
+rib commands:
+  all                    Load all recommended plugins
+  auto                   Run as Rails or Rack console (auto-detect)
+  min                    Run the minimum essence
+  rack                   Run as Rack console
+  rails                  Run as Rails console
+  rest-core              Run as interactive rest-core client</code></pre>
+</div></section>
+
+<section class="slide"><div>
+<h2><code><a href="https://github.com/godfat/rib-heroku">rib heroku</a></code></h2>
+<ul>
+  <li>It's broken right now</li>
+  <li>I no longer use Heroku</li>
+  <li>Wanna fix it?</li>
+</ul>
+</div></section>
+
+<section class="slide shout"><div>
+<h2>Q?</h2>
+</div></section>
+
+  <div class="progress"><div></div></div>
+  <script src="../asset/shower.min.js"></script>
+  <script src='../asset/highlight-8.4.pack.js' type='text/javascript'></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

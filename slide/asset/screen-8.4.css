@@ -195,7 +195,7 @@ a {
   margin: 0 0 49px;
   padding: 1px 0 0;
   counter-reset: code;
-  white-space: normal; }
+  white-space: pre; }
   .slide pre code {
     display: block;
     padding: 0;

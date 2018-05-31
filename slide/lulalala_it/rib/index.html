@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>Rib</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=768, user-scalable=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="../../asset/screen-8.4.css" rel="stylesheet" type="text/css">
+
+  <style>
+    img { height: 100%; position: absolute; left: 6.5%; top: 0; }
+  </style>
+</head>
+<body class="list">
+  <header class="caption"></header>
+
+  <script>
+    function slides(from, to) {
+      for(var i = from; i <= to; ++i) {
+        var img = document.createElement("img");
+        var prefix = Math.floor(i / 10) == 0 ? "0" : "";
+        img.src = prefix + i.toString() + ".png"
+        var div = document.createElement("div");
+        div.appendChild(img);
+        var section = document.createElement("section");
+        section.className = "slide";
+        section.appendChild(div);
+        document.body.appendChild(section);
+      };
+    };
+
+    slides(1, 21);
+  </script>
+
+  <section class="slide"><div>
+    <script src="https://asciinema.org/a/2z01hxHmR3aKRiFlJMnqNKH0N.js" id="asciicast-2z01hxHmR3aKRiFlJMnqNKH0N" async></script>
+  </div></section>
+
+  <script>slides(22, 23);</script>
+
+  <section class="slide"><div>
+    <script src="https://asciinema.org/a/jx49uVGTDXxq1uuohXiF7oDZM.js" id="asciicast-jx49uVGTDXxq1uuohXiF7oDZM" async></script>
+  </div></section>
+
+  <script>slides(24, 26);</script>
+
+  <section class="slide"><div>
+    <script src="https://asciinema.org/a/YcWmF7x72pXFWOxSDSnE8VL3Q.js" id="asciicast-YcWmF7x72pXFWOxSDSnE8VL3Q" async></script>
+  </div></section>
+
+  <script>slides(27, 27);</script>
+
+  <div class="progress"><div></div></div>
+  <script src="../../asset/shower.min.js"></script>
+</body>
+</html>
